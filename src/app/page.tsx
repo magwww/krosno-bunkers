@@ -14,30 +14,31 @@
 //   );
 // }
 
-import {type Bunker} from "@/types"
+import { type Bunker } from '@/types'
 
 async function getBunkers() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/get-bunkers`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/get-bunkers`)
 
-    if (!res.ok) {
-        throw new Error('Failed to fetch bunkers')
-    }
+  if (!res.ok) {
+    throw new Error('Failed to fetch bunkers')
+  }
 
-    return res.json()
+  return res.json()
 }
 
-
 export default async function Home() {
-    const {bunkers} = await getBunkers()
+  const { bunkers } = await getBunkers()
 
-    return (
-        <main className="flex min-h-screen flex-col items-center p-24">
-            <p className="mb-20">Hello from Krosno Bunkers!</p>
-            <ul>
-                {bunkers.map(({id, longitude, latitude, capacity, address}: Bunker) => (
-                    <li key={id}>{longitude}, {latitude}, {capacity}, {address}</li>
-                ))}
-            </ul>
-        </main>
-    )
+  return (
+    <main className="flex min-h-screen flex-col items-center p-24">
+      <p className="mb-20">Hello from Krosno Bunkers!</p>
+      <ul>
+        {bunkers.map(({ id, longitude, latitude, capacity, address }: Bunker) => (
+          <li key={id}>
+            {longitude}, {latitude}, {capacity}, {address}
+          </li>
+        ))}
+      </ul>
+    </main>
+  )
 }
