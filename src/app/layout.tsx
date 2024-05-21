@@ -1,9 +1,13 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Anek_Latin } from 'next/font/google'
 import './globals.css'
 import { ReactNode } from 'react'
 
-const inter = Inter({ subsets: ['latin'] })
+const anek = Anek_Latin({
+  weight: ['400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'Know your Krosno Bunkers',
@@ -16,8 +20,8 @@ export default function RootLayout({
   children: ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={anek.className}>
+      <body>{children}</body>
     </html>
   )
 }
