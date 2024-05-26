@@ -1,9 +1,13 @@
 'use client'
-
+import { type Bunker } from '@/types'
 import { Loader } from '@googlemaps/js-api-loader'
 import { useEffect, useRef } from 'react'
 
-export default function GoogleMaps() {
+type Props = {
+  bunkers: Bunker[]
+}
+
+export default function GoogleMaps({ bunkers }: Props) {
   const mapRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -21,14 +25,17 @@ export default function GoogleMaps() {
           lat: 49.69539181051453,
           lng: 21.754001577384994,
         },
-        zoom: 4,
+        zoom: 13,
         mapId: 'NEXT_MAPS',
       }
 
       const map = new Map(mapRef.current as HTMLDivElement, mapOptions)
-      const marker = new Marker({
-        map,
-        position: { lat: 49.69539181051453, lng: 21.754001577384994 },
+
+      bunkers.forEach((bunker: { latitude: number; longitude: number }) => {
+        new Marker({
+          map,
+          position: { lat: bunker.latitude, lng: bunker.longitude },
+        })
       })
     }
 
