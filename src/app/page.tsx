@@ -1,4 +1,5 @@
-import GoogleMaps from '@/app/components/google-maps'
+import Navigation from '@/app/components/common/navigation'
+import MapSection from '@/app/components/home/map-section'
 
 async function getBunkers() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bunkers`)
@@ -14,9 +15,11 @@ export default async function Home() {
   const { data: bunkers } = await getBunkers()
 
   return (
-    <main className="w-full text-white bg-home-hero bg-cover bg-center bg-no-repeat justify-center flex min-h-screen flex-col items-center p-24">
-      <p className="mb-20 text-5xl">Hello from Krosno Bunkers!</p>
-      <GoogleMaps {...{ bunkers }} />
+    <main className="w-full bg-home-hero bg-cover bg-center bg-no-repeat min-h-screen">
+      <Navigation />
+      <div className="w-full p-24 justify-center flex flex-col items-center border border-white min-h-screen">
+        <MapSection {...{ bunkers }} />
+      </div>
     </main>
   )
 }

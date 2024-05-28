@@ -2,12 +2,14 @@
 import { type Bunker } from '@/types'
 import { Loader } from '@googlemaps/js-api-loader'
 import { useEffect, useRef } from 'react'
+import { cn } from '@/lib/utils'
+import { type HTMLAttributes } from 'react'
 
-type Props = {
+type Props = HTMLAttributes<HTMLDivElement> & {
   bunkers: Bunker[]
 }
 
-export default function GoogleMaps({ bunkers }: Props) {
+export default function GoogleMaps({ bunkers, className }: Props) {
   const mapRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -42,5 +44,5 @@ export default function GoogleMaps({ bunkers }: Props) {
     initializeMap()
   }, [])
 
-  return <div className="h-[600px] w-[600px] border border-2" ref={mapRef} />
+  return <div className={cn('w-[600px] border border-2', className)} ref={mapRef} />
 }
