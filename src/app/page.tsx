@@ -17,7 +17,7 @@ export default async function Home() {
   return (
     <main className="w-full bg-home-hero bg-cover bg-center bg-no-repeat min-h-screen">
       <Navigation />
-      <div className="w-full p-24 justify-center flex flex-col items-center border border-white min-h-screen">
+      <div className="w-full p-24 justify-center flex flex-col items-center min-h-screen">
         <MapSection {...{ bunkers }} />
       </div>
     </main>

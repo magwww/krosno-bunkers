@@ -33,10 +33,20 @@ export default function GoogleMaps({ bunkers, className }: Props) {
 
       const map = new Map(mapRef.current as HTMLDivElement, mapOptions)
 
-      bunkers.forEach((bunker: { latitude: number; longitude: number }) => {
-        new Marker({
+      bunkers.forEach((bunker) => {
+        const marker = new Marker({
           map,
           position: { lat: bunker.latitude, lng: bunker.longitude },
+        })
+
+        const markerInfoContent = `<div class="flex flex-col items-center justify-center gap-2"><p class="text-black font-bold text-lg">${bunker.address}</p> <p class="text-black text-xs">Wolne miejsca: ${bunker.capacity}</p><button class="bg-black rounded-lg py-3 px-2 font-semibold text-white">Kup miejsce w tym bunkrze</button></div>`
+
+        const infowindow = new google.maps.InfoWindow({
+          content: markerInfoContent,
+        })
+
+        marker.addListener('click', function () {
+          infowindow.open(map, marker)
         })
       })
     }
@@ -44,5 +54,13 @@ export default function GoogleMaps({ bunkers, className }: Props) {
     initializeMap()
   }, [])
 
-  return <div className={cn('w-[600px] border border-2', className)} ref={mapRef} />
+  return (
+    <div
+      className={cn(
+        'w-[600px] border border-2 [&_div.gm-style-iw-ch]:text-center [&_div.gm-style-iw-ch]:p-0 [&_div.gm-style-iw-chr]:text-black [&_div.gm-style-iw-chr]:font-bold [&_div.gm-style-iw-chr]:text-lg',
+        className,
+      )}
+      ref={mapRef}
+    />
+  )
 }
