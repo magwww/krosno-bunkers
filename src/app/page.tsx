@@ -1,4 +1,3 @@
-import Navigation from '@/app/components/common/navigation'
 import MapSection from '@/app/components/home/map-section'
 
 async function getBunkers() {
