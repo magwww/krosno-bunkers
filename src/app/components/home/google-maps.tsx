@@ -4,10 +4,21 @@ import { Loader } from '@googlemaps/js-api-loader'
 import { useEffect, useRef } from 'react'
 import { cn } from '@/lib/utils'
 import { type HTMLAttributes } from 'react'
+import { createRoot } from 'react-dom/client'
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   bunkers: Bunker[]
 }
+
+const InfoWindowContent = ({ bunker }: { bunker: Bunker }) => (
+  <div className="flex flex-col items-center justify-center gap-2">
+    <p className="text-black font-bold text-lg">{bunker.address}</p>
+    <p className="text-black text-xs">Wolne miejsca: {bunker.capacity}</p>
+    <a href={`/buy-spot/${bunker.id}`} className="bg-black rounded-lg py-3 px-2 font-semibold text-white">
+      Kup miejsce w tym bunkrze
+    </a>
+  </div>
+)
 
 export default function GoogleMaps({ bunkers, className }: Props) {
   const mapRef = useRef<HTMLDivElement>(null)
@@ -39,14 +50,16 @@ export default function GoogleMaps({ bunkers, className }: Props) {
           position: { lat: bunker.latitude, lng: bunker.longitude },
         })
 
-        const markerInfoContent = `<div class="flex flex-col items-center justify-center gap-2"><p class="text-black font-bold text-lg">${bunker.address}</p> <p class="text-black text-xs">Wolne miejsca: ${bunker.capacity}</p><button class="bg-black rounded-lg py-3 px-2 font-semibold text-white">Kup miejsce w tym bunkrze</button></div>`
+        const div = document.createElement('div')
+        const root = createRoot(div)
+        root.render(<InfoWindowContent bunker={bunker} />)
 
-        const infowindow = new google.maps.InfoWindow({
-          content: markerInfoContent,
+        const InfoWindow = new google.maps.InfoWindow({
+          content: div,
         })
 
         marker.addListener('click', function () {
-          infowindow.open(map, marker)
+          InfoWindow.open(map, marker)
         })
       })
     }
