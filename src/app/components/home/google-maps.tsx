@@ -14,7 +14,7 @@ const InfoWindowContent = ({ bunker }: { bunker: Bunker }) => (
   <div className="flex flex-col items-center justify-center gap-2">
     <p className="text-black font-bold text-lg">{bunker.address}</p>
     <p className="text-black text-xs">Wolne miejsca: {bunker.capacity}</p>
-    <a href={`/buy-spot/${bunker.id}`} className="bg-black rounded-lg py-3 px-2 font-semibold text-white">
+    <a href={`/preview?id=${bunker.id}`} className="bg-black rounded-lg py-3 px-2 font-semibold text-white">
       Kup miejsce w tym bunkrze
     </a>
   </div>
