@@ -3,7 +3,7 @@ import Stripe from 'stripe'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '')
 
-export async function POST(req, res) {
+export async function POST(req: NextRequest, res: NextResponse) {
   try {
     // Create Checkout Sessions from body params.
     const headers = req.headers
@@ -22,7 +22,13 @@ export async function POST(req, res) {
       cancel_url: `${origin}/?canceled=true`,
     })
     return NextResponse.redirect(session.url || '/', 303)
-  } catch (err) {
-    return NextResponse.json({ error: err.message }, { status: err.statusCode || 500 })
+  } catch (err: unknown) {
+    if (err instanceof Stripe.errors.StripeError) {
+      return NextResponse.json({ error: err.message }, { status: err.statusCode || 500 })
+    } else if (err instanceof Error) {
+      return NextResponse.json({ error: err.message }, { status: 500 })
+    } else {
+      return NextResponse.json({ error: 'An unexpected error occurred' }, { status: 500 })
+    }
   }
 }
