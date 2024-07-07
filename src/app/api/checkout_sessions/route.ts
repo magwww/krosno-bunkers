@@ -6,8 +6,9 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '')
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
     // Create Checkout Sessions from body params.
-    const headers = req.headers
-    const origin = headers.get('origin')
+    const protocol = req.nextUrl.protocol
+    const host = req.headers.get('host')
+    const origin = `${protocol}//${host}`
 
     const session = await stripe.checkout.sessions.create({
       line_items: [
@@ -18,8 +19,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
         },
       ],
       mode: 'payment',
-      success_url: `${origin}/?success=true`,
-      cancel_url: `${origin}/?canceled=true`,
+      success_url: `${origin}/payment-success`,
+      cancel_url: `${origin}/payment-canceled`,
     })
     return NextResponse.redirect(session.url || '/', 303)
   } catch (err: unknown) {
