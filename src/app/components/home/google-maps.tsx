@@ -46,7 +46,7 @@ export default function GoogleMaps({ bunkers, className }: Props) {
 
       const map = new Map(mapRef.current as HTMLDivElement, mapOptions)
 
-      bunkers.forEach((bunker) => {
+      bunkers.forEach((bunker: any) => {
         const marker = new Marker({
           map,
           position: { lat: +bunker.metadata.latitude, lng: +bunker.metadata.longitude },
