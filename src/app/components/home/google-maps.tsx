@@ -6,14 +6,16 @@ import { cn } from '@/lib/utils'
 import { type HTMLAttributes } from 'react'
 import { createRoot } from 'react-dom/client'
 
+// TODO: any
 type Props = HTMLAttributes<HTMLDivElement> & {
-  bunkers: Bunker[]
+  bunkers: any
 }
 
-const InfoWindowContent = ({ bunker }: { bunker: Bunker }) => (
+// TODO: any
+const InfoWindowContent = ({ bunker }: { bunker: any }) => (
   <div className="flex flex-col items-center justify-center gap-2">
-    <p className="text-black font-bold text-lg">{bunker.address}</p>
-    <p className="text-black text-xs">Wolne miejsca: {bunker.capacity}</p>
+    <p className="text-black font-bold text-lg">{bunker.metadata.address}</p>
+    <p className="text-black text-xs">Wolne miejsca: {bunker.metadata.capacity}</p>
     <a href={`/preview?id=${bunker.id}`} className="bg-black rounded-lg py-3 px-2 font-semibold text-white">
       Kup miejsce w tym bunkrze
     </a>
@@ -47,7 +49,7 @@ export default function GoogleMaps({ bunkers, className }: Props) {
       bunkers.forEach((bunker) => {
         const marker = new Marker({
           map,
-          position: { lat: bunker.latitude, lng: bunker.longitude },
+          position: { lat: +bunker.metadata.latitude, lng: +bunker.metadata.longitude },
         })
 
         const div = document.createElement('div')

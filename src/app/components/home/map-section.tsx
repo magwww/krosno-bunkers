@@ -3,11 +3,11 @@
 import GoogleMaps from '@/app/components/home/google-maps'
 import { Button } from '@/components/ui/button'
 import { useEffect, useState } from 'react'
-import { Bunker } from '@/types'
 import { cn } from '@/lib/utils'
 
+// TODO: any
 type Props = {
-  bunkers: Bunker[]
+  bunkers: any
 }
 
 export default function MapSection({ bunkers }: Props) {
