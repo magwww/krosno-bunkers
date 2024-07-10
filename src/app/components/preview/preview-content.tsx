@@ -1,7 +1,7 @@
 'use client'
+import Stripe from 'stripe'
 
-// TODO: any
-export default function PreviewContent({ bunker }: { bunker: any }) {
+export default function PreviewContent({ bunker }: { bunker: Stripe.Price }) {
   return (
     <div className="flex flex-col w-full h-screen justify-center items-center">
       <p className="text-lg mb-10">Wybrany bunkier: {bunker.metadata.address}</p>
