@@ -10,11 +10,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const host = req.headers.get('host')
     const origin = `${protocol}//${host}`
 
+    const data = await req.json()
+    const priceId = data.priceId
+
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
-          // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-          price: 'price_1PZvFSIusbD23PUGu81xv6Yq',
+          price: priceId,
           quantity: 1,
         },
       ],
@@ -22,7 +24,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       success_url: `${origin}/payment-success`,
       cancel_url: `${origin}/payment-canceled`,
     })
-    return NextResponse.redirect(session.url || '/', 303)
+    return NextResponse.json({ url: session.url || '/' }, { status: 303 })
   } catch (err: unknown) {
     if (err instanceof Stripe.errors.StripeError) {
       return NextResponse.json({ error: err.message }, { status: err.statusCode || 500 })
