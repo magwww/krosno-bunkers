@@ -8,7 +8,9 @@ export default function SignInPage() {
 
   return (
     <div className="min-h-screen w-full flex flex-col gap-7 items-center justify-center">
-      {redirectUrl?.includes('buy-spot') && <p className="text-xl">Aby kupić miejsce w bunkrze musisz się zalogować</p>}
+      {redirectUrl?.includes('payment-preview') && (
+        <p className="text-xl">Aby kupić miejsce w bunkrze musisz się zalogować</p>
+      )}
       <SignIn />
     </div>
   )
