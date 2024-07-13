@@ -1,8 +1,14 @@
+'use client'
+
+import MyBunkers from '@/app/components/profile/my-bunkers'
 import { UserProfile } from '@clerk/nextjs'
+import { Warehouse } from 'lucide-react'
 
 const UserProfilePage = () => (
   <main>
     <UserProfile
+      path="/user-profile"
+      routing="path"
       appearance={{
         elements: {
           rootBox: 'w-screen dark:bg-black',
@@ -13,8 +19,11 @@ const UserProfilePage = () => (
           profileSection: 'dark:border-white/20',
         },
       }}
-      path="/user-profile"
-    />
+    >
+      <UserProfile.Page label="My bunkers" labelIcon={<Warehouse className="w-4 h-4" />} url="/my-bunkers">
+        <MyBunkers />
+      </UserProfile.Page>
+    </UserProfile>
   </main>
 )
 
