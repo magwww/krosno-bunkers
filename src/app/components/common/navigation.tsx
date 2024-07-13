@@ -16,7 +16,7 @@ import { SignedIn, SignedOut, SignUpButton, SignInButton, UserButton } from '@cl
 
 export default function Navigation() {
   return (
-    <div className="w-full flex fixed backdrop-blur-sm bg-white/30 max-w-full shrink-0 py-1 px-8 shadow-lg">
+    <div className="w-full flex fixed backdrop-blur-sm bg-white/30 max-w-full shrink-0 py-1 px-8 shadow-lg z-30">
       <NavigationMenu className="max-w-full [&>div]:w-full">
         <NavigationMenuList className="w-full max-w-full flex justify-between">
           <NavigationMenuItem>
@@ -31,7 +31,7 @@ export default function Navigation() {
                   showName
                   appearance={{
                     elements: {
-                      userButtonOuterIdentifier: 'text-white order-last pl-0',
+                      userButtonOuterIdentifier: 'dark:text-white order-last pl-0',
                       userButtonTrigger: 'focus:shadow-none',
                     },
                   }}
@@ -44,27 +44,27 @@ export default function Navigation() {
                 </div>
               </SignedOut>
             </NavigationMenuItem>
-            {/*<NavigationMenuItem>*/}
-            {/*  <NavigationMenuTrigger className="text-foreground">Your profile</NavigationMenuTrigger>*/}
-            {/*  <NavigationMenuContent>*/}
-            {/*    <NavigationMenuLink asChild>*/}
-            {/*      <a*/}
-            {/*        className="whitespace-nowrap flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"*/}
-            {/*        href="/sign-in"*/}
-            {/*      >*/}
-            {/*        Sign in*/}
-            {/*      </a>*/}
-            {/*    </NavigationMenuLink>*/}
-            {/*    <NavigationMenuLink asChild>*/}
-            {/*      <a*/}
-            {/*        className="whitespace-nowrap flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"*/}
-            {/*        href="/sign-up"*/}
-            {/*      >*/}
-            {/*        Sign up*/}
-            {/*      </a>*/}
-            {/*    </NavigationMenuLink>*/}
-            {/*  </NavigationMenuContent>*/}
-            {/*</NavigationMenuItem>*/}
+            {/* <NavigationMenuItem>
+              <NavigationMenuTrigger className="text-foreground">Your profile</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <NavigationMenuLink asChild>
+                  <a
+                    className="whitespace-nowrap flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                    href="/sign-in"
+                  >
+                    Sign in
+                  </a>
+                </NavigationMenuLink>
+                <NavigationMenuLink asChild>
+                  <a
+                    className="whitespace-nowrap flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                    href="/sign-up"
+                  >
+                    Sign up
+                  </a>
+                </NavigationMenuLink>
+              </NavigationMenuContent>
+            </NavigationMenuItem> */}
             <NavigationMenuItem className="flex items-center">
               <ModeToggle />
             </NavigationMenuItem>
