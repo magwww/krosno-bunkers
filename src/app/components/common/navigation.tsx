@@ -29,6 +29,8 @@ export default function Navigation() {
               <SignedIn>
                 <UserButton
                   showName
+                  userProfileUrl="/user-profile"
+                  userProfileMode="navigation"
                   appearance={{
                     elements: {
                       userButtonOuterIdentifier: 'dark:text-white order-last pl-0',
