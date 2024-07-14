@@ -1,9 +1,8 @@
-import Stripe from 'stripe'
+import { stripe } from '@/lib/stripe'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '')
     const prices = await stripe.prices.list()
 
     return NextResponse.json(prices.data, { status: 200 })
