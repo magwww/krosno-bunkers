@@ -1,20 +1,27 @@
 'use client'
-
-import { MouseEvent } from 'react'
-import { ButtonBorderedAnimated } from '../common/button-bordered-animated'
+import { useState, useEffect } from 'react'
 import { type Bunker } from '@/types'
+import { Elements } from '@stripe/react-stripe-js'
+import CheckoutForm from '../preview/checkout-form'
+import { loadStripe } from '@stripe/stripe-js'
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
 export default function PreviewContent({ bunker }: { bunker: Bunker }) {
-  const handleSubscription = async (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/checkout_sessions`, {
+  const [clientSecret, setClientSecret] = useState('')
+
+  useEffect(() => {
+    fetch('/api/create-payment-intent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ priceId: bunker.id }),
+      body: JSON.stringify({ items: [{ id: 'test' }] }),
     })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret))
+  }, [])
 
-    const body = await res.json()
-    window.location.assign(body.url)
+  const options = {
+    clientSecret,
   }
 
   return (
@@ -23,11 +30,11 @@ export default function PreviewContent({ bunker }: { bunker: Bunker }) {
         You are just one click away from becoming the lucky owner of a spot in your chosen bunker:{' '}
         <span className="font-bold my-4 text-xl">{bunker.address}</span>
       </p>
-      <form>
-        <ButtonBorderedAnimated type="submit" onClick={handleSubscription}>
-          Go to checkout
-        </ButtonBorderedAnimated>
-      </form>
+      {clientSecret && (
+        <Elements options={options} stripe={stripePromise}>
+          <CheckoutForm />
+        </Elements>
+      )}
     </div>
   )
 }
