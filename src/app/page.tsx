@@ -1,7 +1,7 @@
 import MapSection from '@/app/components/home/map-section'
 
 async function getBunkers() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/prices`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bunkers`)
 
   if (!res.ok) {
     throw new Error('Failed to fetch bunkers')
@@ -11,7 +11,7 @@ async function getBunkers() {
 }
 
 export default async function Home() {
-  const bunkers = await getBunkers()
+  const { data: bunkers } = await getBunkers()
 
   return (
     <main className="w-full bg-home-hero bg-cover bg-center bg-no-repeat min-h-screen">

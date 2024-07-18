@@ -1,19 +1,19 @@
 'use client'
-import Stripe from 'stripe'
 import { Loader } from '@googlemaps/js-api-loader'
 import { useEffect, useRef } from 'react'
 import { cn } from '@/lib/utils'
 import { type HTMLAttributes } from 'react'
 import { createRoot } from 'react-dom/client'
+import { type Bunker } from '@/types'
 
 type Props = HTMLAttributes<HTMLDivElement> & {
-  bunkers: Stripe.Price[]
+  bunkers: Bunker[]
 }
 
-const InfoWindowContent = ({ bunker }: { bunker: Stripe.Price }) => (
+const InfoWindowContent = ({ bunker }: { bunker: Bunker }) => (
   <div className="flex flex-col items-center justify-center gap-2">
-    <p className="text-black font-bold text-lg">{bunker.metadata.address}</p>
-    <p className="text-black text-xs">Free spots: {bunker.metadata.capacity}</p>
+    <p className="text-black font-bold text-lg">{bunker.address}</p>
+    <p className="text-black text-xs">Free spots: {bunker.capacity}</p>
     <a href={`/payment-preview?id=${bunker.id}`} className="bg-black rounded-lg py-3 px-2 font-semibold text-white">
       Buy spot in this bunker
     </a>
@@ -47,7 +47,7 @@ export default function GoogleMaps({ bunkers, className }: Props) {
       bunkers.forEach((bunker) => {
         const marker = new Marker({
           map,
-          position: { lat: +bunker.metadata.latitude, lng: +bunker.metadata.longitude },
+          position: { lat: +bunker.latitude, lng: +bunker.longitude },
         })
 
         const div = document.createElement('div')

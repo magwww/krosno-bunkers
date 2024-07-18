@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '')
 
 async function getData(id: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/price/${id}`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bunker/${id}`)
 
   if (!res.ok) {
     throw new Error('Failed to fetch bunker')

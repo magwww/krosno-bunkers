@@ -1,13 +1,13 @@
 'use client'
 
-import Stripe from 'stripe'
 import GoogleMaps from '@/app/components/home/google-maps'
 import { Button } from '@/components/ui/button'
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
+import { type Bunker } from '@/types'
 
 type Props = {
-  bunkers: Stripe.Price[]
+  bunkers: Bunker[]
 }
 
 export default function MapSection({ bunkers }: Props) {

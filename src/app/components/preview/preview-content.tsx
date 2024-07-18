@@ -1,10 +1,10 @@
 'use client'
 
-import Stripe from 'stripe'
 import { MouseEvent } from 'react'
 import { ButtonBorderedAnimated } from '../common/button-bordered-animated'
+import { type Bunker } from '@/types'
 
-export default function PreviewContent({ bunker }: { bunker: Stripe.Price }) {
+export default function PreviewContent({ bunker }: { bunker: Bunker }) {
   const handleSubscription = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/checkout_sessions`, {
@@ -21,7 +21,7 @@ export default function PreviewContent({ bunker }: { bunker: Stripe.Price }) {
     <div className="flex flex-col w-full h-screen justify-center items-center">
       <p className="text-lg mb-16 flex flex-col items-center text-center max-w-md">
         You are just one click away from becoming the lucky owner of a spot in your chosen bunker:{' '}
-        <span className="font-bold my-4 text-xl">{bunker.metadata.address}</span>
+        <span className="font-bold my-4 text-xl">{bunker.address}</span>
       </p>
       <form>
         <ButtonBorderedAnimated type="submit" onClick={handleSubscription}>
