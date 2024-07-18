@@ -54,7 +54,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: '/payment-success',
+        return_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment-success`,
       },
     })
 

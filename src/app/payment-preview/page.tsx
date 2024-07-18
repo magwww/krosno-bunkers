@@ -2,7 +2,7 @@ import PreviewContent from '@/app/components/preview/preview-content'
 import { notFound } from 'next/navigation'
 
 async function getData(id: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bunker/${id}`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bunk/${id}`)
 
   if (!res.ok) {
     throw new Error('Failed to fetch bunker')
