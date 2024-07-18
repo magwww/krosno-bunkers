@@ -1,8 +1,5 @@
-import { loadStripe } from '@stripe/stripe-js'
 import PreviewContent from '@/app/components/preview/preview-content'
 import { notFound } from 'next/navigation'
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '')
 
 async function getData(id: string) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bunker/${id}`)
