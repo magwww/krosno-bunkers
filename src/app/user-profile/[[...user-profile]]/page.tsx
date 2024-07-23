@@ -3,8 +3,11 @@ import MyBunkers from '@/app/components/profile/my-bunkers'
 import { UserProfile } from '@clerk/nextjs'
 import { Warehouse } from 'lucide-react'
 import { useEffect } from 'react'
+import { useUser } from '@clerk/clerk-react'
 
 const UserProfilePage = () => {
+  const { isSignedIn } = useUser()
+
   useEffect(() => {
     fetch('/api/create-user', {
       method: 'POST',
@@ -12,6 +15,7 @@ const UserProfilePage = () => {
     }).then((res) => res.json())
   }, [])
 
+  if (!isSignedIn) return null
   return (
     <main>
       <UserProfile
