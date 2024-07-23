@@ -3,7 +3,7 @@ import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
 import { type Bunker } from '@/types'
 import { db } from '@/lib/db'
-import { auth } from '@clerk/nextjs/server'
+import { currentUser } from '@clerk/nextjs/server'
 
 //TODO: enable multiple products purchase
 const calculateOrderAmount = (items: Bunker[]) => {
@@ -11,16 +11,17 @@ const calculateOrderAmount = (items: Bunker[]) => {
 }
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { items } = await req.json()
-  const { userId } = auth()
+  const { price, bunkers } = await req.json()
 
-  if (!userId || !items.length) {
+  const clerkUser = await currentUser()
+
+  if (!clerkUser || !bunkers.length) {
     return NextResponse.json({ error: 'Invalid request - no user or products selected' }, { status: 400 })
   }
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: calculateOrderAmount(items),
+      amount: calculateOrderAmount(bunkers),
       currency: 'PLN',
       // metadata: {
       //   order_id: 'test',
@@ -30,14 +31,19 @@ export async function POST(req: NextRequest, res: NextResponse) {
     })
 
     //TODO: enable multiple products purchase
-    //TODO: get dynamic userId after syncing clerk with db
+
+    const user = await db.user.findUnique({
+      where: {
+        clerkId: clerkUser.id,
+      },
+    })
 
     const order = await db.order.create({
       data: {
-        price: items[0].price,
-        userId: '2',
+        price,
+        userId: user?.id!,
         bunkers: {
-          connect: [items[0].id],
+          connect: [{ id: bunkers[0].id }],
         },
       },
     })
