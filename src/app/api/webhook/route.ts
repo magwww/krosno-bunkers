@@ -2,6 +2,7 @@ import { stripe } from '@/lib/stripe'
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { headers } from 'next/headers'
+import { db } from '@/lib/db'
 
 export async function POST(req: Request) {
   const body = await req.text()
@@ -19,7 +20,16 @@ export async function POST(req: Request) {
   switch (event['type']) {
     case 'payment_intent.succeeded':
       intent = event.data.object
-      console.log('Succeeded:', intent.id)
+
+      await db.order.update({
+        where: {
+          id: intent.metadata.orderId,
+        },
+        data: {
+          paid: true,
+        },
+      })
+
       break
     case 'payment_intent.payment_failed':
       intent = event.data.object

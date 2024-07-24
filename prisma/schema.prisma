@@ -49,4 +49,5 @@ model Order {
   userId    String
   bunker    Bunker   @relation(fields: [bunkerId], references: [id])
   bunkerId  String
+  paid      Boolean  @default(false)
 }

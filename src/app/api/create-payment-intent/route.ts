@@ -20,18 +20,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: calculateOrderAmount(bunkers),
-      currency: 'PLN',
-      // metadata: {
-      //   order_id: 'test',
-      //   bunkerId: items[0].id,
-      //   userId: 'test',
-      // },
-    })
-
-    //TODO: enable multiple products purchase
-
     const user = await db.user.findUnique({
       where: {
         clerkId: clerkUser.id,
@@ -43,6 +31,17 @@ export async function POST(req: NextRequest, res: NextResponse) {
         price,
         userId: user?.id!,
         bunkerId: bunkers[0].id,
+        paid: false,
+      },
+    })
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: calculateOrderAmount(bunkers),
+      currency: 'PLN',
+      metadata: {
+        orderId: order.id,
+        bunkerId: bunkers[0].id,
+        userId: user?.id!,
       },
     })
 
