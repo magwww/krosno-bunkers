@@ -47,5 +47,6 @@ model Order {
   price     Int
   user      User     @relation(fields: [userId], references: [id])
   userId    String
-  bunkers   Bunker[]
+  bunker    Bunker   @relation(fields: [bunkerId], references: [id])
+  bunkerId  String
 }

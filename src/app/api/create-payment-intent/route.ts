@@ -11,7 +11,7 @@ const calculateOrderAmount = (items: Bunker[]) => {
 }
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { price, bunkers } = await req.json()
+  const { price, bunkers }: { price: number; bunkers: Bunker[] } = await req.json()
 
   const clerkUser = await currentUser()
 
@@ -42,9 +42,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       data: {
         price,
         userId: user?.id!,
-        bunkers: {
-          connect: [{ id: bunkers[0].id }],
-        },
+        bunkerId: bunkers[0].id,
       },
     })
 
