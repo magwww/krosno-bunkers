@@ -5,20 +5,33 @@ import { cn } from '@/lib/utils'
 import { type HTMLAttributes } from 'react'
 import { createRoot } from 'react-dom/client'
 import { type Bunker } from '@/types'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   bunkers: Bunker[]
 }
 
-const InfoWindowContent = ({ bunker }: { bunker: Bunker }) => (
-  <div className="flex flex-col items-center justify-center gap-2">
-    <p className="text-black font-bold text-lg">{bunker.address}</p>
-    {bunker.capacity && <p className="text-black text-xs">Free spots: {bunker.capacity}</p>}
-    <a href={`/payment-preview?id=${bunker.id}`} className="bg-black rounded-lg py-3 px-2 font-semibold text-white">
-      Buy spot in this bunker
-    </a>
-  </div>
-)
+const InfoWindowContent = ({ bunker }: { bunker: Bunker }) => {
+  const spotsAvailable = bunker.capacity > 0
+
+  return (
+    <div className="flex flex-col items-center justify-center gap-2">
+      <p className="text-black font-bold text-lg">{bunker.address}</p>
+      {bunker.capacity && <p className="text-black text-xs">Free spots: {bunker.capacity}</p>}
+      {spotsAvailable ? (
+        <Link
+          href={`/payment-preview?id=${bunker.id}`}
+          className="bg-black rounded-lg py-3 px-2 font-semibold text-white"
+        >
+          Buy spot in this bunker
+        </Link>
+      ) : (
+        <Button disabled>There are no spots available in this bunker</Button>
+      )}
+    </div>
+  )
+}
 
 export default function GoogleMaps({ bunkers, className }: Props) {
   const mapRef = useRef<HTMLDivElement>(null)
