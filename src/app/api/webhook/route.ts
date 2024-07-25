@@ -44,6 +44,16 @@ export async function POST(req: Request) {
 
       revalidatePath('/')
 
+      await db.user.update({
+        where: { id: intent.metadata.userId },
+        data: {
+          bunkers: { set: [{ id: intent.metadata.bunkerId }] },
+        },
+        include: {
+          bunkers: true,
+        },
+      })
+
       break
     case 'payment_intent.payment_failed':
       intent = event.data.object

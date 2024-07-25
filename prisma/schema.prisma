@@ -22,12 +22,10 @@ model Bunker {
   longitude Float
   latitude  Float
   capacity  Int?
-  address   String @unique
+  address   String  @unique
   price     Int
-
-  user   User?   @relation(fields: [userId], references: [id])
-  userId String?
-  order  Order[]
+  users     User[]
+  order     Order[]
 }
 
 model User {
