@@ -47,7 +47,9 @@ export async function POST(req: Request) {
       await db.user.update({
         where: { id: intent.metadata.userId },
         data: {
-          bunkers: { set: [{ id: intent.metadata.bunkerId }] },
+          bunkers: {
+            connect: [{ id: intent.metadata.bunkerId }],
+          },
         },
         include: {
           bunkers: true,

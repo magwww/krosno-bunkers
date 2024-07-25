@@ -4,7 +4,7 @@ export default function MyBunkers({ bunkers }: { bunkers: Bunker[] }) {
   return (
     <div className="flex flex-col w-full justify-center dark:text-white items-center">
       <p>Your bunkers:</p>
-      <div>{bunkers?.map((bunker) => bunker.address)}</div>
+      <ul>{bunkers?.map((bunker) => <li key={bunker.id}>{bunker.address}</li>)}</ul>
     </div>
   )
 }
