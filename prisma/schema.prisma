@@ -21,7 +21,7 @@ model Bunker {
 
   longitude Float
   latitude  Float
-  capacity  Int
+  capacity  Int?
   address   String @unique
   price     Int
 

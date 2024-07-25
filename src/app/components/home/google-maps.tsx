@@ -13,7 +13,7 @@ type Props = HTMLAttributes<HTMLDivElement> & {
 const InfoWindowContent = ({ bunker }: { bunker: Bunker }) => (
   <div className="flex flex-col items-center justify-center gap-2">
     <p className="text-black font-bold text-lg">{bunker.address}</p>
-    <p className="text-black text-xs">Free spots: {bunker.capacity}</p>
+    {bunker.capacity && <p className="text-black text-xs">Free spots: {bunker.capacity}</p>}
     <a href={`/payment-preview?id=${bunker.id}`} className="bg-black rounded-lg py-3 px-2 font-semibold text-white">
       Buy spot in this bunker
     </a>
