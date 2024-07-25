@@ -1,5 +1,6 @@
 import PreviewContent from '@/app/components/preview/preview-content'
 import { notFound } from 'next/navigation'
+import { redirect } from 'next/navigation'
 
 async function getData(id: string) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bunk/${id}`)
@@ -24,6 +25,10 @@ export default async function PreviewPage({ searchParams }: Props) {
   }
 
   const bunker = await getData(id)
+
+  if (bunker.capacity < 1) {
+    redirect('/')
+  }
 
   return <PreviewContent {...{ bunker }} />
 }
