@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { headers } from 'next/headers'
 import { db } from '@/lib/db'
+import { revalidatePath } from 'next/cache'
 
 export async function POST(req: Request) {
   const body = await req.text()
@@ -29,6 +30,19 @@ export async function POST(req: Request) {
           paid: true,
         },
       })
+
+      await db.bunker.update({
+        where: {
+          id: intent.metadata.bunkerId,
+        },
+        data: {
+          capacity: {
+            decrement: 1,
+          },
+        },
+      })
+
+      revalidatePath('/')
 
       break
     case 'payment_intent.payment_failed':
