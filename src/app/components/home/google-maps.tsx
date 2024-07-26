@@ -44,7 +44,6 @@ export default function GoogleMaps({ bunkers, className }: Props) {
       })
 
       const { Map } = await loader.importLibrary('maps')
-      const { Marker } = (await loader.importLibrary('marker')) as google.maps.MarkerLibrary
 
       const mapOptions = {
         center: {
@@ -57,8 +56,10 @@ export default function GoogleMaps({ bunkers, className }: Props) {
 
       const map = new Map(mapRef.current as HTMLDivElement, mapOptions)
 
+      let InfoWindow = new google.maps.InfoWindow()
+
       bunkers.forEach((bunker) => {
-        const marker = new Marker({
+        const marker = new google.maps.marker.AdvancedMarkerElement({
           map,
           position: { lat: +bunker.latitude, lng: +bunker.longitude },
         })
@@ -67,11 +68,9 @@ export default function GoogleMaps({ bunkers, className }: Props) {
         const root = createRoot(div)
         root.render(<InfoWindowContent bunker={bunker} />)
 
-        const InfoWindow = new google.maps.InfoWindow({
-          content: div,
-        })
-
         marker.addListener('click', function () {
+          InfoWindow.setContent(div)
+          InfoWindow.setPosition(marker.position)
           InfoWindow.open(map, marker)
         })
       })
