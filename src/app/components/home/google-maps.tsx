@@ -44,6 +44,7 @@ export default function GoogleMaps({ bunkers, className }: Props) {
       })
 
       const { Map } = await loader.importLibrary('maps')
+      ;(await loader.importLibrary('marker')) as google.maps.MarkerLibrary
 
       const mapOptions = {
         center: {
