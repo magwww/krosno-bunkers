@@ -1,10 +1,10 @@
 'use client'
 
 import GoogleMaps from '@/app/components/home/google-maps'
-import { Button } from '@/components/ui/button'
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { type Bunker } from '@/types'
+import { ButtonBorderedAnimated } from '../common/button-bordered-animated'
 
 type Props = {
   bunkers: Bunker[]
@@ -25,14 +25,6 @@ export default function MapSection({ bunkers }: Props) {
 
   return (
     <div className={cn('flex flex-col items-center transition-blur duration-1000', !isMounted && 'blur-sm')}>
-      <p
-        className={cn(
-          'mb-16 text-5xl transition-text duration-1000 bg-background/50 p-2 rounded-md',
-          !isMounted && 'text-4xl',
-        )}
-      >
-        Welcome to Krosno Bunkers!
-      </p>
       {mapVisible ? (
         <div>
           <GoogleMaps
@@ -41,13 +33,22 @@ export default function MapSection({ bunkers }: Props) {
           />
         </div>
       ) : (
-        <Button
-          onClick={() => setMapVisible(true)}
-          variant="secondary"
-          className={cn('transition-all duration-700 opacity-100', show && 'h-0 opacity-0')}
-        >
-          Select your bunker
-        </Button>
+        <>
+          <p
+            className={cn(
+              'mb-16 text-5xl transition-text duration-1000 bg-background/50 p-2 rounded-md',
+              !isMounted && 'text-4xl',
+            )}
+          >
+            Welcome to Krosno Bunkers!
+          </p>{' '}
+          <ButtonBorderedAnimated
+            onClick={() => setMapVisible(true)}
+            className={cn('dark:bg-black/50 transition-all duration-700 opacity-100', show && 'h-0 opacity-0')}
+          >
+            Select your bunker
+          </ButtonBorderedAnimated>
+        </>
       )}
     </div>
   )

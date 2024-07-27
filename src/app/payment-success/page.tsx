@@ -2,10 +2,10 @@ import { ButtonLinkBorderedAnimated } from '../components/common/button-bordered
 
 export default function PaymentSuccess() {
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center">
+    <main className="min-h-screen w-full px-4 text-center flex flex-col items-center justify-center">
       <span className="text-xl">Congrats!</span>
       <span className="mt-4 mb-10">You&apos;ve secured yourself a brand new spot in a bunker.</span>
       <ButtonLinkBorderedAnimated href="/user-profile/my-bunkers">Go see it</ButtonLinkBorderedAnimated>
-    </div>
+    </main>
   )
 }

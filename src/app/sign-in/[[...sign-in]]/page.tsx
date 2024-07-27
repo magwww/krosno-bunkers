@@ -7,11 +7,11 @@ export default function SignInPage() {
   const redirectUrl = searchParams.get('redirect_url')
 
   return (
-    <div className="min-h-screen w-full flex flex-col gap-7 items-center justify-center">
+    <main className="min-h-screen w-full flex flex-col gap-7 items-center justify-center pt-24 pb-8">
       {redirectUrl?.includes('payment-preview') && (
         <p className="text-xl">Aby kupić miejsce w bunkrze musisz się zalogować</p>
       )}
       <SignIn />
-    </div>
+    </main>
   )
 }

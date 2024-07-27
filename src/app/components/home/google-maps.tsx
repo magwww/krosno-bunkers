@@ -18,11 +18,11 @@ const InfoWindowContent = ({ bunker }: { bunker: Bunker }) => {
   return (
     <div className="flex flex-col items-center justify-center gap-2">
       <p className="text-black font-bold text-lg">{bunker.address}</p>
-      {bunker.capacity && <p className="text-black text-xs">Free spots: {bunker.capacity}</p>}
+      {bunker.capacity && <p className="text-black text-xs mb-2">Free spots: {bunker.capacity}</p>}
       {spotsAvailable ? (
         <Link
           href={`/payment-preview?id=${bunker.id}`}
-          className="bg-black rounded-lg py-3 px-2 font-semibold text-white"
+          className="bg-black rounded py-3 px-2 text-center font-semibold text-white"
         >
           Buy spot in this bunker
         </Link>
@@ -83,7 +83,7 @@ export default function GoogleMaps({ bunkers, className }: Props) {
   return (
     <div
       className={cn(
-        'w-[600px] border border-2 [&_div.gm-style-iw-ch]:text-center [&_div.gm-style-iw-ch]:p-0 [&_div.gm-style-iw-chr]:text-black [&_div.gm-style-iw-chr]:font-bold [&_div.gm-style-iw-chr]:text-lg',
+        'lg:w-[600px] w-[300px] border border-2 [&_div.gm-style-iw-ch]:text-center [&_div.gm-style-iw-ch]:p-0 [&_div.gm-style-iw-chr]:text-black [&_div.gm-style-iw-chr]:font-bold [&_div.gm-style-iw-chr]:text-lg',
         className,
       )}
       ref={mapRef}

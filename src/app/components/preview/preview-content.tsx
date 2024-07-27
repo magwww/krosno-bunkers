@@ -28,9 +28,9 @@ export default function PreviewContent({ bunker }: { bunker: Bunker }) {
   }
 
   return (
-    <div className="flex flex-col w-full h-screen justify-center items-center">
-      <p className="text-lg mb-16 flex flex-col items-center text-center max-w-md">
-        You are just one click away from becoming the lucky owner of a spot in your chosen bunker:{' '}
+    <main className="flex flex-col w-full lg:h-screen justify-center items-center px-4 pb-8">
+      <p className="text-lg mb-16 flex flex-col items-center text-center max-w-md mt-8 lg:my-0">
+        You&apos;re just one click away from becoming the lucky owner of a spot in your chosen bunker:{' '}
         <span className="font-bold my-4 text-xl">{bunker.address}</span>
       </p>
       {clientSecret && (
@@ -38,6 +38,6 @@ export default function PreviewContent({ bunker }: { bunker: Bunker }) {
           <CheckoutForm />
         </Elements>
       )}
-    </div>
+    </main>
   )
 }

@@ -1,3 +1,7 @@
 export default function PaymentCanceled() {
-  return <div className="min-h-screen w-full flex items-center justify-center">Payment Canceled</div>
+  return (
+    <main className="min-h-screen w-full px-4 text-center flex flex-col items-center justify-center">
+      <span className="text-xl">Payment Canceled</span>
+    </main>
+  )
 }
