@@ -1,4 +1,5 @@
 import Home from '@/app/page'
+import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 
 test('renders welcome heading and select bunker button', () => {

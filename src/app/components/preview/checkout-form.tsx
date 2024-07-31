@@ -1,6 +1,6 @@
 import { useEffect, FormEvent, useState } from 'react'
 import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
-import { ButtonBorderedAnimated } from '@/components/common/button-bordered-animated'
+import { ButtonBorderedAnimated } from '@/app/components/common/button-bordered-animated'
 
 export default function CheckoutForm() {
   const stripe = useStripe()

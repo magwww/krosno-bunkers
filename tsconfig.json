@@ -20,7 +20,6 @@
     "paths": {
       "@/lib/*": ["./lib/*"],
       "@/*": ["./src/*"],
-      "@/components/*": ["./src/app/components/*"],
     }
   },
   "ts-node": {
