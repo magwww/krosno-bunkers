@@ -1,5 +1,5 @@
 'use client'
-import MyBunkers from '@/components/profile/my-bunkers'
+import MyBunkers from '@/app/components/profile/my-bunkers'
 import { UserProfile } from '@clerk/nextjs'
 import { Warehouse } from 'lucide-react'
 import { useEffect, useState } from 'react'
