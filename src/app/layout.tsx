@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { Anek_Latin } from 'next/font/google'
 import './globals.css'
 import { ReactNode } from 'react'
-import { ThemeProvider } from '@/app/components/common/theme-provider'
-import Navigation from '@/app/components/common/navigation'
+import { ThemeProvider } from '@/components/common/theme-provider'
+import Navigation from '@/components/common/navigation'
 import { ClerkProvider } from '@clerk/nextjs'
 
 const anek = Anek_Latin({

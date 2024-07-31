@@ -1,4 +1,4 @@
-import Home from '../src/app/page'
+import Home from '@/app/page'
 import { render, screen } from '@testing-library/react'
 
 test('renders welcome heading and select bunker button', () => {

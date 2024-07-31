@@ -1,6 +1,6 @@
 'use client'
 
-import GoogleMaps from '@/app/components/home/google-maps'
+import GoogleMaps from '@/components/home/google-maps'
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { type Bunker } from '@/types'

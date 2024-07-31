@@ -1,6 +1,6 @@
 'use client'
 
-import { ButtonLinkBorderedAnimated } from '../app/components/common/button-bordered-animated'
+import { ButtonLinkBorderedAnimated } from '@/components/common/button-bordered-animated'
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 

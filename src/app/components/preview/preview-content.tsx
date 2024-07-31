@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { type Bunker } from '@/types'
 import { Elements } from '@stripe/react-stripe-js'
-import CheckoutForm from '../preview/checkout-form'
+import CheckoutForm from '@/components/preview/checkout-form'
 import { loadStripe } from '@stripe/stripe-js'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
