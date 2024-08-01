@@ -21,7 +21,6 @@ export default function MapSection({ bunkers }: Props) {
       <GoogleMaps
         {...{ bunkers }}
         className={cn('transition-all rounded-md duration-700 opacity-0 h-0', isMounted && 'h-[500px] opacity-100')}
-        data-testid="google-map"
       />
     </div>
   )
