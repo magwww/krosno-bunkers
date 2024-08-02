@@ -1,7 +1,7 @@
 import MapSection from '@/app/components/home/map-section'
 
 async function getBunkers() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bunkers`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bunkers`, { cache: 'no-store' })
 
   if (!res.ok) {
     throw new Error('Failed to fetch bunkers')

@@ -64,6 +64,5 @@ export async function POST(req: Request) {
       break
   }
 
-  console.log('intent', intent)
   return NextResponse.json('ok', { status: 200 })
 }
