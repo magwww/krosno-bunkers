@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import MapSection from '@/app/components/home/map-section'
 
 async function getBunkers() {
@@ -12,6 +14,8 @@ async function getBunkers() {
 
 export default async function Bunkers() {
   const { data: bunkers } = await getBunkers()
+
+  console.log('bunkers', bunkers)
 
   return (
     <main className="w-full bg-home-hero bg-cover bg-center bg-no-repeat min-h-[calc(100vh-64px)]">
