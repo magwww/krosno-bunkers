@@ -8,6 +8,8 @@ import { type Bunker } from '@/types'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { ButtonBorderedAnimated } from '@/app/components/common/button-bordered-animated'
+import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   bunkers: Bunker[]
@@ -36,6 +38,9 @@ const InfoWindowContent = ({ bunker }: { bunker: Bunker }) => {
 
 export default function GoogleMaps({ bunkers, className }: Props) {
   const mapRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const id = searchParams.get('id')
 
   useEffect(() => {
     const initializeMap = async () => {
@@ -68,12 +73,29 @@ export default function GoogleMaps({ bunkers, className }: Props) {
 
         const div = document.createElement('div')
         const root = createRoot(div)
-        root.render(<InfoWindowContent bunker={bunker} />)
+
+        const bunkerFromQuery = bunkers.find((bunker) => bunker.id === id)
+
+        if (bunkerFromQuery) {
+          const bunkerFromQueryMarker = new google.maps.marker.AdvancedMarkerElement({
+            map,
+            position: { lat: +bunkerFromQuery.latitude, lng: +bunkerFromQuery.longitude },
+          })
+
+          InfoWindow.setContent(div)
+          InfoWindow.setPosition(bunkerFromQueryMarker.position)
+          InfoWindow.open(map, bunkerFromQueryMarker)
+        }
+
+        root.render(<InfoWindowContent bunker={bunkerFromQuery || bunker} />)
 
         marker.addListener('click', function () {
+          root.render(<InfoWindowContent bunker={bunker} />)
+
           InfoWindow.setContent(div)
           InfoWindow.setPosition(marker.position)
           InfoWindow.open(map, marker)
+          router.push(`/bunkers?id=${bunker.id}`)
         })
       })
     }
