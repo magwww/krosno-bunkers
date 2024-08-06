@@ -23,16 +23,16 @@ export default function RootLayout({
   children: ReactNode
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning className={anek.className}>
-        <head />
-        <body>
+    <html lang="en" suppressHydrationWarning className={anek.className}>
+      <head />
+      <body>
+        <ClerkProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <Navigation />
             {children}
           </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   )
 }

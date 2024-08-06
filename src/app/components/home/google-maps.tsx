@@ -65,39 +65,60 @@ export default function GoogleMaps({ bunkers, className }: Props) {
 
       let InfoWindow = new google.maps.InfoWindow()
 
-      bunkers.forEach((bunker) => {
-        const marker = new google.maps.marker.AdvancedMarkerElement({
-          map,
-          position: { lat: +bunker.latitude, lng: +bunker.longitude },
+      const createMarker = (
+        bunker: Bunker,
+        map: google.maps.Map,
+        InfoWindow: google.maps.InfoWindow,
+        isQueryMarker = false,
+      ) => {
+        let iconImg = document.createElement('img')
+        iconImg.setAttribute('data-testid', 'google-map-marker')
+        iconImg.src = '/bunker.png'
+        iconImg.style.width = '2em'
+
+        let pin = new google.maps.marker.PinElement({
+          scale: 1.2,
+          background: '#F7D32F',
+          glyph: iconImg,
         })
 
         const div = document.createElement('div')
+        div.setAttribute('data-testid', 'google-map-info-window')
         const root = createRoot(div)
+        root.render(<InfoWindowContent bunker={bunker} />)
 
-        const bunkerFromQuery = bunkers.find((bunker) => bunker.id === id)
+        const marker = new google.maps.marker.AdvancedMarkerElement({
+          map,
+          position: { lat: +bunker.latitude, lng: +bunker.longitude },
+          content: pin.element,
+        })
 
-        if (bunkerFromQuery) {
-          const bunkerFromQueryMarker = new google.maps.marker.AdvancedMarkerElement({
-            map,
-            position: { lat: +bunkerFromQuery.latitude, lng: +bunkerFromQuery.longitude },
-          })
-
-          InfoWindow.setContent(div)
-          InfoWindow.setPosition(bunkerFromQueryMarker.position)
-          InfoWindow.open(map, bunkerFromQueryMarker)
-        }
-
-        root.render(<InfoWindowContent bunker={bunkerFromQuery || bunker} />)
-
-        marker.addListener('click', function () {
+        marker.addListener('click', () => {
           root.render(<InfoWindowContent bunker={bunker} />)
-
           InfoWindow.setContent(div)
           InfoWindow.setPosition(marker.position)
           InfoWindow.open(map, marker)
           router.push(`/bunkers?id=${bunker.id}`)
         })
+
+        if (isQueryMarker) {
+          InfoWindow.setContent(div)
+          InfoWindow.setPosition(marker.position)
+          InfoWindow.open(map, marker)
+        }
+
+        return marker
+      }
+
+      bunkers.forEach((bunker) => {
+        createMarker(bunker, map, InfoWindow)
       })
+
+      const bunkerFromQuery = bunkers.find((bunker) => bunker.id === id)
+
+      if (bunkerFromQuery) {
+        createMarker(bunkerFromQuery, map, InfoWindow, true)
+      }
     }
 
     initializeMap()
