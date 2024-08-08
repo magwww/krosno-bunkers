@@ -7,7 +7,6 @@ import { createRoot } from 'react-dom/client'
 import { type Bunker } from '@/types'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { ButtonBorderedAnimated } from '@/app/components/common/button-bordered-animated'
 import { useRouter } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
 
@@ -41,20 +40,6 @@ export default function GoogleMaps({ bunkers, className }: Props) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
-
-  if (!process.env.NEXT_PUBLIC_MAPS_API_KEY) {
-    return (
-      <div data-testid="no-google-map" className="flex flex-col items-center gap-4">
-        <p className="text-lg bg-background/50 p-2 rounded-md">Oops! Looks like sth&apos;s wrong...</p>
-        <ButtonBorderedAnimated
-          onClick={() => window.location.reload()}
-          className="dark:bg-black/50 transition-all duration-700"
-        >
-          Refresh page
-        </ButtonBorderedAnimated>
-      </div>
-    )
-  }
 
   useEffect(() => {
     const initializeMap = async () => {
