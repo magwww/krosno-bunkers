@@ -42,6 +42,20 @@ export default function GoogleMaps({ bunkers, className }: Props) {
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
 
+  if (!process.env.NEXT_PUBLIC_MAPS_API_KEY) {
+    return (
+      <div data-testid="no-google-map" className="flex flex-col items-center gap-4">
+        <p className="text-lg bg-background/50 p-2 rounded-md">Oops! Looks like sth&apos;s wrong...</p>
+        <ButtonBorderedAnimated
+          onClick={() => window.location.reload()}
+          className="dark:bg-black/50 transition-all duration-700"
+        >
+          Refresh page
+        </ButtonBorderedAnimated>
+      </div>
+    )
+  }
+
   useEffect(() => {
     const initializeMap = async () => {
       const loader = new Loader({
@@ -125,27 +139,13 @@ export default function GoogleMaps({ bunkers, className }: Props) {
   }, [])
 
   return (
-    <>
-      {process.env.NEXT_PUBLIC_MAPS_API_KEY ? (
-        <div
-          data-testid="google-map"
-          className={cn(
-            'lg:w-[600px] w-[300px] border border-2 [&_div.gm-style-iw-ch]:text-center [&_div.gm-style-iw-ch]:p-0 [&_div.gm-style-iw-chr]:text-black [&_div.gm-style-iw-chr]:font-bold [&_div.gm-style-iw-chr]:text-lg',
-            className,
-          )}
-          ref={mapRef}
-        />
-      ) : (
-        <div data-testid="no-google-map" className="flex flex-col items-center gap-4">
-          <p className="text-lg bg-background/50 p-2 rounded-md">Oops! Looks like sth&apos;s wrong...</p>
-          <ButtonBorderedAnimated
-            onClick={() => window.location.reload()}
-            className="dark:bg-black/50 transition-all duration-700"
-          >
-            Refresh page
-          </ButtonBorderedAnimated>
-        </div>
+    <div
+      data-testid="google-map"
+      className={cn(
+        'lg:w-[600px] w-[300px] border border-2 [&_div.gm-style-iw-ch]:text-center [&_div.gm-style-iw-ch]:p-0 [&_div.gm-style-iw-chr]:text-black [&_div.gm-style-iw-chr]:font-bold [&_div.gm-style-iw-chr]:text-lg',
+        className,
       )}
-    </>
+      ref={mapRef}
+    />
   )
 }

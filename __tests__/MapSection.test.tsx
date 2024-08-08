@@ -2,6 +2,23 @@ import MapSection from '@/app/components/home/map-section'
 
 import { render, screen } from '@testing-library/react'
 
+jest.mock('next/navigation', () => {
+  return {
+    __esModule: true,
+    usePathname: () => ({
+      pathname: '',
+    }),
+    useRouter: () => ({
+      push: jest.fn(),
+      replace: jest.fn(),
+      prefetch: jest.fn(),
+    }),
+    useSearchParams: () => ({
+      get: () => {},
+    }),
+  }
+})
+
 //TODO: mock data fetching
 const bunkers = [
   {
@@ -86,25 +103,17 @@ const bunkers = [
   },
 ]
 
-test('renders google map', () => {
+test('given correct API KEY is passed from ENV, it renders google map', () => {
+  process.env.NEXT_PUBLIC_MAPS_API_KEY = 'correct api key'
   render(<MapSection {...{ bunkers }} />)
 
   expect(screen.getByTestId('google-map')).toBeInTheDocument()
 })
 
-test('does not render google map without API key', () => {
+test('given no API KEY, it does not render google map', () => {
+  process.env.NEXT_PUBLIC_MAPS_API_KEY = ''
   render(<MapSection {...{ bunkers }} />)
 
-  expect(screen.queryByTestId('no-google-map')).not.toBeInTheDocument()
-  expect(screen.getByTestId('google-map')).toBeInTheDocument()
-})
-
-test('enders 10 google maps markers', async () => {
-  render(<MapSection {...{ bunkers }} />)
-
-  const mapContainer = document.querySelector('div[data-testid="google-map"]')
-
-  mapContainer?.querySelectorAll('div[role=button]').forEach((marker) => {
-    expect(marker).toHaveLength(bunkers.length)
-  })
+  expect(screen.getByTestId('no-google-map')).toBeInTheDocument()
+  expect(screen.queryByTestId('google-map')).not.toBeInTheDocument()
 })
