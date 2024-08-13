@@ -44,17 +44,20 @@ export async function POST(req: Request) {
 
       revalidatePath('/')
 
-      await db.user.update({
-        where: { id: intent.metadata.userId },
-        data: {
-          bunkers: {
-            connect: [{ id: intent.metadata.bunkerId }],
-          },
-        },
-        include: {
-          bunkers: true,
+      const dbUser = await db.user.findUnique({
+        where: {
+          id: intent.metadata.userId,
         },
       })
+
+      if (dbUser) {
+        await db.userBunker.create({
+          data: {
+            userId: dbUser?.id,
+            bunkerId: intent.metadata.bunkerId,
+          },
+        })
+      }
 
       break
     case 'payment_intent.payment_failed':

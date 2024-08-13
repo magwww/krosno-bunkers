@@ -6,3 +6,7 @@ export type Bunker = {
   address: string
   price: number
 }
+
+export type GroupedBunker = Pick<Bunker, 'id' | 'address'> & {
+  count: number
+}

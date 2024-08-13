@@ -17,9 +17,6 @@ export async function GET(req: NextRequest) {
   try {
     const user = await db.user.findUnique({
       where: { clerkId: userId },
-      include: {
-        bunkers: true,
-      },
     })
 
     if (!user) {
@@ -30,9 +27,17 @@ export async function GET(req: NextRequest) {
         },
       )
     }
+
+    const userBunkers = await db.userBunker.findMany({
+      where: { userId: user.id },
+      include: {
+        bunker: true,
+      },
+    })
+
     return NextResponse.json(
       {
-        data: user.bunkers,
+        data: userBunkers,
       },
       {
         status: 200,

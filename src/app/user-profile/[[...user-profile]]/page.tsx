@@ -26,7 +26,9 @@ const UserProfilePage = () => {
           throw new Error('Network response was not ok')
         }
         const { data } = await response.json()
-        setBunkers(data)
+
+        // TODO: type data from response
+        setBunkers(data.map((el: any) => el.bunker))
       } catch (error) {
         console.error('Error fetching bunkers:', error)
       }

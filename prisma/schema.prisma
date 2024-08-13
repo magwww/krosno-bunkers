@@ -14,6 +14,18 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+model UserBunker {
+  id        String   @id @default(uuid())
+  userId    String
+  bunkerId  String
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  bunker Bunker @relation(fields: [bunkerId], references: [id])
+
+  @@index([userId, bunkerId])
+}
+
 model Bunker {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
@@ -22,20 +34,20 @@ model Bunker {
   longitude Float
   latitude  Float
   capacity  Int?
-  address   String  @unique
+  address   String       @unique
   price     Int
-  users     User[]
+  users     UserBunker[]
   order     Order[]
 }
 
 model User {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  clerkId   String   @unique
-  email     String   @unique
+  id        String       @id @default(uuid())
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  clerkId   String       @unique
+  email     String       @unique
   orders    Order[]
-  bunkers   Bunker[]
+  bunkers   UserBunker[]
 }
 
 model Order {
