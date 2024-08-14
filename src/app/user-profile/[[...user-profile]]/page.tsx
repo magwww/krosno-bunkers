@@ -7,7 +7,8 @@ import { useUser } from '@clerk/clerk-react'
 import { Bunker } from '@/types'
 
 const UserProfilePage = () => {
-  const [bunkers, setBunkers] = useState<Bunker[]>([])
+  const [bunkers, setBunkers] = useState<Bunker[] | undefined>(undefined)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const { user, isSignedIn } = useUser()
 
@@ -20,6 +21,8 @@ const UserProfilePage = () => {
 
   useEffect(() => {
     const fetchBunkers = async () => {
+      setIsLoading(true)
+
       try {
         const response = await fetch(`/api/get-user-bunkers?userId=${user?.id}`)
         if (!response.ok) {
@@ -31,6 +34,8 @@ const UserProfilePage = () => {
         setBunkers(data.map((el: any) => el.bunker))
       } catch (error) {
         console.error('Error fetching bunkers:', error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
@@ -56,7 +61,7 @@ const UserProfilePage = () => {
         }}
       >
         <UserProfile.Page label="My bunkers" labelIcon={<Warehouse className="w-4 h-4" />} url="/my-bunkers">
-          <MyBunkers {...{ bunkers }} />
+          <MyBunkers {...{ bunkers, isLoading }} />
         </UserProfile.Page>
       </UserProfile>
     </main>
