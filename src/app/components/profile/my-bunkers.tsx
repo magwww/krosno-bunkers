@@ -19,19 +19,21 @@ export default function MyBunkers({ bunkers }: { bunkers: Bunker[] }) {
   }, [])
 
   return (
-    <div className="flex flex-col w-full justify-center dark:text-white items-center">
-      <p>Your bunkers:</p>
-      {groupedBunkers.length ? (
-        <ul>
-          {groupedBunkers.map((bunker, index) => (
-            <li key={`${index}-${bunker.id}`}>
-              {bunker.address} - {bunker.count}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>You don&apos;t own aby bunker spots yet</p>
-      )}
+    <div className="flex flex-col w-full justify-center">
+      <h1 className="dark:text-white text-[17px] font-bold pb-4 border-b border-[#292524]">Your bunkers</h1>
+      <div className="py-4 text-[13px] dark:text-white/70">
+        {groupedBunkers.length ? (
+          <ul className="flex flex-col gap-2">
+            {groupedBunkers.map((bunker, index) => (
+              <li key={`${index}-${bunker.id}`}>
+                {bunker.address} - {bunker.count} spot(s)
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>You don&apos;t own aby bunker spots yet</p>
+        )}
+      </div>
     </div>
   )
 }
