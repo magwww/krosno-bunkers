@@ -14,6 +14,9 @@ const createJestConfig = nextJest({
 const config: Config = {
   coverageProvider: 'v8',
   testEnvironment: 'jsdom',
+  testEnvironmentOptions: {
+    customExportConditions: ['msw'],
+  },
   // Add more setup options before each test is run
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module

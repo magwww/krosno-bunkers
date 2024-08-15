@@ -75,7 +75,7 @@ export default function CheckoutForm() {
   }
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
+    <form data-testid="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" options={{ layout: 'tabs' }} />
       <ButtonBorderedAnimated className="my-3 w-36 px-0 h-11" disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">{isLoading ? <div className="spinner" id="spinner"></div> : 'Pay now'}</span>
