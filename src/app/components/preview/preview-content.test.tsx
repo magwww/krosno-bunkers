@@ -2,26 +2,27 @@ import { render, screen, waitFor } from '@testing-library/react'
 import PreviewContent from './preview-content'
 import { successPaymentIntent } from './mock'
 import { server } from '@/mocks/node'
-import { act } from 'react'
+
+beforeAll(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
 
 describe('PreviewContent', () => {
   describe('when bunker is passed', () => {
     it('it display bunker name in confirmation message', async () => {
       server.use(successPaymentIntent)
 
-      await act(() =>
-        render(
-          <PreviewContent
-            bunker={{
-              id: '5',
-              longitude: 21.7680694093419,
-              latitude: 49.690988867662234,
-              capacity: 1,
-              address: 'Naftowa 9',
-              price: 200,
-            }}
-          />,
-        ),
+      render(
+        <PreviewContent
+          bunker={{
+            id: '5',
+            longitude: 21.7680694093419,
+            latitude: 49.690988867662234,
+            capacity: 1,
+            address: 'Naftowa 9',
+            price: 200,
+          }}
+        />,
       )
 
       expect(
