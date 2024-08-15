@@ -1,32 +1,27 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import PreviewContent from './preview-content'
-import { setupServer } from 'msw/node'
 import { successPaymentIntent } from './mock'
-
-/* @TODO: Extract to Jest Setup to reuse between test
- */
-export const server = setupServer()
-
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
+import { server } from '@/mocks/node'
+import { act } from 'react'
 
 describe('PreviewContent', () => {
   describe('when bunker is passed', () => {
-    it('it display bunker name in confirmation message', () => {
+    it('it display bunker name in confirmation message', async () => {
       server.use(successPaymentIntent)
 
-      render(
-        <PreviewContent
-          bunker={{
-            id: '5',
-            longitude: 21.7680694093419,
-            latitude: 49.690988867662234,
-            capacity: 1,
-            address: 'Naftowa 9',
-            price: 200,
-          }}
-        />,
+      await act(() =>
+        render(
+          <PreviewContent
+            bunker={{
+              id: '5',
+              longitude: 21.7680694093419,
+              latitude: 49.690988867662234,
+              capacity: 1,
+              address: 'Naftowa 9',
+              price: 200,
+            }}
+          />,
+        ),
       )
 
       expect(

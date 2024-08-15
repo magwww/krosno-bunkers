@@ -1,5 +1,10 @@
 import '@testing-library/jest-dom'
+import { server } from '@/mocks/node'
 
-import { TextEncoder, TextDecoder } from 'util';
+import { TextEncoder } from 'util'
 
-global.TextEncoder = TextEncoder;
+global.TextEncoder = TextEncoder
+
+beforeAll(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
