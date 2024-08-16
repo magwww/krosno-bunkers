@@ -3,10 +3,6 @@ import PreviewContent from './preview-content'
 import { successPaymentIntent } from './mock'
 import { server } from '@/mocks/node'
 
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
-
 describe('PreviewContent', () => {
   describe('when bunker is passed', () => {
     it('it display bunker name in confirmation message', async () => {
