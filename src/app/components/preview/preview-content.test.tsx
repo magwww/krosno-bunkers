@@ -5,7 +5,7 @@ import { server } from '@/mocks/node'
 
 describe('PreviewContent', () => {
   describe('when bunker is passed', () => {
-    it('it display bunker name in confirmation message', async () => {
+    it('displays bunker name in confirmation message', async () => {
       server.use(successPaymentIntent)
 
       render(
@@ -21,13 +21,17 @@ describe('PreviewContent', () => {
         />,
       )
 
-      expect(
-        screen.getByText("You're just one click away from becoming the lucky owner of a spot in your chosen bunker:"),
-      ).toBeInTheDocument()
-      expect(screen.getByText('Naftowa 9')).toBeInTheDocument()
+      await waitFor(() => {
+        expect(
+          screen.getByText("You're just one click away from becoming the lucky owner of a spot in your chosen bunker:"),
+        ).toBeInTheDocument()
+      })
+      await waitFor(() => {
+        expect(screen.getByText('Naftowa 9')).toBeInTheDocument()
+      })
     })
 
-    it('it shows checkout form', async () => {
+    it('shows checkout form', async () => {
       server.use(successPaymentIntent)
 
       render(
