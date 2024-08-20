@@ -4,11 +4,12 @@ import { type Bunker } from '@/types'
 import { Elements } from '@stripe/react-stripe-js'
 import CheckoutForm from '@/app/components/preview/checkout-form'
 import { loadStripe } from '@stripe/stripe-js'
+import { paymentIntentSchema } from '@/lib/validations'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
 export default function PreviewContent({ bunker }: { bunker: Bunker }) {
-  const [clientSecret, setClientSecret] = useState('')
+  const [clientSecret, setClientSecret] = useState<string>('')
 
   useEffect(() => {
     fetch('/api/create-payment-intent', {
@@ -20,7 +21,16 @@ export default function PreviewContent({ bunker }: { bunker: Bunker }) {
       }),
     })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret))
+      .then((data) => {
+        const validatedData = paymentIntentSchema.safeParse(data)
+
+        if (!validatedData.success) {
+          console.error('error: ', validatedData.error)
+          return
+        }
+
+        setClientSecret(data.clientSecret)
+      })
   }, [])
 
   const options = {
