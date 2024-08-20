@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import PreviewContent from './preview-content'
-import { successPaymentIntent } from './mock'
+import PreviewContent from '@/app/components/preview/preview-content'
+import { successPaymentIntent } from '@/mocks/success-payment-intent'
 import { server } from '@/mocks/node'
 
 describe('PreviewContent', () => {
