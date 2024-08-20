@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { redirect } from 'next/navigation'
 
 async function getData(id: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bunk/${id}`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bunker/${id}`)
 
   if (!res.ok) {
     throw new Error('Failed to fetch bunker')
