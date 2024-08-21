@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { type Bunker } from '@/types'
 import { ButtonBorderedAnimated } from '@/app/components/common/button-bordered-animated'
+import toast from 'react-hot-toast'
 
 type Props = {
   bunkers: Bunker[]
@@ -15,6 +16,10 @@ export default function MapSection({ bunkers }: Props) {
 
   useEffect(() => {
     setTimeout(() => setIsMounted(true), 400)
+  }, [])
+
+  useEffect(() => {
+    setTimeout(() => toast('Hurry up, spots are selling like hot cakes!'), 5000)
   }, [])
 
   return (

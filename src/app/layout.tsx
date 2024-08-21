@@ -5,6 +5,7 @@ import { ReactNode } from 'react'
 import { ThemeProvider } from '@/app/components/common/theme-provider'
 import Navigation from '@/app/components/common/navigation'
 import { ClerkProvider } from '@clerk/nextjs'
+import { Toaster } from 'react-hot-toast'
 
 const anek = Anek_Latin({
   weight: ['400', '500', '700'],
@@ -28,6 +29,16 @@ export default function RootLayout({
       <body>
         <ClerkProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <Toaster
+              position="bottom-right"
+              toastOptions={{
+                duration: 5000,
+                style: {
+                  background: 'black',
+                  color: '#fff',
+                },
+              }}
+            />
             <Navigation />
             {children}
           </ThemeProvider>
