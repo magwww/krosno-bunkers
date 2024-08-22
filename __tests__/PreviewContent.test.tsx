@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import PreviewContent from '@/app/components/preview/preview-content'
 import { successPaymentIntent } from '@/mocks/success-payment-intent'
 import { server } from '@/mocks/node'
@@ -21,14 +21,13 @@ describe('PreviewContent', () => {
         />,
       )
 
-      await waitFor(() => {
-        expect(
-          screen.getByText("You're just one click away from becoming the lucky owner of a spot in your chosen bunker:"),
-        ).toBeInTheDocument()
-      })
-      await waitFor(() => {
-        expect(screen.getByText('Naftowa 9')).toBeInTheDocument()
-      })
+      const confirmationMessage = await screen.findByText(
+        /You're just one click away from becoming the lucky owner of a spot in your chosen bunker:/,
+      )
+      expect(confirmationMessage).toBeInTheDocument()
+
+      const bunkerName = await screen.findByText(/Naftowa 9/)
+      expect(bunkerName).toBeInTheDocument()
     })
 
     it('shows checkout form', async () => {
@@ -47,14 +46,14 @@ describe('PreviewContent', () => {
         />,
       )
 
-      await waitFor(() => {
-        /* @TODO: Assert Stripe Element existance aliging to testing-library convention.
+      /* @TODO: Assert Stripe Element existance aliging to testing-library convention.
                 
-                This might be helpful. Didn't check it yet:
-                https://docs.stripe.com/stripe-apps/ui-testing
-                */
-        expect(screen.getByTestId('payment-form')).toBeInTheDocument()
-      })
+        This might be helpful. Didn't check it yet:
+        https://docs.stripe.com/stripe-apps/ui-testing
+        */
+
+      const paymentForm = await screen.findByTestId('payment-form')
+      expect(paymentForm).toBeInTheDocument()
     })
   })
 })
