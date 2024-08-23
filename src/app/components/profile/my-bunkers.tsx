@@ -31,7 +31,7 @@ export default function MyBunkers({ bunkers, isLoading }: Props) {
         {isLoading ? (
           <Loader className="w-6 h-6" />
         ) : bunkers && !bunkers.length ? (
-          <p>You don&apos;t own aby bunker spots yet</p>
+          <p>You don&apos;t own any bunker spots yet</p>
         ) : (
           <ul className="flex flex-col gap-2">
             {groupedBunkers?.map((bunker, index) => (
