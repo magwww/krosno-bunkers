@@ -19,15 +19,20 @@ export default function Home() {
           !isMounted && 'blur-sm',
         )}
       >
-        <p
+        <h1
           className={cn(
             'mb-16 text-5xl transition-text duration-1000 bg-background/50 p-2 rounded-md',
             !isMounted && 'text-4xl',
           )}
+          data-testid="home-header"
         >
           Welcome to Krosno Bunkers!
-        </p>{' '}
-        <ButtonLinkBorderedAnimated href="/bunkers" className="dark:bg-black/50 transition-all duration-700">
+        </h1>{' '}
+        <ButtonLinkBorderedAnimated
+          href="/bunkers"
+          className="dark:bg-black/50 transition-all duration-700"
+          data-testid="home-button"
+        >
           Select your bunker
         </ButtonLinkBorderedAnimated>
       </div>

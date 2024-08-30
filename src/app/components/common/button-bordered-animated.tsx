@@ -7,9 +7,10 @@ import { cn } from '@/lib/utils'
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & PropsWithChildren
 type LinkProps = HTMLAttributes<HTMLAnchorElement> & PropsWithChildren & { href: string }
 
-export function ButtonBorderedAnimated({ children, onClick, className }: ButtonProps) {
+export function ButtonBorderedAnimated({ children, onClick, className, ...props }: ButtonProps) {
   return (
     <button
+      {...props}
       onClick={onClick}
       className={cn(
         'group relative inline-block overflow-hidden transition-all bg-black/10 duration-500 dark:hover:bg-black dark:bg-white/10 rounded px-12 py-3 text-sm font-medium dark:text-white focus:outline-none dark:active:text-white',
@@ -25,9 +26,10 @@ export function ButtonBorderedAnimated({ children, onClick, className }: ButtonP
   )
 }
 
-export function ButtonLinkBorderedAnimated({ children, href, className }: LinkProps) {
+export function ButtonLinkBorderedAnimated({ children, href, className, ...props }: LinkProps) {
   return (
     <Link
+      {...props}
       href={href}
       className={cn(
         'group relative inline-block overflow-hidden transition-all bg-black/10 duration-500 dark:hover:bg-black dark:bg-white/10 rounded px-12 py-3 text-sm font-medium dark:text-white focus:outline-none dark:active:text-white',
