@@ -4,10 +4,10 @@ import { successPaymentIntent } from '@/mocks/success-payment-intent'
 import { server } from '@/mocks/node'
 
 describe('PreviewContent', () => {
+  beforeEach(() => server.use(successPaymentIntent))
+
   describe('when bunker is passed', () => {
     it('displays bunker name in confirmation message', async () => {
-      server.use(successPaymentIntent)
-
       render(
         <PreviewContent
           bunker={{
@@ -31,8 +31,6 @@ describe('PreviewContent', () => {
     })
 
     it('shows checkout form', async () => {
-      server.use(successPaymentIntent)
-
       render(
         <PreviewContent
           bunker={{

@@ -54,7 +54,6 @@ export default function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        // Make sure to change this to your payment completion page
         return_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment-success`,
       },
     })
@@ -80,7 +79,6 @@ export default function CheckoutForm() {
       <ButtonBorderedAnimated className="my-3 w-36 px-0 h-11" disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">{isLoading ? <div className="spinner" id="spinner"></div> : 'Pay now'}</span>
       </ButtonBorderedAnimated>
-      {/* Show any error or success messages */}
       {message && (
         <div className="text-[#df1b41]" id="payment-message">
           {message}
