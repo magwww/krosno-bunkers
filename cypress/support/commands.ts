@@ -35,3 +35,7 @@
 //     }
 //   }
 // }
+
+Cypress.Commands.add('getByTestId', (testid) => {
+  return cy.get(`[data-testid=${testid}]`)
+})
