@@ -1,6 +1,7 @@
 import { useEffect, FormEvent, useState } from 'react'
 import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { ButtonBorderedAnimated } from '@/app/components/common/button-bordered-animated'
+import Loader from '@/app/components/common/loader'
 
 export default function CheckoutForm() {
   const stripe = useStripe()
@@ -77,7 +78,7 @@ export default function CheckoutForm() {
     <form data-testid="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" options={{ layout: 'tabs' }} />
       <ButtonBorderedAnimated className="my-3 w-36 px-0 h-11" disabled={isLoading || !stripe || !elements} id="submit">
-        <span id="button-text">{isLoading ? <div className="spinner" id="spinner"></div> : 'Pay now'}</span>
+        <span id="button-text">{isLoading ? <Loader className="w-5 h-5 mx-auto my-auto" /> : 'Pay now'}</span>
       </ButtonBorderedAnimated>
       {message && (
         <div className="text-[#df1b41]" id="payment-message">
