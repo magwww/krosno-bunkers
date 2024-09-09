@@ -12,7 +12,7 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="w-full bg-home-hero bg-cover bg-center bg-no-repeat min-h-[calc(100vh-64px)]">
+    <main className="before:block relative z-10 before:z-[-5] before:absolute before:inset-0 before:content-[''] bg-home-hero before:bg-gradient-to-t before:from-black before:to-transparent bg-cover bg-no-repeat bg-center before:opacity-70 w-full min-h-[calc(100vh-64px)]">
       <div
         className={cn(
           'w-full p-24 justify-center flex flex-col items-center min-h-[calc(100vh-64px)] transition-blur duration-1000',
@@ -20,19 +20,12 @@ export default function Home() {
         )}
       >
         <h1
-          className={cn(
-            'mb-16 text-5xl transition-text duration-1000 bg-background/50 p-2 rounded-md',
-            !isMounted && 'text-4xl',
-          )}
+          className={cn('mb-16 text-5xl transition-text duration-1000 p-2 rounded-md', !isMounted && 'text-4xl')}
           data-testid="home-header"
         >
           Welcome to Krosno Bunkers!
         </h1>{' '}
-        <ButtonLinkBorderedAnimated
-          href="/bunkers"
-          className="dark:bg-black/50 transition-all duration-700"
-          data-testid="home-button"
-        >
+        <ButtonLinkBorderedAnimated href="/bunkers" className="transition-all duration-700" data-testid="home-button">
           Select your bunker
         </ButtonLinkBorderedAnimated>
       </div>

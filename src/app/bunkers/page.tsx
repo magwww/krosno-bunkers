@@ -16,8 +16,8 @@ export default async function Bunkers() {
   const { data: bunkers } = await getBunkers()
 
   return (
-    <main className="w-full bg-home-hero bg-cover bg-center bg-no-repeat min-h-[calc(100vh-64px)]">
-      <div className="w-full p-24 justify-center flex flex-col items-center min-h-[calc(100vh-64px)]">
+    <main className="relative z-10 before:z-[-5] before:absolute before:inset-0 before:content-[''] bg-home-hero before:bg-gradient-to-t before:from-black before:to-transparent bg-cover bg-no-repeat bg-center before:opacity-70 w-full min-h-[calc(100vh-64px)]">
+      <div className="flex flex-col justify-center items-center p-24 w-full min-h-[calc(100vh-64px)]">
         <MapSection {...{ bunkers }} />
       </div>
     </main>
