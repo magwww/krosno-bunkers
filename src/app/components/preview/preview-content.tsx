@@ -38,10 +38,10 @@ export default function PreviewContent({ bunker }: { bunker: Bunker }) {
   }
 
   return (
-    <main className="flex flex-col w-full lg:h-screen justify-center items-center px-4 pb-8">
-      <p className="text-lg mb-16 flex flex-col items-center text-center max-w-md mt-8 lg:my-0">
+    <main className="flex flex-col justify-center items-center px-4 pb-8 w-full lg:h-screen">
+      <p className="flex flex-col items-center lg:my-0 mt-8 mb-16 max-w-md text-center text-lg">
         You&apos;re just one click away from becoming the lucky owner of a spot in your chosen bunker:{' '}
-        <span className="font-bold my-4 text-xl">{bunker.address}</span>
+        <span className="my-4 font-bold text-xl">{bunker.address}</span>
       </p>
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>

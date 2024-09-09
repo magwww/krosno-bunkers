@@ -13,14 +13,14 @@ export function ButtonBorderedAnimated({ children, onClick, className, ...props 
       {...props}
       onClick={onClick}
       className={cn(
-        'group relative inline-block overflow-hidden transition-all bg-black/10 duration-500 dark:hover:bg-black dark:bg-white/10 rounded px-12 py-3 text-sm font-medium dark:text-white focus:outline-none dark:active:text-white',
+        'group relative inline-block overflow-hidden transition-all bg-black/70 duration-500 hover:bg-black dark:bg-white/10 rounded px-12 py-3 text-sm font-medium text-white focus:outline-none active:text-white',
         className,
       )}
     >
-      <span className="ease absolute left-0 top-0 h-0 w-0 border-t-2 dark:border-white border-black/70 transition-all duration-300 group-hover:w-full"></span>
-      <span className="ease absolute right-0 top-0 h-0 w-0 border-r-2 dark:border-white border-black/70 transition-all duration-300 group-hover:h-full"></span>
-      <span className="ease absolute bottom-0 right-0 h-0 w-0 border-b-2 dark:border-white border-black/70 transition-all duration-300 group-hover:w-full"></span>
-      <span className="ease absolute bottom-0 left-0 h-0 w-0 border-l-2 dark:border-white border-black/70 transition-all duration-300 group-hover:h-full"></span>
+      <span className="group-hover:w-full top-0 left-0 absolute dark:border-white border-t-2 border-black/70 w-0 h-0 transition-all duration-300 ease"></span>
+      <span className="group-hover:h-full top-0 right-0 absolute dark:border-white border-r-2 border-black/70 w-0 h-0 transition-all duration-300 ease"></span>
+      <span className="group-hover:w-full right-0 bottom-0 absolute dark:border-white border-b-2 border-black/70 w-0 h-0 transition-all duration-300 ease"></span>
+      <span className="group-hover:h-full bottom-0 left-0 absolute dark:border-white border-black/70 border-l-2 w-0 h-0 transition-all duration-300 ease"></span>
       {children}
     </button>
   )
@@ -32,14 +32,14 @@ export function ButtonLinkBorderedAnimated({ children, href, className, ...props
       {...props}
       href={href}
       className={cn(
-        'group relative inline-block overflow-hidden transition-all bg-black/10 duration-500 dark:hover:bg-black dark:bg-white/10 rounded px-12 py-3 text-sm font-medium dark:text-white focus:outline-none dark:active:text-white',
+        'group relative inline-block overflow-hidden transition-all bg-black/70 duration-500 hover:bg-black dark:bg-white/10 rounded px-12 py-3 text-sm font-medium text-white focus:outline-none active:text-white',
         className,
       )}
     >
-      <span className="ease absolute left-0 top-0 h-0 w-0 border-t-2 dark:border-white border-black/70 transition-all duration-300 group-hover:w-full"></span>
-      <span className="ease absolute right-0 top-0 h-0 w-0 border-r-2 dark:border-white border-black/70 transition-all duration-300 group-hover:h-full"></span>
-      <span className="ease absolute bottom-0 right-0 h-0 w-0 border-b-2 dark:border-white border-black/70 transition-all duration-300 group-hover:w-full"></span>
-      <span className="ease absolute bottom-0 left-0 h-0 w-0 border-l-2 dark:border-white border-black/70 transition-all duration-300 group-hover:h-full"></span>
+      <span className="group-hover:w-full top-0 left-0 absolute dark:border-white border-t-2 border-black/70 w-0 h-0 transition-all duration-300 ease"></span>
+      <span className="group-hover:h-full top-0 right-0 absolute dark:border-white border-r-2 border-black/70 w-0 h-0 transition-all duration-300 ease"></span>
+      <span className="group-hover:w-full right-0 bottom-0 absolute dark:border-white border-b-2 border-black/70 w-0 h-0 transition-all duration-300 ease"></span>
+      <span className="group-hover:h-full bottom-0 left-0 absolute dark:border-white border-black/70 border-l-2 w-0 h-0 transition-all duration-300 ease"></span>
       {children}
     </Link>
   )
