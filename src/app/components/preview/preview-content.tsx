@@ -5,6 +5,7 @@ import { Elements } from '@stripe/react-stripe-js'
 import CheckoutForm from '@/app/components/preview/checkout-form'
 import { loadStripe } from '@stripe/stripe-js'
 import { paymentIntentSchema } from '@/lib/validations'
+import toast from 'react-hot-toast'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
@@ -26,6 +27,7 @@ export default function PreviewContent({ bunker }: { bunker: Bunker }) {
 
         if (!validatedData.success) {
           console.error('error: ', validatedData.error)
+          toast('Ooops! Something went wrong while creating your order. Please try again.')
           return
         }
 
