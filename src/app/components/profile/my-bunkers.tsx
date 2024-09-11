@@ -25,8 +25,8 @@ export default function MyBunkers({ bunkers, isLoading }: Props) {
   }, [])
 
   return (
-    <div className="flex flex-col w-full justify-center">
-      <h1 className="dark:text-white text-[17px] font-bold pb-4 border-b border-[#292524]">Your bunkers</h1>
+    <div className="flex flex-col justify-center w-full">
+      <h1 className="border-[#292524] pb-4 border-b font-bold text-[17px] dark:text-white">Your bunkers</h1>
       <div className="py-4 text-[13px] dark:text-white/70">
         {isLoading ? (
           <Loader className="w-6 h-6" />
@@ -36,7 +36,7 @@ export default function MyBunkers({ bunkers, isLoading }: Props) {
           <ul className="flex flex-col gap-2">
             {groupedBunkers?.map((bunker, index) => (
               <li key={`${index}-${bunker.id}`}>
-                {bunker.address} - {bunker.count} spot(s)
+                {bunker.address} - {bunker.count} {bunker.count > 1 ? 'spots' : 'spot'}
               </li>
             ))}
           </ul>
