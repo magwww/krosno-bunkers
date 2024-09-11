@@ -52,15 +52,17 @@ const UserProfilePage = () => {
         appearance={{
           elements: {
             rootBox: 'w-screen dark:bg-black',
-            cardBox: 'shadow-none w-full',
-            navbar: 'dark:bg-none dark:[&_p]:text-white/70 dark:[&_h1]:text-white dark:[&_button]:text-white',
+            cardBox: 'shadow-none w-full max-w-full overflow-visible h-[calc(100vh-64px)]',
+            navbar:
+              'lg:dark:bg-none lg:dark:[&_p]:text-white/70 lg:dark:[&_h1]:text-white lg:dark:[&_button]:text-white',
+            navbarButton: 'text-neutral-900',
             scrollBox:
               'dark:border-l rounded-none dark:border-white/20 dark:bg-black dark:[&_h1]:text-white dark:[&_p]:text-white/70 dark:[&_span]:text-white dark:[&_button]:text-white',
             profileSection: 'dark:border-white/20',
           },
         }}
       >
-        <UserProfile.Page label="My bunkers" labelIcon={<Warehouse className="w-4 h-4" />} url="/my-bunkers">
+        <UserProfile.Page label="My bunkers" labelIcon={<Warehouse className="size-4" />} url="/my-bunkers">
           <MyBunkers {...{ bunkers, isLoading }} />
         </UserProfile.Page>
       </UserProfile>

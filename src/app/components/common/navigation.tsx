@@ -9,12 +9,12 @@ import { SignedIn, SignedOut, SignUpButton, SignInButton, UserButton } from '@cl
 
 export default function Navigation() {
   return (
-    <div className="w-full flex fixed backdrop-blur-sm bg-white/30 max-w-full shrink-0 py-1 px-2 lg:px-8 shadow-lg z-30">
+    <div className="z-30 fixed flex bg-white/30 shadow-lg backdrop-blur-sm px-2 lg:px-8 py-1 w-full max-w-full shrink-0">
       <NavigationMenu className="max-w-full [&>div]:w-full">
-        <NavigationMenuList className="w-full max-w-full flex justify-between">
+        <NavigationMenuList className="flex justify-between w-full max-w-full">
           <NavigationMenuItem className="shrink-0">
             <Link href="/" className="underline-none">
-              <Image src="/bunker.png" width={56} height={56} alt="" className="h-14 w-14" />
+              <Image src="/bunker.png" width={56} height={56} alt="" className="size-14" />
             </Link>
           </NavigationMenuItem>
           <div className="flex items-stretch gap-3">
@@ -33,7 +33,7 @@ export default function Navigation() {
                 />
               </SignedIn>
               <SignedOut>
-                <div className="flex gap-3 [&_button]:py-2 [&_button]:px-4 [&_button]:rounded [&_button]:flex [&_button]:items-center [&_button]:bg-black/20 [&_button]:border [&_button]:border-white/40">
+                <div className="flex [&_button]:flex [&_button]:items-center gap-3 [&_button]:border-white/40 [&_button]:bg-black/20 [&_button]:px-4 [&_button]:py-2 [&_button]:border [&_button]:rounded">
                   <SignInButton />
                   <SignUpButton />
                 </div>
