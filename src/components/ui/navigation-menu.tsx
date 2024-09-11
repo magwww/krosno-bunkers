@@ -40,7 +40,7 @@ const NavigationMenuItem = React.forwardRef<
 NavigationMenuItem.displayName = 'NavigationMenuItem'
 
 const navigationMenuTriggerStyle = cva(
-  'group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50',
+  'inline-flex justify-center items-center bg-background data-[state=open]:bg-accent/50 hover:bg-accent focus:bg-accent data-[active]:bg-accent/50 disabled:opacity-50 px-4 py-2 rounded-md w-max h-10 font-medium text-sm hover:text-accent-foreground focus:text-accent-foreground transition-colors disabled:pointer-events-none group focus:outline-none',
 )
 
 const NavigationMenuTrigger = React.forwardRef<
@@ -54,7 +54,7 @@ const NavigationMenuTrigger = React.forwardRef<
   >
     {children}{' '}
     <ChevronDown
-      className="relative top-[1px] ml-1 h-3 w-3 transition duration-200 group-data-[state=open]:rotate-180"
+      className="group-data-[state=open]:rotate-180 relative top-[1px] ml-1 transition duration-200 size-3"
       aria-hidden="true"
     />
   </NavigationMenuPrimitive.Trigger>
@@ -93,7 +93,7 @@ const NavigationMenuIndicator = React.forwardRef<
     )}
     {...props}
   >
-    <div className="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-border shadow-md" />
+    <div className="relative top-[60%] shadow-md bg-border rounded-tl-sm w-2 h-2 rotate-45" />
   </NavigationMenuPrimitive.Indicator>
 ))
 NavigationMenuIndicator.displayName = NavigationMenuPrimitive.Indicator.displayName

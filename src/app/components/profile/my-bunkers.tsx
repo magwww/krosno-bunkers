@@ -29,7 +29,7 @@ export default function MyBunkers({ bunkers, isLoading }: Props) {
       <h1 className="border-[#292524] pb-4 border-b font-bold text-[17px] dark:text-white">Your bunkers</h1>
       <div className="py-4 text-[13px] dark:text-white/70">
         {isLoading ? (
-          <Loader className="w-6 h-6" />
+          <Loader className="size-6" />
         ) : bunkers && !bunkers.length ? (
           <p>You don&apos;t own any bunker spots yet</p>
         ) : (

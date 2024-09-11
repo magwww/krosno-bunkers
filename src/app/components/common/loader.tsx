@@ -6,7 +6,7 @@ export default function Loader({ className }: ComponentPropsWithoutRef<'div'>) {
     <div role="status">
       <svg
         aria-hidden="true"
-        className={cn('w-8 h-8 text-white/30 animate-spin dark:text-white/30 fill-[#C6B896]', className)}
+        className={cn('size-8 text-white/30 animate-spin dark:text-white/30 fill-[#C6B896]', className)}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
