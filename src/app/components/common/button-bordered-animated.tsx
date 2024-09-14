@@ -13,7 +13,7 @@ export function ButtonBorderedAnimated({ children, onClick, className, ...props 
       {...props}
       onClick={onClick}
       className={cn(
-        'group relative inline-block overflow-hidden transition-all bg-black/70 duration-500 hover:bg-black dark:bg-white/10 rounded px-4 lg:px-12 py-3 text-sm font-medium text-white focus:outline-none active:text-white',
+        'group relative inline-block overflow-hidden transition-all bg-black/70 duration-500 hover:bg-black dark:bg-white/10 rounded flex justify-center items-center px-4 lg:px-12 py-3 text-sm font-medium text-white focus:outline-none active:text-white',
         className,
       )}
     >
@@ -32,7 +32,7 @@ export function ButtonLinkBorderedAnimated({ children, href, className, ...props
       {...props}
       href={href}
       className={cn(
-        'group relative inline-block overflow-hidden transition-all bg-black/70 duration-500 hover:bg-black dark:bg-white/10 rounded px-4 lg:px-12 py-3 text-sm font-medium text-white focus:outline-none active:text-white',
+        'group relative inline-block overflow-hidden transition-all bg-black/70 duration-500 hover:bg-black dark:bg-white/10 rounded px-4 lg:px-12 py-3 flex justify-center items-center text-sm font-medium text-white focus:outline-none active:text-white',
         className,
       )}
     >

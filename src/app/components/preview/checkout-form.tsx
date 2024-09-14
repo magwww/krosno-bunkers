@@ -77,7 +77,7 @@ export default function CheckoutForm() {
   return (
     <form data-testid="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" options={{ layout: 'tabs' }} />
-      <ButtonBorderedAnimated className="my-3 px-0 w-36 h-11" disabled={isLoading || !stripe || !elements} id="submit">
+      <ButtonBorderedAnimated className="my-3 h-11" disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">{isLoading ? <Loader className="mx-auto my-auto size-5" /> : 'Pay now'}</span>
       </ButtonBorderedAnimated>
       {message && (
