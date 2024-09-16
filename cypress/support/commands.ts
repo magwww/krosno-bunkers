@@ -36,6 +36,11 @@
 //   }
 // }
 
+import { addClerkCommands } from '@clerk/testing/cypress'
+
 Cypress.Commands.add('getByTestId', (testid) => {
   return cy.get(`[data-testid=${testid}]`)
 })
+
+addClerkCommands({ Cypress, cy })
+export {}
