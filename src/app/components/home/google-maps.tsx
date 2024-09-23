@@ -18,13 +18,13 @@ const InfoWindowContent = ({ bunker }: { bunker: Bunker }) => {
   const spotsAvailable = bunker.capacity > 0
 
   return (
-    <div className="flex flex-col items-center justify-center gap-2">
-      <p className="text-black font-bold text-lg">{bunker.address}</p>
-      {bunker.capacity && <p className="text-black text-xs mb-2">Free spots: {bunker.capacity}</p>}
+    <div className="flex flex-col justify-center items-center gap-2">
+      <p className="font-bold text-black text-lg">{bunker.address}</p>
+      {bunker.capacity && <p className="mb-2 text-black text-xs">Free spots: {bunker.capacity}</p>}
       {spotsAvailable ? (
         <Link
           href={`/payment-preview?id=${bunker.id}`}
-          className="bg-black rounded py-3 px-2 text-center font-semibold text-white"
+          className="bg-black px-2 py-3 rounded font-semibold text-center text-white"
         >
           Buy spot in this bunker
         </Link>
@@ -57,7 +57,7 @@ export default function GoogleMaps({ bunkers, className }: Props) {
           lng: 21.754001577384994,
         },
         zoom: 13,
-        mapId: 'NEXT_MAPS',
+        mapId: 'c55128c183c09ce2',
       }
 
       const map = new Map(mapRef.current as HTMLDivElement, mapOptions)
@@ -127,7 +127,7 @@ export default function GoogleMaps({ bunkers, className }: Props) {
     <div
       data-testid="google-map"
       className={cn(
-        'lg:w-[600px] w-[300px] border border-2 [&_div.gm-style-iw-ch]:text-center [&_div.gm-style-iw-ch]:p-0 [&_div.gm-style-iw-chr]:text-black [&_div.gm-style-iw-chr]:font-bold [&_div.gm-style-iw-chr]:text-lg',
+        'w-screen h-screen border border-2 [&_div.gm-style-iw-ch]:text-center [&_div.gm-style-iw-ch]:p-0 [&_div.gm-style-iw-chr]:text-black [&_div.gm-style-iw-chr]:font-bold [&_div.gm-style-iw-chr]:text-lg',
         className,
       )}
       ref={mapRef}

@@ -23,10 +23,10 @@ export default function MapSection({ bunkers }: Props) {
   }, [])
 
   return (
-    <div className="flex flex-col items-center transition-blur duration-1000">
+    <div className="h-screen transition-blur duration-1000">
       {!process.env.NEXT_PUBLIC_MAPS_API_KEY ? (
         <div data-testid="no-google-map" className="flex flex-col items-center gap-4">
-          <p className="text-lg bg-background/50 p-2 rounded-md">Oops! Looks like sth&apos;s wrong...</p>
+          <p className="bg-background/50 p-2 rounded-md text-lg">Oops! Looks like sth&apos;s wrong...</p>
           <ButtonBorderedAnimated
             onClick={() => window.location.reload()}
             className="dark:bg-black/50 transition-all duration-700"
@@ -37,7 +37,7 @@ export default function MapSection({ bunkers }: Props) {
       ) : (
         <GoogleMaps
           {...{ bunkers }}
-          className={cn('transition-all rounded-md duration-700 opacity-0 h-0', isMounted && 'h-[500px] opacity-100')}
+          className={cn('transition-all rounded-md duration-700 opacity-0 h-0', isMounted && 'h-full opacity-100')}
         />
       )}
     </div>
