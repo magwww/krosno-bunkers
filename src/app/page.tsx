@@ -21,8 +21,8 @@ export default function Home() {
       >
         <h1
           className={cn(
-            'text-white mb-16 text-5xl text-center transition-text duration-1000 p-2 rounded-md',
-            !isMounted && 'text-4xl',
+            'text-white mb-16 text-5xl lg:text-6xl text-center transition-text duration-1000 p-2 rounded-md',
+            !isMounted && 'text-4xl lg:text-4xl',
           )}
           data-testid="home-header"
         >
@@ -30,7 +30,7 @@ export default function Home() {
         </h1>{' '}
         <ButtonLinkBorderedAnimated
           href="/bunkers"
-          className="bg-black/10 text-white transition-all duration-700"
+          className="bg-black/10 text-white lg:text-md transition-all duration-700"
           data-testid="home-button"
         >
           Select your bunker
