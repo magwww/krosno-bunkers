@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
+import { useTheme } from 'next-themes'
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   bunkers: Bunker[]
@@ -36,6 +37,7 @@ const InfoWindowContent = ({ bunker }: { bunker: Bunker }) => {
 }
 
 export default function GoogleMaps({ bunkers, className }: Props) {
+  const { theme } = useTheme()
   const mapRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -57,7 +59,7 @@ export default function GoogleMaps({ bunkers, className }: Props) {
           lng: 21.754001577384994,
         },
         zoom: 13,
-        mapId: 'c55128c183c09ce2',
+        mapId: theme === 'light' ? '8ac85bf8cff53d33' : 'c55128c183c09ce2',
       }
 
       const map = new Map(mapRef.current as HTMLDivElement, mapOptions)
@@ -121,7 +123,7 @@ export default function GoogleMaps({ bunkers, className }: Props) {
     }
 
     initializeMap()
-  }, [])
+  }, [theme])
 
   return (
     <div
