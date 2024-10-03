@@ -3,10 +3,9 @@ import { useState, useEffect } from 'react'
 import { type Bunker } from '@/types'
 import { Elements } from '@stripe/react-stripe-js'
 import CheckoutForm from '@/app/components/preview/checkout-form'
-import { loadStripe } from '@stripe/stripe-js'
+import { loadStripe, StripeElementLocale } from '@stripe/stripe-js'
 import { paymentIntentSchema } from '@/lib/validations'
 import toast from 'react-hot-toast'
-import { StripeElementLocale } from '@stripe/stripe-js'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
