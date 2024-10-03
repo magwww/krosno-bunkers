@@ -6,6 +6,7 @@ import CheckoutForm from '@/app/components/preview/checkout-form'
 import { loadStripe } from '@stripe/stripe-js'
 import { paymentIntentSchema } from '@/lib/validations'
 import toast from 'react-hot-toast'
+import { StripeElementLocale } from '@stripe/stripe-js'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
@@ -37,6 +38,7 @@ export default function PreviewContent({ bunker }: { bunker: Bunker }) {
 
   const options = {
     clientSecret,
+    locale: 'en' as StripeElementLocale,
   }
 
   return (
