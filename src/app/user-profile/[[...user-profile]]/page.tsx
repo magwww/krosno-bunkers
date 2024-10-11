@@ -5,6 +5,7 @@ import { Warehouse } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useUser } from '@clerk/clerk-react'
 import { Bunker } from '@/types'
+import { apiClient } from '../../api/client'
 
 const UserProfilePage = () => {
   const [bunkers, setBunkers] = useState<Bunker[] | undefined>(undefined)
@@ -13,10 +14,7 @@ const UserProfilePage = () => {
   const { user, isSignedIn } = useUser()
 
   useEffect(() => {
-    fetch('/api/create-user', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-    }).then((res) => res.json())
+    apiClient.post('/create-user').then((res) => res.data)
   }, [])
 
   useEffect(() => {
@@ -24,14 +22,13 @@ const UserProfilePage = () => {
       setIsLoading(true)
 
       try {
-        const response = await fetch(`/api/get-user-bunkers?userId=${user?.id}`)
-        if (!response.ok) {
+        const { data } = await apiClient.get(`/get-user-bunkers?userId=${user?.id}`)
+
+        if (!data.data) {
           throw new Error('Network response was not ok')
         }
-        const { data } = await response.json()
 
-        // TODO: type data from response
-        setBunkers(data.map((el: any) => el.bunker))
+        setBunkers(data.data.map((el: any) => el.bunker))
       } catch (error) {
         console.error('Error fetching bunkers:', error)
       } finally {

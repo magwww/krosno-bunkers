@@ -1,15 +1,16 @@
 import PreviewContent from '@/app/components/preview/preview-content'
 import { notFound } from 'next/navigation'
 import { redirect } from 'next/navigation'
+import { apiClient } from '../api/client'
 
 async function getData(id: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bunker/${id}`)
+  const res = await apiClient.get(`/bunker/${id}`)
 
-  if (!res.ok) {
+  if (!res.data) {
     throw new Error('Failed to fetch bunker')
   }
 
-  return res.json()
+  return res.data
 }
 
 type Props = {

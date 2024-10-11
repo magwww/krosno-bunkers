@@ -6,6 +6,7 @@ import CheckoutForm from '@/app/components/preview/checkout-form'
 import { loadStripe, StripeElementLocale } from '@stripe/stripe-js'
 import { paymentIntentSchema } from '@/lib/validations'
 import toast from 'react-hot-toast'
+import { apiClient } from '../../api/client'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
@@ -13,15 +14,16 @@ export default function PreviewContent({ bunker }: { bunker: Bunker }) {
   const [clientSecret, setClientSecret] = useState<string>('')
 
   useEffect(() => {
-    fetch('/api/create-payment-intent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        price: bunker.price,
-        bunkers: [bunker],
-      }),
-    })
-      .then((res) => res.json())
+    apiClient
+      .post(
+        '/create-payment-intent',
+        JSON.stringify({
+          price: bunker.price,
+          bunkers: [bunker],
+        }),
+      )
+
+      .then((res) => res.data)
       .then((data) => {
         const validatedData = paymentIntentSchema.safeParse(data)
 

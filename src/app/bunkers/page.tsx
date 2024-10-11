@@ -1,15 +1,21 @@
 export const dynamic = 'force-dynamic'
 
 import MapSection from '@/app/components/home/map-section'
+import { apiClient } from '../api/client'
 
 async function getBunkers() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/bunkers`, { cache: 'no-store' })
+  const res = await apiClient.get('/bunkers', {
+    headers: {
+      Accept: 'application/json',
+      'Cache-Control': 'no-store',
+    },
+  })
 
-  if (!res.ok) {
+  if (!res.data) {
     throw new Error('Failed to fetch bunkers')
   }
 
-  return res.json()
+  return res.data
 }
 
 export default async function Bunkers() {
