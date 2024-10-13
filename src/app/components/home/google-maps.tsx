@@ -39,12 +39,18 @@ const InfoWindowContent = ({ bunker }: { bunker: Bunker }) => {
 export default function GoogleMaps({ bunkers, className }: Props) {
   const { theme } = useTheme()
   const mapRef = useRef<HTMLDivElement>(null)
+  const mapInstance = useRef<google.maps.Map | null>(null)
   const router = useRouter()
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
 
   useEffect(() => {
     const initializeMap = async () => {
+      if (mapInstance.current) {
+        mapInstance.current.setOptions({
+          mapId: theme === 'light' ? '8ac85bf8cff53d33' : 'c55128c183c09ce2',
+        })
+      }
       const loader = new Loader({
         apiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY as string,
         version: 'quartely',
@@ -62,7 +68,7 @@ export default function GoogleMaps({ bunkers, className }: Props) {
         mapId: theme === 'light' ? '8ac85bf8cff53d33' : 'c55128c183c09ce2',
       }
 
-      const map = new Map(mapRef.current as HTMLDivElement, mapOptions)
+      mapInstance.current = new Map(mapRef.current as HTMLDivElement, mapOptions)
 
       let InfoWindow = new google.maps.InfoWindow()
 
@@ -112,13 +118,13 @@ export default function GoogleMaps({ bunkers, className }: Props) {
       }
 
       bunkers.forEach((bunker) => {
-        createMarker(bunker, map, InfoWindow)
+        createMarker(bunker, mapInstance.current as google.maps.Map, InfoWindow)
       })
 
       const bunkerFromQuery = bunkers.find((bunker) => bunker.id === id)
 
       if (bunkerFromQuery) {
-        createMarker(bunkerFromQuery, map, InfoWindow, true)
+        createMarker(bunkerFromQuery, mapInstance.current as google.maps.Map, InfoWindow, true)
       }
     }
 
