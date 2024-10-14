@@ -16,7 +16,7 @@ type Props = HTMLAttributes<HTMLDivElement> & {
 }
 
 const InfoWindowContent = ({ bunker }: { bunker: Bunker }) => {
-  const spotsAvailable = bunker.capacity > 0
+  const spotsAvailable = bunker.capacity && bunker.capacity > 0
 
   return (
     <div className="flex flex-col justify-center items-center gap-2">

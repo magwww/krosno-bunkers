@@ -2,7 +2,7 @@ export type Bunker = {
   id: string
   longitude: number
   latitude: number
-  capacity: number
+  capacity: number | null
   address: string
   price: number
 }
