@@ -7,6 +7,7 @@ import { loadStripe, StripeElementLocale } from '@stripe/stripe-js'
 import { paymentIntentSchema } from '@/lib/validations'
 import toast from 'react-hot-toast'
 import { apiClient } from '../../api/client'
+import Loader from '@/app/components/common/loader'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
@@ -48,10 +49,12 @@ export default function PreviewContent({ bunker }: { bunker: Bunker }) {
         You&apos;re just one click away from becoming the lucky owner of a spot in your chosen bunker:{' '}
         <span className="my-4 font-bold text-xl">{bunker.address}</span>
       </p>
-      {clientSecret && (
+      {clientSecret ? (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
+      ) : (
+        <Loader />
       )}
     </main>
   )
