@@ -10,3 +10,10 @@ export type Bunker = {
 export type GroupedBunker = Pick<Bunker, 'id' | 'address'> & {
   count: number
 }
+
+export type MapElement = {
+  id: string
+  longitude: number
+  latitude: number
+  [key: string]: any
+}

@@ -1,8 +1,8 @@
-import { type Bunker } from '@/types'
+import { type MapElement } from '@/types'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
-const InfoWindowContent = ({ bunker }: { bunker: Bunker }) => {
+const BunkerMapMarkerContent = ({ bunker }: { bunker: MapElement }) => {
   const spotsAvailable = bunker.capacity && bunker.capacity > 0
 
   return (
@@ -23,4 +23,4 @@ const InfoWindowContent = ({ bunker }: { bunker: Bunker }) => {
   )
 }
 
-export default InfoWindowContent
+export default BunkerMapMarkerContent
