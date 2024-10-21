@@ -3,6 +3,7 @@ export type Bunker = {
   longitude: number
   latitude: number
   capacity: number | null
+  initialCapacity: number
   address: string
   price: number
 }
