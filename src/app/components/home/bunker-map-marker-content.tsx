@@ -8,7 +8,12 @@ const BunkerMapMarkerContent = ({ bunker }: { bunker: MapElement }) => {
   return (
     <div className="flex flex-col justify-center items-center gap-2">
       <p className="font-bold text-black text-lg">{bunker.address}</p>
-      {bunker.capacity && <p className="mb-2 text-black text-xs">Free spots: {bunker.capacity}</p>}
+      {bunker.capacity && (
+        <div className="flex flex-col items-center gap-1 mb-2 text-black text-xs">
+          <p>Free spots: {bunker.capacity}</p>
+          <p className="text-black text-xs">Spots taken: {bunker.initialCapacity - bunker.capacity}</p>
+        </div>
+      )}
       {spotsAvailable ? (
         <Link
           href={`/payment-preview?id=${bunker.id}`}
