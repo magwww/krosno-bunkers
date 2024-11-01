@@ -2,6 +2,9 @@ import { Bunker, GroupedBunker } from '@/types'
 import Loader from '@/app/components/common/loader'
 import { ButtonLinkBorderedAnimated } from '@/app/components/common/button-bordered-animated'
 import { useState } from 'react'
+import Link from 'next/link'
+import { UserProfile } from '@clerk/nextjs'
+import { Warehouse } from 'lucide-react'
 
 type Props = {
   isLoading: boolean
@@ -42,7 +45,8 @@ export default function MyBunkers({ bunkers, isLoading }: Props) {
             <ul className="flex flex-col gap-2">
               {groupedBunkers?.map((bunker, index) => (
                 <li key={`${index}-${bunker.id}`}>
-                  {bunker.address} - {bunker.count} {bunker.count > 1 ? 'spots' : 'spot'}
+                  <Link href={`/my-bunkers/${bunker.id}`}>{bunker.address}</Link>- {bunker.count}{' '}
+                  {bunker.count > 1 ? 'spots' : 'spot'}
                 </li>
               ))}
             </ul>
