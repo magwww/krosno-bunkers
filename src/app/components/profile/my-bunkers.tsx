@@ -3,8 +3,7 @@ import Loader from '@/app/components/common/loader'
 import { ButtonLinkBorderedAnimated } from '@/app/components/common/button-bordered-animated'
 import { useState } from 'react'
 import Link from 'next/link'
-import { UserProfile } from '@clerk/nextjs'
-import { Warehouse } from 'lucide-react'
+import Image from 'next/image'
 
 type Props = {
   isLoading: boolean
@@ -36,17 +35,22 @@ export default function MyBunkers({ bunkers, isLoading }: Props) {
     <div className="flex flex-col justify-center w-full">
       <h1 className="border-[#292524] pb-4 border-b font-bold text-[17px] dark:text-white">Your bunkers</h1>
       <div className="flex lg:flex-row flex-col items-start">
-        <div className="py-4 w-1/2 text-[13px] dark:text-white/70">
+        <div className="py-4 lg:w-1/2 text-[13px] dark:text-white/70">
           {isLoading ? (
             <Loader className="size-6" />
           ) : bunkers && !bunkers.length ? (
             <p>You don&apos;t own any bunker spots yet</p>
           ) : (
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col gap-3">
               {groupedBunkers?.map((bunker, index) => (
                 <li key={`${index}-${bunker.id}`}>
-                  <Link href={`/my-bunkers/${bunker.id}`}>{bunker.address}</Link>- {bunker.count}{' '}
-                  {bunker.count > 1 ? 'spots' : 'spot'}
+                  <span className="flex items-center gap-1">
+                    <Image src="/bunker-icon.png" width={20} height={20} alt="" className="size-8" />
+                    <Link className="text-lg" href={`/my-bunkers/${bunker.id}`}>
+                      {bunker.address}
+                    </Link>
+                  </span>
+                  {bunker.count} {bunker.count > 1 ? 'spots' : 'spot'}
                 </li>
               ))}
             </ul>
