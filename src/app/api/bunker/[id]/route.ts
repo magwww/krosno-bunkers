@@ -7,6 +7,13 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   try {
     const bunker = await db.bunker.findUnique({
       where: { id },
+      include: {
+        users: {
+          include: {
+            user: true,
+          },
+        },
+      },
     })
 
     if (!bunker) {

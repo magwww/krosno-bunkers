@@ -44,12 +44,10 @@ export default function MyBunkers({ bunkers, isLoading }: Props) {
             <ul className="flex flex-col gap-3">
               {groupedBunkers?.map((bunker, index) => (
                 <li key={`${index}-${bunker.id}`}>
-                  <span className="flex items-center gap-1">
+                  <Link className="text-lg flex items-center gap-1" href={`/my-bunkers/${bunker.id}`}>
                     <Image src="/bunker-icon.png" width={20} height={20} alt="" className="size-8" />
-                    <Link className="text-lg" href={`/my-bunkers/${bunker.id}`}>
-                      {bunker.address}
-                    </Link>
-                  </span>
+                    <span>{bunker.address}</span>
+                  </Link>
                   {bunker.count} {bunker.count > 1 ? 'spots' : 'spot'}
                 </li>
               ))}
