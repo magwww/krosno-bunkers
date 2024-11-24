@@ -54,8 +54,14 @@ const UserProfilePage = () => {
               'lg:dark:bg-none lg:dark:[&_p]:text-white/70 lg:dark:[&_h1]:text-white lg:dark:[&_button]:text-white',
             navbarButton: 'text-neutral-900',
             scrollBox:
-              'dark:border-l rounded-none dark:border-white/20 dark:bg-black dark:[&_h1]:text-white dark:[&_p]:text-white/70 dark:[&_span]:text-white dark:[&_button]:text-white',
-            profileSection: 'dark:border-white/20',
+              'dark:border-l rounded-none dark:border-white/20 dark:bg-black dark:[&_h1]:text-white dark:[&_p]:text-white/70 dark:[&_span]:text-white',
+            profileSection:
+              'rounded-none dark:border-white/20 dark:bg-black dark:[&_h1]:text-white dark:[&_p]:text-white/70 dark:[&_span]:text-white',
+            actionCard: 'dark:bg-black dark:[&_button]:border dark:[&_button]:border-white/20 dark:[&_label]:text-white',
+            profileSectionContent__profile: '[&_.cl-formButtonPrimary]:hidden',
+            formButtonReset: 'dark:text-white',
+            profileSectionPrimaryButton: 'dark:text-white',
+            avatarImageActionsUpload:'dark:text-white'
           },
         }}
       >
