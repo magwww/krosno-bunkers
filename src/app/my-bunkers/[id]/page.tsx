@@ -3,6 +3,7 @@ import { apiClient } from '../../api/client'
 import { notFound } from 'next/navigation'
 import { clerkClient } from '@clerk/express'
 import Image from 'next/image'
+import { UserCircleIcon } from '@heroicons/react/24/solid'
 
 async function getBunker(id: string) {
   const res = await apiClient.get(`/bunker/${id}`)
@@ -35,13 +36,17 @@ export default async function MyBunker({ params }: { params: { id: string } }) {
       <ul>
         {data.map((user) => (
           <li key={user.id} className="flex items-center gap-2">
-            <Image
-              src={user.imageUrl}
-              alt={`Avatar of user ${user.username}`}
-              width={24}
-              height={24}
-              className="rounded-full"
-            />
+            {user.imageUrl ? (
+              <Image
+                src={user.imageUrl}
+                alt={`Avatar of user ${user.username}`}
+                width={24}
+                height={24}
+                className="rounded-full"
+              />
+            ) : (
+              <UserCircleIcon className="size-7 text-stone-500" />
+            )}
             <span>
               {user.username?.[0].toUpperCase()}
               {user.username?.slice(1)}
