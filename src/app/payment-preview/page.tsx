@@ -14,11 +14,12 @@ async function getData(id: string) {
 }
 
 type Props = {
-  searchParams: { [key: string]: string | string[] }
+  searchParams: Promise<{ [key: string]: string | string[] }>
 }
 
 export default async function PreviewPage({ searchParams }: Props) {
-  const id = Array.isArray(searchParams.id) ? searchParams.id[0] : searchParams.id
+  const currSearchParams = await searchParams
+  const id = Array.isArray(currSearchParams.id) ? currSearchParams.id[0] : currSearchParams.id
 
   // TODO: handle it better
   if (!id) {

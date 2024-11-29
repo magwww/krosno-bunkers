@@ -10,7 +10,7 @@ const calculateOrderAmount = (items: Bunker[]) => {
   return items.reduce((accumulator, item) => accumulator + item.price, 0)
 }
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const { price, bunkers }: { price: number; bunkers: Bunker[] } = await req.json()
 
   const clerkUser = await currentUser()
