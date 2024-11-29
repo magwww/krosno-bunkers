@@ -7,8 +7,7 @@ import { revalidatePath } from 'next/cache'
 
 export async function POST(req: Request) {
   const body = await req.text()
-  const currHeaders = await headers()
-  const signature = currHeaders.get('Stripe-Signature') as string
+  const signature = headers().get('Stripe-Signature') as string
 
   let event: Stripe.Event
 
