@@ -5,6 +5,15 @@ import { headers } from 'next/headers'
 import { db } from '@/lib/db'
 import { revalidatePath } from 'next/cache'
 
+async function sendConfirmationEmail(intent: Stripe.PaymentIntent) {
+  const email = intent.receipt_email
+
+  await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-email`, {
+    method: 'POST',
+    body: JSON.stringify({ email, firstName: intent.metadata.userName }),
+  })
+}
+
 export async function POST(req: Request) {
   const body = await req.text()
   const signature = headers().get('Stripe-Signature') as string
@@ -21,6 +30,7 @@ export async function POST(req: Request) {
   switch (event['type']) {
     case 'payment_intent.succeeded':
       intent = event.data.object
+      await sendConfirmationEmail(intent)
 
       await db.order.update({
         where: {

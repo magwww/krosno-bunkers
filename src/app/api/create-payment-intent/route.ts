@@ -42,7 +42,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
         orderId: order.id,
         bunkerId: bunkers[0].id,
         userId: user?.id!,
+        userName: clerkUser.firstName,
       },
+      receipt_email: user?.email,
     })
 
     return NextResponse.json({
