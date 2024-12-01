@@ -38,6 +38,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: calculateOrderAmount(bunkers),
       currency: 'PLN',
+      payment_method_types: ['card', 'blik'],
       metadata: {
         orderId: order.id,
         bunkerId: bunkers[0].id,
