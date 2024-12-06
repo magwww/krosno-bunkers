@@ -1,6 +1,7 @@
 import { type MapElement } from '@/types'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import Counter from '@/app/components/common/counter'
 
 const BunkerMapMarkerContent = ({ bunker }: { bunker: MapElement }) => {
   const spotsAvailable = bunker.capacity && bunker.capacity > 0
@@ -16,12 +17,15 @@ const BunkerMapMarkerContent = ({ bunker }: { bunker: MapElement }) => {
         </div>
       )}
       {spotsAvailable ? (
-        <Link
-          href={`/payment-preview?id=${bunker.id}`}
-          className="bg-black px-2 py-3 rounded font-semibold text-center text-white"
-        >
-          Buy spot in this bunker
-        </Link>
+        <>
+          <Counter />
+          <Link
+            href={`/payment-preview?id=${bunker.id}`}
+            className="bg-black px-2 py-3 rounded font-semibold text-center text-white"
+          >
+            Buy spot in this bunker
+          </Link>
+        </>
       ) : (
         <Button disabled>There are no spots available in this bunker</Button>
       )}
