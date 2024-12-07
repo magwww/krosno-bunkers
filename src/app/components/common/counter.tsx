@@ -1,13 +1,17 @@
 'use client'
 import { useState, type ChangeEvent } from 'react'
 
-export default function Counter() {
+type Props = {
+  maxValue: number
+}
+
+export default function Counter({ maxValue }: Props) {
   const [count, setCount] = useState(0)
 
   const ensurePositiveIntegerCount = (value: number | ((prevCount: number) => number)) => {
     setCount((prevCount) => {
-      const calculatedValue = typeof value === 'function' ? value(prevCount) : value
-      return Math.max(0, Math.floor(calculatedValue))
+      const calculatedValue = typeof value == 'function' ? value(prevCount) : value
+      return Math.min(maxValue, Math.max(0, Math.floor(calculatedValue)))
     })
   }
 
@@ -32,19 +36,23 @@ export default function Counter() {
   return (
     <div className="flex">
       <input
-        type="text"
+        inputMode="numeric"
         value={count}
         onChange={handleInputChange}
         aria-label="Counter value"
         className="max-w-20 bg-white px-2 py-1 outline-none rounded font-semibold text-center text-black border"
       />
-      <button onClick={increment} className="bg-black px-2 py-1 rounded font-semibold text-center text-white">
+      <button
+        onClick={increment}
+        disabled={count == maxValue}
+        className="bg-black px-2 py-1 rounded font-semibold text-center text-white"
+      >
         {' '}
         +{' '}
       </button>
       <button
         onClick={decrement}
-        disabled={count === 0}
+        disabled={count == 0}
         className="bg-black px-2 py-1 rounded font-semibold text-center text-white"
       >
         {' '}

@@ -18,7 +18,7 @@ const BunkerMapMarkerContent = ({ bunker }: { bunker: MapElement }) => {
       )}
       {spotsAvailable ? (
         <>
-          <Counter />
+          <Counter maxValue={bunker.capacity} />
           <Link
             href={`/payment-preview?id=${bunker.id}`}
             className="bg-black px-2 py-3 rounded font-semibold text-center text-white"
