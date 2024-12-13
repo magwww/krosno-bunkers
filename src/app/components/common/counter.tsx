@@ -44,20 +44,20 @@ export default function Counter({ maxValue, count, setCount }: Props) {
         className="max-w-20 bg-white px-2 py-1 outline-none rounded font-semibold text-center text-black border"
       />
       <button
+        onClick={decrement}
+        disabled={count == 1}
+        className="bg-black px-2 py-1 rounded font-semibold text-center text-white"
+      >
+        {' '}
+        -{' '}
+      </button>
+      <button
         onClick={increment}
         disabled={count == maxValue}
         className="bg-black px-2 py-1 rounded font-semibold text-center text-white"
       >
         {' '}
         +{' '}
-      </button>
-      <button
-        onClick={decrement}
-        disabled={count == 0}
-        className="bg-black px-2 py-1 rounded font-semibold text-center text-white"
-      >
-        {' '}
-        -{' '}
       </button>
     </div>
   )
