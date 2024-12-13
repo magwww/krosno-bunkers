@@ -11,7 +11,7 @@ import Loader from '@/app/components/common/loader'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
-export default function PreviewContent({ bunker }: { bunker: Bunker }) {
+export default function PreviewContent({ bunker, count }: { bunker: Bunker; count: number }) {
   const [clientSecret, setClientSecret] = useState<string>('')
 
   useEffect(() => {
@@ -21,6 +21,7 @@ export default function PreviewContent({ bunker }: { bunker: Bunker }) {
         JSON.stringify({
           price: bunker.price,
           bunkers: [bunker],
+          count,
         }),
       )
 

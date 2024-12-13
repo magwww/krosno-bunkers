@@ -11,10 +11,11 @@ datasource db {
 model UserBunker {
   id        String   @id @default(uuid())
   userId    String
-  bunkerId  String
+  bunkerId  String   @unique
   createdAt DateTime @default(now())
   bunker    Bunker   @relation(fields: [bunkerId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
+  count     Int      @default(1)
 
   @@index([userId, bunkerId])
 }
@@ -53,4 +54,5 @@ model Order {
   paid      Boolean  @default(false)
   bunker    Bunker   @relation(fields: [bunkerId], references: [id])
   user      User     @relation(fields: [userId], references: [id])
+  count     Int      @default(1)
 }

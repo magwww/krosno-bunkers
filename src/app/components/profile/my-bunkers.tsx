@@ -1,4 +1,4 @@
-import { Bunker, GroupedBunker } from '@/types'
+import { UserBunker } from '@/types'
 import Loader from '@/app/components/common/loader'
 import { ButtonLinkBorderedAnimated } from '@/app/components/common/button-bordered-animated'
 import { useState } from 'react'
@@ -7,29 +7,12 @@ import Image from 'next/image'
 
 type Props = {
   isLoading: boolean
-  bunkers: Bunker[] | undefined
+  userBunkers: UserBunker[] | undefined
 }
 
-export default function MyBunkers({ bunkers, isLoading }: Props) {
+export default function MyBunkers({ userBunkers, isLoading }: Props) {
   const initialButtonText = 'Get yourself a bunker spot'
   const [buttonText, setButtonText] = useState(initialButtonText)
-
-  const groupedBunkers: GroupedBunker[] | undefined = bunkers?.reduce<GroupedBunker[]>((acc, current) => {
-    const { id } = current
-    const existing = acc.find((item) => item.id === id)
-
-    if (existing) {
-      existing.count++
-    } else {
-      acc.push({
-        id,
-        address: current.address,
-        count: 1,
-      })
-    }
-
-    return acc
-  }, [])
 
   return (
     <div className="flex flex-col justify-center w-full">
@@ -38,17 +21,17 @@ export default function MyBunkers({ bunkers, isLoading }: Props) {
         <div className="py-4 lg:w-1/2 text-[13px] dark:text-white/70">
           {isLoading ? (
             <Loader className="size-6" />
-          ) : bunkers && !bunkers.length ? (
+          ) : userBunkers && !userBunkers.length ? (
             <p>You don&apos;t own any bunker spots yet</p>
           ) : (
             <ul className="flex flex-col gap-3">
-              {groupedBunkers?.map((bunker, index) => (
-                <li key={`${index}-${bunker.id}`}>
-                  <Link className="text-lg flex items-center gap-1" href={`/my-bunkers/${bunker.id}`}>
+              {userBunkers?.map((el, index) => (
+                <li key={`${index}-${el.id}`}>
+                  <Link className="text-lg flex items-center gap-1" href={`/my-bunkers/${el.bunker.id}`}>
                     <Image src="/bunker-icon.png" width={20} height={20} alt="" className="size-8" />
-                    <span>{bunker.address}</span>
+                    <span>{el.bunker.address}</span>
                   </Link>
-                  {bunker.count} {bunker.count > 1 ? 'spots' : 'spot'}
+                  {el.count} {el.count > 1 ? 'spots' : 'spot'}
                 </li>
               ))}
             </ul>
@@ -60,7 +43,7 @@ export default function MyBunkers({ bunkers, isLoading }: Props) {
           onMouseEnter={() => setButtonText('You know you want it')}
           onMouseLeave={() => setButtonText(initialButtonText)}
         >
-          {isLoading && !bunkers ? <Loader className="size-6" /> : buttonText}
+          {isLoading && !userBunkers ? <Loader className="size-6" /> : buttonText}
         </ButtonLinkBorderedAnimated>
       </div>
     </div>

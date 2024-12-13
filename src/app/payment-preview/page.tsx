@@ -14,11 +14,11 @@ async function getData(id: string) {
 }
 
 type Props = {
-  searchParams: { [key: string]: string | string[] }
+  searchParams: { [key: string]: string }
 }
 
 export default async function PreviewPage({ searchParams }: Props) {
-  const id = Array.isArray(searchParams.id) ? searchParams.id[0] : searchParams.id
+  const { id, count } = searchParams
 
   // TODO: handle it better
   if (!id) {
@@ -31,5 +31,5 @@ export default async function PreviewPage({ searchParams }: Props) {
     redirect('/')
   }
 
-  return <PreviewContent {...{ bunker }} />
+  return <PreviewContent {...{ bunker }} count={Number(count)} />
 }

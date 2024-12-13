@@ -5,13 +5,8 @@ import { type Bunker } from '@/types'
 import { db } from '@/lib/db'
 import { currentUser } from '@clerk/nextjs/server'
 
-//TODO: enable multiple products purchase
-const calculateOrderAmount = (items: Bunker[]) => {
-  return items.reduce((accumulator, item) => accumulator + item.price, 0)
-}
-
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { price, bunkers }: { price: number; bunkers: Bunker[] } = await req.json()
+  const { price, bunkers, count }: { price: number; bunkers: Bunker[]; count: number } = await req.json()
 
   const clerkUser = await currentUser()
 
@@ -20,6 +15,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   try {
+    const calculateOrderAmount = (items: Bunker[]) => {
+      return items.reduce((accumulator, item) => accumulator + item.price * count, 0)
+    }
+
     const user = await db.user.findUnique({
       where: {
         clerkId: clerkUser.id,
@@ -28,10 +27,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     const order = await db.order.create({
       data: {
-        price,
+        price: price * count,
         userId: user?.id!,
         bunkerId: bunkers[0].id,
         paid: false,
+        count,
       },
     })
 
@@ -44,6 +44,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         bunkerId: bunkers[0].id,
         userId: user?.id!,
         userName: clerkUser.firstName,
+        count: order.count,
       },
       receipt_email: user?.email,
     })

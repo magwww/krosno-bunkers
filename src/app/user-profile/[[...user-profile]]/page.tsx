@@ -4,11 +4,11 @@ import { UserProfile } from '@clerk/nextjs'
 import { Warehouse } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useUser } from '@clerk/clerk-react'
-import { Bunker } from '@/types'
+import { UserBunker } from '@/types'
 import { apiClient } from '../../api/client'
 
 const UserProfilePage = () => {
-  const [bunkers, setBunkers] = useState<Bunker[] | undefined>(undefined)
+  const [userBunkers, setUserBunkers] = useState<UserBunker[] | undefined>(undefined)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const { user, isSignedIn } = useUser()
@@ -28,9 +28,9 @@ const UserProfilePage = () => {
           throw new Error('Network response was not ok')
         }
 
-        setBunkers(data.data.map((el: any) => el.bunker))
+        setUserBunkers(data.data.map((userBunker: UserBunker) => userBunker))
       } catch (error) {
-        console.error('Error fetching bunkers:', error)
+        console.error('Error fetching user bunkers:', error)
       } finally {
         setIsLoading(false)
       }
@@ -57,16 +57,17 @@ const UserProfilePage = () => {
               'dark:border-l rounded-none dark:border-white/20 dark:bg-black dark:[&_h1]:text-white dark:[&_p]:text-white/70 dark:[&_span]:text-white',
             profileSection:
               'rounded-none dark:border-white/20 dark:bg-black dark:[&_h1]:text-white dark:[&_p]:text-white/70 dark:[&_span]:text-white',
-            actionCard: 'dark:bg-black dark:[&_button]:border dark:[&_button]:border-white/20 dark:[&_label]:text-white',
+            actionCard:
+              'dark:bg-black dark:[&_button]:border dark:[&_button]:border-white/20 dark:[&_label]:text-white',
             profileSectionContent__profile: '[&_.cl-formButtonPrimary]:hidden',
             formButtonReset: 'dark:text-white',
             profileSectionPrimaryButton: 'dark:text-white',
-            avatarImageActionsUpload:'dark:text-white'
+            avatarImageActionsUpload: 'dark:text-white',
           },
         }}
       >
         <UserProfile.Page label="My bunkers" labelIcon={<Warehouse className="size-4" />} url="/my-bunkers">
-          <MyBunkers {...{ bunkers, isLoading }} />
+          <MyBunkers {...{ userBunkers, isLoading }} />
         </UserProfile.Page>
       </UserProfile>
     </main>
