@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Order" ADD COLUMN     "count" INTEGER NOT NULL DEFAULT 1;
+
+-- AlterTable
+ALTER TABLE "UserBunker" ADD COLUMN     "count" INTEGER NOT NULL DEFAULT 1;
