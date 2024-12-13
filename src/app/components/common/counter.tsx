@@ -1,17 +1,18 @@
 'use client'
-import { useState, type ChangeEvent } from 'react'
+
+import { type ChangeEvent, type Dispatch, type SetStateAction } from 'react'
 
 type Props = {
   maxValue: number
+  count: number
+  setCount: Dispatch<SetStateAction<number>>
 }
 
-export default function Counter({ maxValue }: Props) {
-  const [count, setCount] = useState(0)
-
+export default function Counter({ maxValue, count, setCount }: Props) {
   const ensurePositiveIntegerCount = (value: number | ((prevCount: number) => number)) => {
     setCount((prevCount) => {
       const calculatedValue = typeof value == 'function' ? value(prevCount) : value
-      return Math.min(maxValue, Math.max(0, Math.floor(calculatedValue)))
+      return Math.min(maxValue, Math.max(1, Math.floor(calculatedValue)))
     })
   }
 
@@ -29,7 +30,7 @@ export default function Counter({ maxValue }: Props) {
     if (!isNaN(parsedValue)) {
       ensurePositiveIntegerCount(parsedValue)
     } else if (value === '') {
-      setCount(0)
+      setCount(1)
     }
   }
 

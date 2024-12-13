@@ -47,7 +47,7 @@ export async function POST(req: Request) {
         },
         data: {
           capacity: {
-            decrement: 1,
+            decrement: Number(intent.metadata.count),
           },
         },
       })
@@ -61,12 +61,32 @@ export async function POST(req: Request) {
       })
 
       if (dbUser) {
-        await db.userBunker.create({
-          data: {
-            userId: dbUser?.id,
+        const userBunkerFound = await db.userBunker.findUnique({
+          where: {
             bunkerId: intent.metadata.bunkerId,
           },
         })
+
+        if (!userBunkerFound) {
+          await db.userBunker.create({
+            data: {
+              userId: dbUser?.id,
+              bunkerId: intent.metadata.bunkerId,
+              count: Number(intent.metadata.count),
+            },
+          })
+        } else {
+          await db.userBunker.update({
+            where: {
+              bunkerId: intent.metadata.bunkerId,
+            },
+            data: {
+              count: {
+                increment: Number(intent.metadata.count),
+              },
+            },
+          })
+        }
       }
 
       break

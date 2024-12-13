@@ -20,8 +20,13 @@ export type BunkerWithUsers = Prisma.BunkerGetPayload<{
   }
 }>
 
-export type GroupedBunker = Pick<Bunker, 'id' | 'address'> & {
+export type UserBunker = {
+  bunker: Bunker
+  bunkerId: string
   count: number
+  createdAt: string
+  id: string
+  userId: string
 }
 
 export type MapElement = {

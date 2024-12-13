@@ -1,9 +1,14 @@
+'use client'
+
 import { type MapElement } from '@/types'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import Counter from '@/app/components/common/counter'
+import { useState } from 'react'
 
 const BunkerMapMarkerContent = ({ bunker }: { bunker: MapElement }) => {
+  const [count, setCount] = useState<number>(1)
+
   const spotsAvailable = bunker.capacity && bunker.capacity > 0
 
   return (
@@ -18,9 +23,9 @@ const BunkerMapMarkerContent = ({ bunker }: { bunker: MapElement }) => {
       )}
       {spotsAvailable ? (
         <>
-          <Counter maxValue={bunker.capacity} />
+          <Counter maxValue={bunker.capacity} {...{ count, setCount }} />
           <Link
-            href={`/payment-preview?id=${bunker.id}`}
+            href={`/payment-preview?id=${bunker.id}&count=${count}`}
             className="bg-black px-2 py-3 rounded font-semibold text-center text-white"
           >
             Buy spot in this bunker
