@@ -1,11 +1,12 @@
 'use client'
 
 import GoogleMaps from '@/app/components/home/google-maps'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { type Bunker } from '@/types'
 import { ButtonBorderedAnimated } from '@/app/components/common/button-bordered-animated'
 import toast from 'react-hot-toast'
+import { usePathname } from 'next/navigation'
 
 type Props = {
   bunkers: Bunker[]
@@ -14,13 +15,33 @@ type Props = {
 export default function MapSection({ bunkers }: Props) {
   const [isMounted, setIsMounted] = useState<boolean>(false)
 
+  const pathname = usePathname()
+  const mapToastIdRef = useRef<string | null>(null)
+
   useEffect(() => {
     setTimeout(() => setIsMounted(true), 400)
   }, [])
 
   useEffect(() => {
-    setTimeout(() => toast('Hurry up, spots are selling like hot cakes!'), 5000)
+    const toastTimeout = setTimeout(
+      () => (mapToastIdRef.current = toast('Hurry up, spots are selling like hot cakes!')),
+      5000,
+    )
+
+    return () => {
+      clearTimeout(toastTimeout)
+      if (mapToastIdRef.current) {
+        toast.dismiss(mapToastIdRef.current)
+      }
+    }
   }, [])
+
+  useEffect(() => {
+    if (mapToastIdRef.current) {
+      toast.dismiss(mapToastIdRef.current)
+      mapToastIdRef.current = null
+    }
+  }, [pathname])
 
   return (
     <div className="h-screen transition-blur duration-1000">
