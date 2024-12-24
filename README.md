@@ -1,4 +1,4 @@
-You can see the live version at https://krosno-bunkers.vercel.app
+You can see the live version at https://krosno-bunkers.pl
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
