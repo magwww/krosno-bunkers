@@ -26,7 +26,7 @@ export default function Navigation() {
                   userProfileMode="navigation"
                   appearance={{
                     elements: {
-                      userButtonOuterIdentifier: 'dark:text-white order-last pl-0',
+                      userButtonOuterIdentifier: 'dark:text-white/80 order-last pl-0',
                       userButtonTrigger: 'focus:shadow-none',
                     },
                   }}

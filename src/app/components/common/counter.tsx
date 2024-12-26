@@ -41,12 +41,12 @@ export default function Counter({ maxValue, count, setCount }: Props) {
         value={count}
         onChange={handleInputChange}
         aria-label="Counter value"
-        className="max-w-20 bg-white px-2 py-1 outline-none rounded font-semibold text-center text-black border"
+        className="bg-white px-2 py-1 border rounded max-w-20 font-semibold text-black text-center outline-none"
       />
       <button
         onClick={decrement}
         disabled={count == 1}
-        className="bg-black px-2 py-1 rounded font-semibold text-center text-white"
+        className="bg-black px-2 py-1 rounded font-semibold text-center text-white/80"
       >
         {' '}
         -{' '}
@@ -54,7 +54,7 @@ export default function Counter({ maxValue, count, setCount }: Props) {
       <button
         onClick={increment}
         disabled={count == maxValue}
-        className="bg-black px-2 py-1 rounded font-semibold text-center text-white"
+        className="bg-black px-2 py-1 rounded font-semibold text-center text-white/80"
       >
         {' '}
         +{' '}
