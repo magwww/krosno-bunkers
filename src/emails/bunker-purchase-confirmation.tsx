@@ -27,18 +27,18 @@ export const BunkerPurchaseConfirmation = ({ firstName }: BunkerPurchaseConfirma
       <Head />
       <Preview>{previewText}</Preview>
       <Tailwind>
-        <Body className="bg-white my-auto mx-auto font-sans px-2">
-          <Container className="border border-solid border-slate-200 rounded my-10 mx-auto p-5 max-w-[465px]">
+        <Body className="bg-white mx-auto my-auto px-2 font-sans">
+          <Container className="border-slate-200 mx-auto my-10 p-5 border border-solid rounded max-w-[465px]">
             <Section className="mt-8">
               <Img
                 src={`${baseUrl}/bunker.png`}
                 width="50"
                 height="50"
                 alt="Krosno Bunkers logo"
-                className="my-0 mx-auto"
+                className="mx-auto my-0"
               />
             </Section>
-            <Heading className="text-2xl font-normal text-center p-0 my-[30px] mx-0">
+            <Heading className="mx-0 my-[30px] p-0 font-normal text-2xl text-center">
               Hi <strong>{firstName}</strong>!
             </Heading>
             <Text className="text-sm leading-6">
@@ -46,16 +46,16 @@ export const BunkerPurchaseConfirmation = ({ firstName }: BunkerPurchaseConfirma
             </Text>
             <Text className="text-sm leading-6">
               You can manage your purchase in the{' '}
-              <Link href="https://krosno-bunkers.vercel.app/user-profile" className="text-amber-800">
+              <Link href="https://krosno-bunkers.pl/user-profile" className="text-amber-800">
                 user panel
               </Link>
               . You can also check who you&apos;re gonna share it with by clicking the name of the bunker.
             </Text>
             <Text className="text-sm leading-6">If you&apos;d like to get another one, feel free to do so:</Text>
-            <Section className="text-center my-8">
+            <Section className="my-8 text-center">
               <Button
-                className="bg-black rounded text-white text-xs font-semibold no-underline text-center px-5 py-2.5"
-                href="https://krosno-bunkers.vercel.app/bunkers"
+                className="bg-black px-5 py-2.5 rounded font-semibold text-center text-xs no-underline /80"
+                href="https://krosno-bunkers.pl/bunkers"
               >
                 Get a spot
               </Button>
