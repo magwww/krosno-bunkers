@@ -5,6 +5,7 @@ import { useTheme } from 'next-themes'
 import { type MapElement } from '@/types'
 import { createRoot, Root } from 'react-dom/client'
 import { useSearchParams } from 'next/navigation'
+import { routes } from '@/costs/routes'
 
 const useMap = (
   elements: MapElement[],
@@ -66,7 +67,7 @@ const useMap = (
       infoWindow.setContent(div)
       infoWindow.setPosition(marker.position)
       infoWindow.open(map, marker)
-      router.push(`/bunkers?id=${element.id}`)
+      router.push(`${routes.bunkers}?id=${element.id}`)
     }
 
     marker.addListener('click', () => {

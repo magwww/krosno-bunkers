@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useUser } from '@clerk/clerk-react'
 import { UserBunker } from '@/types'
 import { apiClient } from '../../api/client'
+import { routes } from '@/costs/routes'
 
 const UserProfilePage = () => {
   const [userBunkers, setUserBunkers] = useState<UserBunker[] | undefined>(undefined)
@@ -44,7 +45,7 @@ const UserProfilePage = () => {
   return (
     <main>
       <UserProfile
-        path="/user-profile"
+        path={routes.userProfile}
         routing="path"
         appearance={{
           elements: {

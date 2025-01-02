@@ -1,3 +1,4 @@
+import { routes } from '@/costs/routes'
 import {
   Body,
   Button,
@@ -46,7 +47,7 @@ export const BunkerPurchaseConfirmation = ({ firstName }: BunkerPurchaseConfirma
             </Text>
             <Text className="text-sm leading-6">
               You can manage your purchase in the{' '}
-              <Link href="https://krosno-bunkers.pl/user-profile" className="text-amber-800">
+              <Link href={routes.userProfile} className="text-amber-800">
                 user panel
               </Link>
               . You can also check who you&apos;re gonna share it with by clicking the name of the bunker.
@@ -55,7 +56,7 @@ export const BunkerPurchaseConfirmation = ({ firstName }: BunkerPurchaseConfirma
             <Section className="my-8 text-center">
               <Button
                 className="bg-black px-5 py-2.5 rounded font-semibold text-center text-xs no-underline /80"
-                href="https://krosno-bunkers.pl/bunkers"
+                href={routes.bunkers}
               >
                 Get a spot
               </Button>

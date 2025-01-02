@@ -6,6 +6,7 @@ import { ModeToggle } from '@/components/ui/mode-toggle'
 import Image from 'next/image'
 import Link from 'next/link'
 import { SignedIn, SignedOut, SignUpButton, SignInButton, UserButton } from '@clerk/nextjs'
+import { routes } from '@/costs/routes'
 
 export default function Navigation() {
   return (
@@ -13,7 +14,7 @@ export default function Navigation() {
       <NavigationMenu className="max-w-full [&>div]:w-full">
         <NavigationMenuList className="flex justify-between w-full max-w-full">
           <NavigationMenuItem className="shrink-0">
-            <Link href="/" className="underline-none">
+            <Link href={routes.home} className="underline-none">
               <Image src="/bunker.png" width={56} height={56} alt="" className="size-14" />
             </Link>
           </NavigationMenuItem>
@@ -22,7 +23,7 @@ export default function Navigation() {
               <SignedIn>
                 <UserButton
                   showName
-                  userProfileUrl="/user-profile"
+                  userProfileUrl={routes.userProfile}
                   userProfileMode="navigation"
                   appearance={{
                     elements: {

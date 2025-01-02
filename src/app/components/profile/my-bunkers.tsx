@@ -4,6 +4,7 @@ import { ButtonLinkBorderedAnimated } from '@/app/components/common/button-borde
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { routes } from '@/costs/routes'
 
 type Props = {
   isLoading: boolean
@@ -27,7 +28,7 @@ export default function MyBunkers({ userBunkers, isLoading }: Props) {
             <ul className="flex flex-col gap-3">
               {userBunkers?.map((el, index) => (
                 <li key={`${index}-${el.id}`}>
-                  <Link className="flex items-center gap-1 text-lg" href={`/my-bunkers/${el.bunker.id}`}>
+                  <Link className="flex items-center gap-1 text-lg" href={routes.bunker(el.bunker.id)}>
                     <Image src="/bunker-icon.png" width={20} height={20} alt="" className="size-8" />
                     <span>{el.bunker.address}</span>
                   </Link>
@@ -38,7 +39,7 @@ export default function MyBunkers({ userBunkers, isLoading }: Props) {
           )}
         </div>
         <ButtonLinkBorderedAnimated
-          href="/bunkers"
+          href={routes.bunkers}
           className="bg-black/10 mt-4 mr-auto ml-0 min-w-[250px] text-white/80 transition-all duration-700"
           onMouseEnter={() => setButtonText('You know you want it')}
           onMouseLeave={() => setButtonText(initialButtonText)}

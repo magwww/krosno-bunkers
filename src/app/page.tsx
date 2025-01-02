@@ -1,6 +1,7 @@
 'use client'
 
 import { ButtonLinkBorderedAnimated } from '@/app/components/common/button-bordered-animated'
+import { routes } from '@/costs/routes'
 import { motion } from 'motion/react'
 
 export default function Home() {
@@ -18,7 +19,7 @@ export default function Home() {
             Welcome to Krosno Bunkers
           </h1>
           <ButtonLinkBorderedAnimated
-            href="/bunkers"
+            href={routes.bunkers}
             className="justify-self-center bg-black/10 text-white/80 lg:text-md transition-all duration-700"
             data-testid="home-button"
           >
