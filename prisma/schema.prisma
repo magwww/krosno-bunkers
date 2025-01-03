@@ -24,7 +24,7 @@ model Bunker {
   id              String       @id @default(uuid())
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
-  capacity        Int?
+  capacity        Int
   address         String       @unique
   longitude       Float
   latitude        Float
