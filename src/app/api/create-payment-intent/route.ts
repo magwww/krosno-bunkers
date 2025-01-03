@@ -5,30 +5,38 @@ import { type Bunker } from '@/types'
 import { db } from '@/lib/db'
 import { currentUser } from '@clerk/nextjs/server'
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const { price, bunkers, count }: { price: number; bunkers: Bunker[]; count: number } = await req.json()
 
   const clerkUser = await currentUser()
 
-  if (!clerkUser || !bunkers.length) {
-    return NextResponse.json({ error: 'Invalid request - no user or products selected' }, { status: 400 })
+  if (!clerkUser || !clerkUser.id) {
+    return NextResponse.json({ error: 'No clerk user found' }, { status: 400 })
   }
 
   try {
-    const calculateOrderAmount = (items: Bunker[]) => {
-      return items.reduce((accumulator, item) => accumulator + item.price * count, 0)
-    }
-
     const user = await db.user.findUnique({
       where: {
         clerkId: clerkUser.id,
       },
     })
 
+    if (!user) {
+      return NextResponse.json({ error: 'User not found in database' }, { status: 404 })
+    }
+
+    if (!bunkers.length) {
+      return NextResponse.json({ error: 'No products selected' }, { status: 400 })
+    }
+
+    const calculateOrderAmount = (items: Bunker[]) => {
+      return items.reduce((accumulator, item) => accumulator + item.price * count, 0)
+    }
+
     const order = await db.order.create({
       data: {
         price: price * count,
-        userId: user?.id!,
+        userId: user.id,
         bunkerId: bunkers[0].id,
         paid: false,
         count,
@@ -42,7 +50,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       metadata: {
         orderId: order.id,
         bunkerId: bunkers[0].id,
-        userId: user?.id!,
+        userId: user.id!,
         userName: clerkUser.firstName,
         count: order.count,
       },

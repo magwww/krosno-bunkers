@@ -9,6 +9,7 @@ async function main() {
       latitude: 49.69539181051453,
       address: 'Wolności 3',
       price: 200,
+      capacity: 112,
       initialCapacity: 112,
     },
   })
@@ -20,6 +21,7 @@ async function main() {
       latitude: 49.69035004290909,
       address: 'Kletówki 27a',
       price: 200,
+      capacity: 50,
       initialCapacity: 50,
     },
   })
@@ -31,6 +33,7 @@ async function main() {
       latitude: 49.69631378320311,
       address: 'Naftowa 8',
       price: 200,
+      capacity: 252,
       initialCapacity: 252,
     },
   })
@@ -42,6 +45,7 @@ async function main() {
       latitude: 49.690988867662234,
       address: 'Staszica 12',
       price: 200,
+      capacity: 65,
       initialCapacity: 65,
     },
   })
@@ -53,6 +57,7 @@ async function main() {
       latitude: 49.695596152320256,
       address: 'Kolejowa 8',
       price: 200,
+      capacity: 74,
       initialCapacity: 74,
     },
   })
@@ -64,6 +69,7 @@ async function main() {
       latitude: 49.695231240204976,
       address: 'Kolejowa 10',
       price: 200,
+      capacity: 78,
       initialCapacity: 78,
     },
   })
@@ -75,6 +81,7 @@ async function main() {
       latitude: 49.694980858670064,
       address: 'Kolejowa 14',
       price: 200,
+      capacity: 89,
       initialCapacity: 89,
     },
   })
@@ -86,6 +93,7 @@ async function main() {
       latitude: 49.69630090203944,
       address: 'Naftowa 9',
       price: 200,
+      capacity: 28,
       initialCapacity: 28,
     },
   })
@@ -97,6 +105,7 @@ async function main() {
       latitude: 49.69565350142568,
       address: 'Naftowa 17/3',
       price: 200,
+      capacity: 77,
       initialCapacity: 77,
     },
   })
@@ -108,6 +117,7 @@ async function main() {
       latitude: 49.695420156499424,
       address: 'Naftowa 17/5',
       price: 200,
+      capacity: 168,
       initialCapacity: 168,
     },
   })

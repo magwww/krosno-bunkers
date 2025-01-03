@@ -44,10 +44,12 @@ export async function GET(req: NextRequest) {
       },
     )
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+
     return NextResponse.json(
       {
         success: false,
-        error: "Error fetching user's bunkers",
+        error: `Error fetching user's bunkers, ${errorMessage}`,
       },
       {
         status: 500,

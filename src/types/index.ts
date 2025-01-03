@@ -4,7 +4,7 @@ export type Bunker = {
   id: string
   longitude: number
   latitude: number
-  capacity: number | null
+  capacity: number
   initialCapacity: number
   address: string
   price: number
@@ -20,6 +20,13 @@ export type BunkerWithUsers = Prisma.BunkerGetPayload<{
   }
 }>
 
+export type MapElement = {
+  id: string
+  longitude: number
+  latitude: number
+  [key: string]: string | number | null | undefined
+}
+
 export type UserBunker = {
   bunker: Bunker
   bunkerId: string
@@ -27,11 +34,4 @@ export type UserBunker = {
   createdAt: string
   id: string
   userId: string
-}
-
-export type MapElement = {
-  id: string
-  longitude: number
-  latitude: number
-  [key: string]: any
 }

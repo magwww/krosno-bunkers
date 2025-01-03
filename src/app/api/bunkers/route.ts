@@ -15,10 +15,12 @@ export async function GET() {
       },
     )
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+
     return NextResponse.json(
       {
         success: false,
-        error: 'Error fetching bunkers',
+        error: `Error fetching bunkers: ${errorMessage}`,
       },
       {
         status: 500,

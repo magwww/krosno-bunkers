@@ -14,6 +14,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 export default function PreviewContent({ bunker, count }: { bunker: Bunker; count: number }) {
   const [clientSecret, setClientSecret] = useState<string>('')
 
+  //create payment intent when user visits page
   useEffect(() => {
     apiClient
       .post(
@@ -37,7 +38,7 @@ export default function PreviewContent({ bunker, count }: { bunker: Bunker; coun
 
         setClientSecret(data.clientSecret)
       })
-  }, [])
+  }, [bunker, count])
 
   const options = {
     clientSecret,
