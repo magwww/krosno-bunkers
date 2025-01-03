@@ -7,26 +7,26 @@ import Counter from '@/app/components/common/counter'
 import { useState } from 'react'
 import { routes } from '@/costs/routes'
 
-const BunkerMapMarkerContent = ({ bunker }: { bunker: MapElement }) => {
+const BunkerMapMarkerContent = ({ element }: { element: MapElement }) => {
   const [count, setCount] = useState<number>(1)
 
-  const spotsAvailable = bunker.capacity && bunker.capacity > 0
+  const spotsAvailable = element.capacity && Number(element.capacity) > 0
 
   return (
     <div className="flex flex-col justify-center items-center gap-2">
-      <p className="font-bold text-black text-lg">{bunker.address}</p>
-      {bunker.capacity && (
+      <p className="font-bold text-black text-lg">{element.address}</p>
+      {element.capacity && element.price && element.initialCapacity && (
         <div className="flex flex-col items-center gap-1 mb-2 text-black text-xs">
-          <p className="mb-1 text-base underline">{bunker.price / 100} PLN</p>
-          <p>Free spots: {bunker.capacity}</p>
-          <p>Spots taken: {bunker.initialCapacity - bunker.capacity}</p>
+          <p className="mb-1 text-base underline">{Number(element.price) / 100} PLN</p>
+          <p>Free spots: {element.capacity}</p>
+          <p>Spots taken: {Number(element.initialCapacity) - Number(element.capacity)}</p>
         </div>
       )}
       {spotsAvailable ? (
         <>
-          <Counter maxValue={bunker.capacity} {...{ count, setCount }} />
+          <Counter maxValue={Number(element.capacity)} {...{ count, setCount }} />
           <Link
-            href={`${routes.paymentPreview}?id=${bunker.id}&count=${count}`}
+            href={`${routes.paymentPreview}?id=${element.id}&count=${count}`}
             className="bg-black px-2 py-3 rounded font-semibold text-center text-white"
           >
             Buy spot in this bunker

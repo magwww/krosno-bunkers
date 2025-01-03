@@ -6,17 +6,27 @@ export async function POST() {
   try {
     const user = await currentUser()
 
+    if (!user || !user.id || !user.emailAddresses[0]?.emailAddress) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'No clerk user found',
+        },
+        { status: 400 },
+      )
+    }
+
     const match = await db.user.findUnique({
       where: {
-        clerkId: user?.id,
+        clerkId: user.id,
       },
     })
 
     if (!match) {
       await db.user.create({
         data: {
-          clerkId: user?.id!,
-          email: user?.emailAddresses[0].emailAddress!,
+          clerkId: user.id,
+          email: user.emailAddresses[0].emailAddress,
         },
       })
     }
@@ -25,19 +35,17 @@ export async function POST() {
       {
         data: user,
       },
-      {
-        status: 200,
-      },
+      { status: 200 },
     )
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+
     return NextResponse.json(
       {
         success: false,
-        error: 'Error creating user',
+        error: `Error creating user: ${errorMessage}`,
       },
-      {
-        status: 500,
-      },
+      { status: 500 },
     )
   }
 }

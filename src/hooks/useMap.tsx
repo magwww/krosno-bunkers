@@ -11,7 +11,7 @@ const useMap = (
   elements: MapElement[],
   mapRef: RefObject<HTMLDivElement>,
   mapApiKey: string,
-  Component: FC<{ bunker: MapElement }>,
+  Component: FC<{ element: MapElement }>,
   markerImgSrc: string,
 ) => {
   const mapInstance = useRef<google.maps.Map | null>(null)
@@ -20,11 +20,11 @@ const useMap = (
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
 
-  const createInfoWindowContent = (element: MapElement, Component: FC<{ bunker: MapElement }>) => {
+  const createInfoWindowContent = (element: MapElement, Component: FC<{ element: MapElement }>) => {
     const div = document.createElement('div')
     div.setAttribute('data-testid', 'google-map-info-window')
     const root = createRoot(div)
-    root.render(<Component bunker={element} />)
+    root.render(<Component element={element} />)
     return { div, root }
   }
 
@@ -63,7 +63,7 @@ const useMap = (
       root: Root,
       div: HTMLDivElement,
     ) => {
-      root.render(<Component bunker={element} />)
+      root.render(<Component element={element} />)
       infoWindow.setContent(div)
       infoWindow.setPosition(marker.position)
       infoWindow.open(map, marker)
@@ -102,19 +102,20 @@ const useMap = (
       mapId: theme === 'light' ? '8ac85bf8cff53d33' : 'c55128c183c09ce2',
     }
     mapInstance.current = new Map(mapRef.current as HTMLDivElement, mapOptions)
-    let InfoWindow = new google.maps.InfoWindow()
+    const infoWindow = new google.maps.InfoWindow()
 
     elements.forEach((element) => {
-      createMarker(element, mapInstance.current as google.maps.Map, InfoWindow)
+      createMarker(element, mapInstance.current as google.maps.Map, infoWindow)
     })
     const elementFromQuery = elements.find((element) => element.id === id)
     if (elementFromQuery) {
-      createMarker(elementFromQuery, mapInstance.current as google.maps.Map, InfoWindow, true)
+      createMarker(elementFromQuery, mapInstance.current as google.maps.Map, infoWindow, true)
     }
   }
 
   useEffect(() => {
     initializeMap()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [theme])
 }
 
