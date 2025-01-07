@@ -4,7 +4,7 @@ describe('Home page', () => {
   })
 
   it('displays Welcome heading and button for selecting bunkers', () => {
-    cy.getByTestId('home-header').should('have.text', 'Welcome to Krosno Bunkers!')
+    cy.getByTestId('home-header').should('have.text', 'Welcome to Krosno Bunkers')
     cy.getByTestId('home-button').should('have.text', 'Select your bunker')
   })
 })
