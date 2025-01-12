@@ -8,6 +8,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { Toaster } from 'react-hot-toast'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import ReactQueryProvider from './react-query-provider'
+import { cn } from '@/lib/utils'
 
 const anek = Anek_Latin({
   weight: ['400', '500', '700'],
@@ -26,7 +27,7 @@ export default function RootLayout({
   children: ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={anek.className}>
+    <html lang="en" suppressHydrationWarning className={cn('snap-y', anek.className)}>
       <head />
       <body>
         <ReactQueryProvider>
