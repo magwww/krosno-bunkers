@@ -5,8 +5,12 @@ import { routes } from '@/costs/routes'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import BunkerImage from './components/home/bunker-image'
 import { homeBunkers } from '@/data/home-bunkers'
+import { useState } from 'react'
+import Loader from '@/app/components/common/loader'
 
 export default function Home() {
+  const [loaderVisible, setLoaderVisible] = useState<boolean>(false)
+
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -45,11 +49,12 @@ export default function Home() {
         </div>
         <p className="mb-10 text-3xl text-center lg:text-left">Which one will you choose?</p>
         <ButtonLinkBorderedAnimated
+          onClick={() => setLoaderVisible(true)}
           href={routes.bunkers}
           className="justify-self-center bg-black/10 text-white/80 lg:text-md transition-all duration-700"
           data-testid="home-button"
         >
-          Select your bunker
+          {loaderVisible ? <Loader className="mx-auto my-auto size-5" /> : 'Select your bunker'}
         </ButtonLinkBorderedAnimated>
       </div>
     </main>
