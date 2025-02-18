@@ -9,7 +9,7 @@ import { routes } from '@/costs/routes'
 
 const useMap = (
   elements: MapElement[],
-  mapRef: RefObject<HTMLDivElement>,
+  mapRef: RefObject<HTMLDivElement | null>,
   mapApiKey: string,
   Component: FC<{ element: MapElement }>,
   markerImgSrc: string,

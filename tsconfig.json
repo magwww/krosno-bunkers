@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -18,13 +22,30 @@
       }
     ],
     "paths": {
-      "@/lib/*": ["./lib/*"],
-      "@/*": ["./src/*"],
-    }
+      "@/lib/*": [
+        "./lib/*"
+      ],
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "target": "ES2017"
   },
   "ts-node": {
-    "require": ["tsconfig-paths/register"]
+    "require": [
+      "tsconfig-paths/register"
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".lintstagedrc.mjs",],
-  "exclude": ["node_modules", "./cypress", "./cypress.config.ts"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".lintstagedrc.mjs"
+  ],
+  "exclude": [
+    "node_modules",
+    "./cypress",
+    "./cypress.config.ts"
+  ]
 }

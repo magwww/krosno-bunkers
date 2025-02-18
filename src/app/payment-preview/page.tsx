@@ -14,10 +14,11 @@ async function getData(id: string) {
 }
 
 type Props = {
-  searchParams: { [key: string]: string }
+  searchParams: Promise<{ [key: string]: string }>
 }
 
-export default async function PreviewPage({ searchParams }: Props) {
+export default async function PreviewPage(props: Props) {
+  const searchParams = await props.searchParams
   const { id, count } = searchParams
 
   // TODO: handle it better

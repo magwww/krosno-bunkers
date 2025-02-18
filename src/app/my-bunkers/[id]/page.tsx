@@ -15,7 +15,8 @@ async function getBunker(id: string) {
   return res.data
 }
 
-export default async function MyBunker({ params }: { params: { id: string } }) {
+export default async function MyBunker(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params
   const id = Array.isArray(params.id) ? params.id[0] : params.id
 
   if (!id) {
