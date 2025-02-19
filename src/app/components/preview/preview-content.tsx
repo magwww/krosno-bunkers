@@ -4,9 +4,8 @@ import { type Bunker } from '@/types'
 import { Elements } from '@stripe/react-stripe-js'
 import CheckoutForm from '@/app/components/preview/checkout-form'
 import { loadStripe, StripeElementLocale } from '@stripe/stripe-js'
-import { paymentIntentSchema } from '@/lib/validations'
 import toast from 'react-hot-toast'
-import { apiClient } from '../../api/client'
+import { createPaymentIntent } from '@/app/actions'
 import Loader from '@/app/components/common/loader'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
@@ -14,36 +13,22 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 export default function PreviewContent({ bunker, count }: { bunker: Bunker; count: number }) {
   const [clientSecret, setClientSecret] = useState<string>('')
 
-  //create payment intent when user visits page
-  useEffect(() => {
-    apiClient
-      .post(
-        '/create-payment-intent',
-        JSON.stringify({
-          price: bunker.price,
-          bunkers: [bunker],
-          count,
-        }),
-      )
-
-      .then((res) => res.data)
-      .then((data) => {
-        const validatedData = paymentIntentSchema.safeParse(data)
-
-        if (!validatedData.success) {
-          console.error('error: ', validatedData.error)
-          toast('Ooops! Something went wrong while creating your order. Please try again.')
-          return
-        }
-
-        setClientSecret(data.clientSecret)
-      })
-  }, [bunker, count])
-
   const options = {
     clientSecret,
     locale: 'en' as StripeElementLocale,
   }
+
+  //create payment intent when user visits page
+  useEffect(() => {
+    createPaymentIntent(bunker.price, [bunker], count)
+      .then(({ clientSecret }) => {
+        setClientSecret(clientSecret)
+      })
+      .catch((error) => {
+        console.error('error: ', error)
+        toast('Ooops! Something went wrong while creating your order. Please try again.')
+      })
+  }, [bunker, count])
 
   return (
     <main className="flex flex-col justify-center items-center px-4 pb-8 w-full lg:h-screen">
