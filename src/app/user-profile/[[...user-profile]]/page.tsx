@@ -19,26 +19,28 @@ const UserProfilePage = () => {
   }, [])
 
   useEffect(() => {
-    const fetchBunkers = async () => {
-      setIsLoading(true)
+    if (isSignedIn) {
+      const fetchBunkers = async () => {
+        setIsLoading(true)
 
-      try {
-        const { data } = await apiClient.get(`/get-user-bunkers?userId=${user?.id}`)
+        try {
+          const { data } = await apiClient.get(`/get-user-bunkers?userId=${user?.id}`)
 
-        if (!data.data) {
-          throw new Error('Network response was not ok')
+          if (!data.data) {
+            throw new Error('Network response was not ok')
+          }
+
+          setUserBunkers(data.data.map((userBunker: UserBunker) => userBunker))
+        } catch (error) {
+          console.error('Error fetching user bunkers:', error)
+        } finally {
+          setIsLoading(false)
         }
-
-        setUserBunkers(data.data.map((userBunker: UserBunker) => userBunker))
-      } catch (error) {
-        console.error('Error fetching user bunkers:', error)
-      } finally {
-        setIsLoading(false)
       }
-    }
 
-    fetchBunkers()
-  }, [user])
+      fetchBunkers()
+    }
+  }, [user, isSignedIn])
 
   if (!isSignedIn) return null
 
