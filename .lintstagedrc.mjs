@@ -10,7 +10,8 @@ export default {
     "prettier --write",
     () => "tsc -p tsconfig.json --noEmit",
     buildEslintCommand,
-     "jest --bail --findRelatedTests"
+     "jest --bail --findRelatedTests --passWithNoTests"
+
   ],
   "**/*.{js,jsx}": ["prettier --write", buildEslintCommand],
 };
