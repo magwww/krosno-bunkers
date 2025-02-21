@@ -7,6 +7,7 @@ import { useUser } from '@clerk/clerk-react'
 import { UserBunker } from '@/types'
 import { apiClient } from '../../api/client'
 import { routes } from '@/costs/routes'
+import { createUser } from '@/app/actions'
 
 const UserProfilePage = () => {
   const [userBunkers, setUserBunkers] = useState<UserBunker[] | undefined>(undefined)
@@ -15,7 +16,15 @@ const UserProfilePage = () => {
   const { user, isSignedIn } = useUser()
 
   useEffect(() => {
-    apiClient.post('/create-user').then((res) => res.data)
+    const initUser = async () => {
+      try {
+        await createUser()
+      } catch (error) {
+        console.error('Error creating user:', error)
+      }
+    }
+
+    initUser()
   }, [])
 
   useEffect(() => {
