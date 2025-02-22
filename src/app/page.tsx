@@ -7,6 +7,7 @@ import BunkerImage from './components/home/bunker-image'
 import { homeBunkers } from '@/data/home-bunkers'
 import { useState } from 'react'
 import Loader from '@/app/components/common/loader'
+import BackgroundImage from './components/home/background-image'
 
 export default function Home() {
   const [loaderVisible, setLoaderVisible] = useState<boolean>(false)
@@ -19,8 +20,9 @@ export default function Home() {
   })
 
   return (
-    <main className="before:block relative z-10 before:z-[-5] before:absolute before:inset-0 before:content-[''] bg-home-hero before:bg-gradient-to-t before:from-black before:to-transparent bg-cover bg-no-repeat bg-center before:opacity-70 w-full h-[calc(100vh-64px)]">
-      <div className="flex flex-col justify-center items-center p-10 lg:p-24 w-full h-[calc(100vh-64px)]">
+    <main className="relative w-full h-[calc(100vh-64px)]">
+      <BackgroundImage />
+      <div className="relative flex flex-col justify-center items-center p-10 lg:p-24 w-full h-[calc(100vh-64px)]">
         <motion.div
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
