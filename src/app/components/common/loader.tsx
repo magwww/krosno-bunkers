@@ -1,10 +1,15 @@
 import type { ComponentPropsWithoutRef } from 'react'
 import { cn } from '@/lib/utils'
 
-export default function Loader({ className }: ComponentPropsWithoutRef<'div'>) {
+type LoaderProps = ComponentPropsWithoutRef<'div'> & {
+  testId?: string
+}
+
+export default function Loader({ className, testId = 'loader', ...props }: LoaderProps) {
   return (
-    <div role="status">
+    <div role="status" {...props}>
       <svg
+        data-testid={testId}
         aria-hidden="true"
         className={cn('size-8 text-white/30 animate-spin dark:text-white/30 fill-[#C6B896]', className)}
         viewBox="0 0 100 101"

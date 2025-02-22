@@ -2,18 +2,13 @@
 import MyBunkers from '@/app/components/profile/my-bunkers'
 import { UserProfile } from '@clerk/nextjs'
 import { Warehouse } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useUser } from '@clerk/clerk-react'
-import { UserBunker } from '@/types'
-import { apiClient } from '../../api/client'
 import { routes } from '@/costs/routes'
 import { createUser } from '@/app/actions'
 
 const UserProfilePage = () => {
-  const [userBunkers, setUserBunkers] = useState<UserBunker[] | undefined>(undefined)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-
-  const { user, isSignedIn } = useUser()
+  const { isSignedIn } = useUser()
 
   useEffect(() => {
     const initUser = async () => {
@@ -26,30 +21,6 @@ const UserProfilePage = () => {
 
     initUser()
   }, [])
-
-  useEffect(() => {
-    if (isSignedIn) {
-      const fetchBunkers = async () => {
-        setIsLoading(true)
-
-        try {
-          const { data } = await apiClient.get(`/get-user-bunkers?userId=${user?.id}`)
-
-          if (!data.data) {
-            throw new Error('Network response was not ok')
-          }
-
-          setUserBunkers(data.data.map((userBunker: UserBunker) => userBunker))
-        } catch (error) {
-          console.error('Error fetching user bunkers:', error)
-        } finally {
-          setIsLoading(false)
-        }
-      }
-
-      fetchBunkers()
-    }
-  }, [user, isSignedIn])
 
   if (!isSignedIn) return null
 
@@ -79,7 +50,7 @@ const UserProfilePage = () => {
         }}
       >
         <UserProfile.Page label="My bunkers" labelIcon={<Warehouse className="size-4" />} url="/my-bunkers">
-          <MyBunkers {...{ userBunkers, isLoading }} />
+          <MyBunkers />
         </UserProfile.Page>
       </UserProfile>
     </main>

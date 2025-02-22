@@ -1,19 +1,45 @@
 import { UserBunker } from '@/types'
 import Loader from '@/app/components/common/loader'
 import { ButtonLinkBorderedAnimated } from '@/app/components/common/button-bordered-animated'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { routes } from '@/costs/routes'
+import { useUser } from '@clerk/clerk-react'
+import { apiClient } from '../../api/client'
 
-type Props = {
-  isLoading: boolean
-  userBunkers: UserBunker[] | undefined
-}
+const initialButtonText = 'Get yourself a bunker spot'
 
-export default function MyBunkers({ userBunkers, isLoading }: Props) {
-  const initialButtonText = 'Get yourself a bunker spot'
+export default function MyBunkers() {
   const [buttonText, setButtonText] = useState(initialButtonText)
+  const [userBunkers, setUserBunkers] = useState<UserBunker[] | undefined>(undefined)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const { user, isSignedIn } = useUser()
+
+  useEffect(() => {
+    if (isSignedIn) {
+      const fetchBunkers = async () => {
+        setIsLoading(true)
+
+        try {
+          const { data } = await apiClient.get(`/get-user-bunkers?userId=${user?.id}`)
+
+          if (!data.data) {
+            throw new Error('Network response was not ok')
+          }
+
+          setUserBunkers(data.data.map((userBunker: UserBunker) => userBunker))
+        } catch (error) {
+          console.error('Error fetching user bunkers:', error)
+        } finally {
+          setIsLoading(false)
+        }
+      }
+
+      fetchBunkers()
+    }
+  }, [user, isSignedIn])
 
   return (
     <div className="flex flex-col justify-center w-full">
@@ -21,8 +47,8 @@ export default function MyBunkers({ userBunkers, isLoading }: Props) {
       <div className="flex lg:flex-row flex-col items-start">
         <div className="py-4 lg:w-1/2 text-[13px] dark:text-white/70">
           {isLoading ? (
-            <Loader className="size-6" />
-          ) : userBunkers && !userBunkers.length ? (
+            <Loader className="size-6" testId="bunkers-list-loader" />
+          ) : !userBunkers?.length ? (
             <p>You don&apos;t own any bunker spots yet</p>
           ) : (
             <ul className="flex flex-col gap-3">
