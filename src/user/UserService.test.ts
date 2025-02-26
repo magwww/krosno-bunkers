@@ -1,4 +1,4 @@
-import { createUser } from './create-user'
+import { UserService } from './UserService'
 import { InMemoryUserRepository } from './InMemoryUserRepository'
 
 describe('createUser', () => {
@@ -16,7 +16,9 @@ describe('createUser', () => {
       it('should create a user', async () => {
         const userRepository = new InMemoryUserRepository()
 
-        await createUser(authService, userRepository)
+        const userService = new UserService(authService, userRepository)
+
+        await userService.createUser()
         const user = await userRepository.getBy({ id: '123' })
 
         expect(user).toEqual({
@@ -41,7 +43,9 @@ describe('createUser', () => {
           },
         ])
 
-        await createUser(authService, userRepository)
+        const userService = new UserService(authService, userRepository)
+
+        await userService.createUser()
         expect(userRepository.getCount()).toEqual(1)
       })
     })
@@ -54,7 +58,9 @@ describe('createUser', () => {
 
     it('should throw an error', async () => {
       const userRepository = new InMemoryUserRepository()
-      await expect(createUser(authService, userRepository)).rejects.toThrow('Error creating user: No clerk user found')
+      const userService = new UserService(authService, userRepository)
+
+      await expect(userService.createUser()).rejects.toThrow('Error creating user: No clerk user found')
     })
   })
 
@@ -65,7 +71,9 @@ describe('createUser', () => {
 
     it('should throw an error', async () => {
       const userRepository = new InMemoryUserRepository()
-      await expect(createUser(authService, userRepository)).rejects.toThrow('Error creating user: Authorization error')
+      const userService = new UserService(authService, userRepository)
+
+      await expect(userService.createUser()).rejects.toThrow('Error creating user: Authorization error')
     })
   })
 })

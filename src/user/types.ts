@@ -1,3 +1,10 @@
+export interface AuthUser {
+  id: string
+  email: string
+  firstName: string
+  lastName: string
+}
+
 export interface User {
   id: string
   clerkId: string
@@ -7,7 +14,7 @@ export interface User {
 }
 
 export interface AuthService {
-  getUser: () => Promise<User>
+  getUser: () => Promise<AuthUser | null>
 }
 
 export type UserSpecification = {
