@@ -1,4 +1,4 @@
-import { User, UserRepository, UserSpecification } from './types'
+import { User, UserId, UserRepository } from './types'
 
 export class InMemoryUserRepository implements UserRepository {
   private users: User[]
@@ -7,14 +7,8 @@ export class InMemoryUserRepository implements UserRepository {
     this.users = users
   }
 
-  async getBy(specification: UserSpecification): Promise<User | undefined> {
-    return this.users.find((user) => {
-      if (specification.id && user.id !== specification.id) return false
-      if (specification.clerkId && user.clerkId !== specification.clerkId) return false
-      if (specification.email && user.email !== specification.email) return false
-
-      return true
-    })
+  async getById(id: UserId): Promise<User | undefined> {
+    return this.users.find((user) => user.id === id)
   }
 
   async create(user: User): Promise<User> {

@@ -18,15 +18,23 @@ describe('createUser', () => {
 
         const userService = new UserService(authService, userRepository)
 
-        await userService.createUser()
-        const user = await userRepository.getBy({ id: '123' })
+        const userResponse = await userService.createUser()
+        // eslint-disable-next-line testing-library/no-await-sync-queries
+        const user = await userRepository.getById('123')
+
+        expect(userResponse).toEqual({
+          data: {
+            id: '123',
+            email: 'test@test.com',
+            firstName: 'John',
+            lastName: 'Doe',
+          },
+        })
 
         expect(user).toEqual({
           id: '123',
           clerkId: '123',
           email: 'test@test.com',
-          firstName: 'John',
-          lastName: 'Doe',
         })
       })
     })
@@ -38,8 +46,6 @@ describe('createUser', () => {
             id: '123',
             clerkId: '123',
             email: 'test@test.com',
-            firstName: 'John',
-            lastName: 'Doe',
           },
         ])
 

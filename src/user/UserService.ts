@@ -1,7 +1,12 @@
-import { AuthService, User, UserRepository } from './types'
+import { AuthService, UserId, UserRepository } from './types'
 
 export type CreateUserResponse = {
-  data: Omit<User, 'clerkId'>
+  data: {
+    id: UserId
+    email: string
+    firstName: string
+    lastName: string
+  }
 }
 
 export class UserService {
@@ -19,15 +24,14 @@ export class UserService {
         throw new Error('No clerk user found')
       }
 
-      const match = await this.userRepository.getBy({ clerkId: user.id })
+      // eslint-disable-next-line testing-library/no-await-sync-queries
+      const match = await this.userRepository.getById(user.id)
 
       if (!match) {
         await this.userRepository.create({
           id: user.id,
           clerkId: user.id,
           email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
         })
       }
 
