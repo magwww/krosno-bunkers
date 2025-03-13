@@ -8,3 +8,5 @@ const baseConfig = (override?: AxiosRequestConfig): AxiosRequestConfig => ({
 const apiClient = axios.create(baseConfig())
 
 export { apiClient }
+
+export type ApiClient = typeof apiClient
