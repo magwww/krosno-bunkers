@@ -34,7 +34,7 @@
     "@tanstack/react-query-devtools": "^5.59.3",
     "@types/google.maps": "^3.55.9",
     "@types/stripe": "^8.0.417",
-    "axios": "^1.7.7",
+    "axios": "^1.8.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.475.0",
