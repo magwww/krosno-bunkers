@@ -1,10 +1,10 @@
 export const dynamic = 'force-dynamic'
 
 import MapSection from '@/app/components/home/map-section'
-import { apiClient } from '../api/client'
+import { ApiClient, apiClient } from '../api/client'
 
-async function getBunkers() {
-  const res = await apiClient.get('/bunkers', {
+async function getBunkers(api: ApiClient) {
+  const res = await api.get('/bunkers', {
     headers: {
       Accept: 'application/json',
       'Cache-Control': 'no-store',
@@ -19,7 +19,7 @@ async function getBunkers() {
 }
 
 export default async function Bunkers() {
-  const { data: bunkers } = await getBunkers()
+  const { data: bunkers } = await getBunkers(apiClient)
 
   return (
     <main className="flex flex-col justify-center items-center w-full h-screen">
