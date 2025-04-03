@@ -14,6 +14,8 @@
     "seed": "prisma db seed",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:coverage:open": "npm run test:coverage && open coverage/lcov-report/index.html",
     "email": "cp .env ./node_modules/react-email/dist/preview && email dev --dir src/emails --port 3001",
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
