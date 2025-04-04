@@ -1,19 +1,8 @@
-import { BunkerWithUsers } from '@/types'
-import { apiClient } from '../../api/client'
+import { api } from '@/app/api/client'
 import { notFound } from 'next/navigation'
 import { clerkClient } from '@clerk/express'
 import Image from 'next/image'
 import { UserCircleIcon } from '@heroicons/react/24/solid'
-
-async function getBunker(id: string) {
-  const res = await apiClient.get(`/bunker/${id}`)
-
-  if (!res.data) {
-    throw new Error('Failed to fetch bunker')
-  }
-
-  return res.data
-}
 
 export default async function MyBunker(props: { params: Promise<{ id: string }> }) {
   const params = await props.params
@@ -23,7 +12,8 @@ export default async function MyBunker(props: { params: Promise<{ id: string }> 
     return notFound()
   }
 
-  const bunker: BunkerWithUsers = await getBunker(id)
+  // eslint-disable-next-line testing-library/no-await-sync-queries
+  const { data: bunker } = await api.bunkers.getById(id)
 
   const bunkerUsers = bunker.users.map((user) => user.user.email)
   const uniqueUsers = bunkerUsers.filter((item, index) => bunkerUsers.indexOf(item) === index)

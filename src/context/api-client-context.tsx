@@ -1,10 +1,12 @@
+'use client'
+
 import { createContext, useContext, ReactNode } from 'react'
-import { apiClient, ApiClient } from '@/app/api/client'
+import { api, ApiClient } from '@/app/api/client'
 
 const ApiClientContext = createContext<ApiClient | null>(null)
 
 export const ApiClientProvider = ({ children }: { children: ReactNode }) => (
-  <ApiClientContext.Provider value={apiClient}>{children}</ApiClientContext.Provider>
+  <ApiClientContext.Provider value={api}>{children}</ApiClientContext.Provider>
 )
 
 export const useApiClient = (): ApiClient => {

@@ -2,15 +2,17 @@ import MyBunkers from '@/app/components/profile/my-bunkers'
 import { render, screen, within } from '@testing-library/react'
 import { userBunkers } from '@/mocks/user-bunkers'
 import { useUser } from '@clerk/clerk-react'
-import { apiClient } from '@/app/api/client'
+import { api } from '@/app/api/client'
 
 jest.mock('@clerk/clerk-react', () => ({
   useUser: jest.fn(),
 }))
 
 jest.mock('@/app/api/client', () => ({
-  apiClient: {
-    get: jest.fn(),
+  api: {
+    bunkers: {
+      getUserBunkersById: jest.fn(),
+    },
   },
 }))
 
@@ -23,8 +25,7 @@ describe('MyBunkers', () => {
   })
 
   it('renders no bunker spots purchased message when no bunkers are available', async () => {
-    // Mock odpowiedzi API zwracającej pustą tablicę
-    ;(apiClient.get as jest.Mock).mockResolvedValueOnce({
+    ;(api.bunkers.getUserBunkersById as jest.Mock).mockResolvedValueOnce({
       data: { data: [] },
     })
 
@@ -35,9 +36,8 @@ describe('MyBunkers', () => {
   })
 
   it('renders list of 10 bunkers when bunkers are available', async () => {
-    // Mock odpowiedzi API zwracającej przykładowe bunkry
-    ;(apiClient.get as jest.Mock).mockResolvedValueOnce({
-      data: { data: userBunkers },
+    ;(api.bunkers.getUserBunkersById as jest.Mock).mockResolvedValueOnce({
+      data: userBunkers,
     })
 
     render(<MyBunkers />)
@@ -55,7 +55,9 @@ describe('MyBunkers', () => {
   })
 
   it('shows loader while fetching data', async () => {
-    ;(apiClient.get as jest.Mock).mockImplementation(() => new Promise((resolve) => setTimeout(resolve, 500)))
+    ;(api.bunkers.getUserBunkersById as jest.Mock).mockImplementation(
+      () => new Promise((resolve) => setTimeout(resolve, 500)),
+    )
 
     render(<MyBunkers />)
     const loader = await screen.findByTestId('bunkers-list-loader')

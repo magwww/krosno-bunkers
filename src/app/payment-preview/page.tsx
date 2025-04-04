@@ -1,17 +1,7 @@
 import PreviewContent from '@/app/components/preview/preview-content'
 import { notFound } from 'next/navigation'
 import { redirect } from 'next/navigation'
-import { apiClient } from '../api/client'
-
-async function getData(id: string) {
-  const res = await apiClient.get(`/bunker/${id}`)
-
-  if (!res.data) {
-    throw new Error('Failed to fetch bunker')
-  }
-
-  return res.data
-}
+import { api } from '@/app/api/client'
 
 type Props = {
   searchParams: Promise<{ [key: string]: string }>
@@ -26,7 +16,8 @@ export default async function PreviewPage(props: Props) {
     return notFound()
   }
 
-  const bunker = await getData(id)
+  // eslint-disable-next-line testing-library/no-await-sync-queries
+  const { data: bunker } = await api.bunkers.getById(id)
 
   if (bunker.capacity < 1) {
     redirect('/')
