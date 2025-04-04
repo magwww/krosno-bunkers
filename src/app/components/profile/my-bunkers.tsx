@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { routes } from '@/costs/routes'
 import { useUser } from '@clerk/clerk-react'
-import { apiClient } from '../../api/client'
+import { api } from '@/app/api/client'
 
 const initialButtonText = 'Get yourself a bunker spot'
 
@@ -23,13 +23,12 @@ export default function MyBunkers() {
         setIsLoading(true)
 
         try {
-          const { data } = await apiClient.get(`/get-user-bunkers?userId=${user?.id}`)
+          const { data: userBunkers } = await api.bunkers.getUserBunkersById(user?.id)
 
-          if (!data.data) {
+          if (!userBunkers) {
             throw new Error('Network response was not ok')
           }
-
-          setUserBunkers(data.data.map((userBunker: UserBunker) => userBunker))
+          setUserBunkers(userBunkers.map((userBunker) => userBunker))
         } catch (error) {
           console.error('Error fetching user bunkers:', error)
         } finally {

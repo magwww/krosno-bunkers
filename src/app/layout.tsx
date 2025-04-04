@@ -9,6 +9,7 @@ import { Toaster } from 'react-hot-toast'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import ReactQueryProvider from './react-query-provider'
 import { cn } from '@/lib/utils'
+import { ApiClientProvider } from '@/context/api-client-context'
 
 const anek = Anek_Latin({
   weight: ['400', '500', '700'],
@@ -30,25 +31,27 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={cn('snap-y', anek.className)}>
       <head />
       <body>
-        <ReactQueryProvider>
-          <ReactQueryDevtools />
-          <ClerkProvider>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-              <Toaster
-                position="bottom-right"
-                toastOptions={{
-                  duration: 5000,
-                  style: {
-                    background: 'black',
-                    color: '#fff',
-                  },
-                }}
-              />
-              <Navigation />
-              {children}
-            </ThemeProvider>
-          </ClerkProvider>
-        </ReactQueryProvider>
+        <ApiClientProvider>
+          <ReactQueryProvider>
+            <ReactQueryDevtools />
+            <ClerkProvider>
+              <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+                <Toaster
+                  position="bottom-right"
+                  toastOptions={{
+                    duration: 5000,
+                    style: {
+                      background: 'black',
+                      color: '#fff',
+                    },
+                  }}
+                />
+                <Navigation />
+                {children}
+              </ThemeProvider>
+            </ClerkProvider>
+          </ReactQueryProvider>
+        </ApiClientProvider>
       </body>
     </html>
   )
