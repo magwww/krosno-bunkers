@@ -1,6 +1,5 @@
-'use client'
-
-import { type ChangeEvent, type Dispatch, type SetStateAction } from 'react'
+import { type Dispatch, type SetStateAction } from 'react'
+import useCounter from '@/hooks/useCounter'
 
 type Props = {
   maxValue: number
@@ -8,31 +7,8 @@ type Props = {
   setCount: Dispatch<SetStateAction<number>>
 }
 
-export default function Counter({ maxValue, count, setCount }: Props) {
-  const ensurePositiveIntegerCount = (value: number | ((prevCount: number) => number)) => {
-    setCount((prevCount) => {
-      const calculatedValue = typeof value == 'function' ? value(prevCount) : value
-      return Math.min(maxValue, Math.max(1, Math.floor(calculatedValue)))
-    })
-  }
-
-  const increment = () => {
-    ensurePositiveIntegerCount((prevCount) => prevCount + 1)
-  }
-
-  const decrement = () => {
-    ensurePositiveIntegerCount((prevCount) => prevCount - 1)
-  }
-
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value
-    const parsedValue = parseInt(value)
-    if (!isNaN(parsedValue)) {
-      ensurePositiveIntegerCount(parsedValue)
-    } else if (value === '') {
-      setCount(1)
-    }
-  }
+export default function Counter({ count, setCount, maxValue }: Props) {
+  const { increment, decrement, handleInputChange } = useCounter({ maxValue, setCount })
 
   return (
     <div className="flex">
