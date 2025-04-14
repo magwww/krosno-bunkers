@@ -5,9 +5,9 @@ import { render, screen } from '@testing-library/react'
 test('renders welcome heading and select bunker button', () => {
   render(<Home />)
 
-  const button = screen.getByRole('link', { name: 'Select your bunker' })
+  const button = screen.getByRole('link', { name: 'Browse Bunkers' })
 
-  expect(screen.getByText('Welcome to Krosno Bunkers')).toBeInTheDocument()
+  expect(screen.getByText('Secure Your Future.')).toBeInTheDocument()
   expect(button).toBeInTheDocument()
   expect(button).toHaveAttribute('href', '/bunkers')
 })

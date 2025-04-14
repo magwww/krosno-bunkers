@@ -4,15 +4,15 @@ describe('Home page', () => {
   })
 
   it('displays Welcome heading and button for selecting bunkers', () => {
-    cy.getByTestId('home-header').should('have.text', 'Welcome to Krosno Bunkers')
-    cy.getByTestId('home-button').should('have.text', 'Select your bunker')
+    cy.getByTestId('home-header').should('have.text', 'Secure Your Future.')
+    cy.getByTestId('home-button').should('have.text', 'Browse Bunkers')
   })
 })
 
 describe('Bunkers page', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/')
-    cy.contains('Select your bunker').click()
+    cy.contains('Browse Bunkers').click()
   })
 
   it('displays google map with 10 markers', () => {
@@ -32,7 +32,7 @@ describe('Bunkers page', () => {
 describe('Bunker preview page', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000')
-    cy.contains('Select your bunker').click()
+    cy.contains('Browse Bunkers').click()
     cy.get('[class*="marker-view"]').first().click({ force: true })
     cy.contains('Buy spot in this bunker').click()
   })
