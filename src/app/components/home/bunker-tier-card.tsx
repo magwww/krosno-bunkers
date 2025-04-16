@@ -5,7 +5,7 @@ export default function BunkerTierCard({ title, description, features, isPopular
   return (
     <div
       className={cn(
-        'bg-black text-white rounded-xl shadow-sm lg:shadow-none shadow-white p-6 flex flex-col items-start gap-4 relative transition-transform hover:scale-[1.02]',
+        'bg-black text-white rounded-xl h-full shadow-sm shadow-white p-6 flex flex-col gap-4 relative justify-between transition-transform hover:scale-[1.02]',
         isPopular && 'ring-2 ring-yellow-400',
       )}
     >

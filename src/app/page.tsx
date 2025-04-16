@@ -7,6 +7,31 @@ import { useState } from 'react'
 import Loader from '@/app/components/common/loader'
 import BackgroundImage from './components/home/background-image'
 import BunkerTierCard from '@/app/components/home/bunker-tier-card'
+import { bunkerTiers } from '@/data/bunker-tiers'
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.4,
+      staggerChildren: 0.5,
+      ease: 'easeInOut',
+    },
+  },
+}
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.2,
+      ease: 'easeOut',
+    },
+  },
+}
 
 export default function Home() {
   const [loaderVisible, setLoaderVisible] = useState<boolean>(false)
@@ -40,29 +65,21 @@ export default function Home() {
           Discover your personal bunker – tailored for safety, comfort, and peace of mind. Whether you&apos;re preparing
           for tomorrow or investing in today, your haven awaits beneath the surface.
         </p>
-        <div className="lg:my-24 grid grid-cols-1 md:grid-cols-3 gap-6 my-14">
-          <BunkerTierCard
-            title="Basic Bunker"
-            description="Affordable safety solution for budget-conscious individuals."
-            features={['Minimal space', 'Essential supplies only', 'Community-shared access']}
-          />
-          <BunkerTierCard
-            title="Standard Bunker"
-            description="Reliable protection with essential features."
-            features={['Compact and efficient', 'Verified structure', 'Available in most regions']}
-            isPopular
-          />
-          <BunkerTierCard
-            title="Premium Bunker"
-            description="Experience maximum safety and comfort underground."
-            features={[
-              'Spacious layout',
-              'Advanced air filtration',
-              'Secure private access',
-              'Strategic location near major cities',
-            ]}
-          />
-        </div>
+
+        <motion.div
+          className="lg:my-24 grid grid-cols-1 md:grid-cols-3 gap-6 my-14 items-stretch"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          {bunkerTiers.map((tier) => (
+            <motion.div key={tier.title} variants={cardVariants}>
+              <BunkerTierCard {...tier} />
+            </motion.div>
+          ))}
+        </motion.div>
+
         <p className="mb-10 text-3xl text-center lg:text-left">Which one will you choose?</p>
         <ButtonLinkBorderedAnimated
           onClick={() => setLoaderVisible(true)}
