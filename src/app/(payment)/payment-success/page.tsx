@@ -1,4 +1,4 @@
-import { ButtonLinkBorderedAnimated } from '@/app/components/common/button-bordered-animated'
+import { ButtonLinkBorderedAnimated } from '@/components/custom/common/button-bordered-animated'
 import { routes } from '@/costs/routes'
 
 export default function PaymentSuccess() {

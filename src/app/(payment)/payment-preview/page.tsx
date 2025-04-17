@@ -1,4 +1,4 @@
-import PreviewContent from '@/app/components/preview/preview-content'
+import PreviewContent from '@/components/custom/preview/preview-content'
 import { notFound } from 'next/navigation'
 import { redirect } from 'next/navigation'
 import { api } from '@/app/api/client'

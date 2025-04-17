@@ -1,6 +1,6 @@
 import { UserBunker } from '@/types'
-import Loader from '@/app/components/common/loader'
-import { ButtonLinkBorderedAnimated } from '@/app/components/common/button-bordered-animated'
+import Loader from '@/components/custom/common/loader'
+import { ButtonLinkBorderedAnimated } from '@/components/custom/common/button-bordered-animated'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'

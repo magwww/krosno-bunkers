@@ -1,12 +1,12 @@
 'use client'
 
-import { ButtonLinkBorderedAnimated } from '@/app/components/common/button-bordered-animated'
+import { ButtonLinkBorderedAnimated } from '@/components/custom/common/button-bordered-animated'
 import { routes } from '@/costs/routes'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import Loader from '@/app/components/common/loader'
-import BackgroundImage from './components/home/background-image'
-import BunkerTierCard from '@/app/components/home/bunker-tier-card'
+import Loader from '@/components/custom/common/loader'
+import BackgroundImage from '@/components/custom/home/background-image'
+import BunkerTierCard from '@/components/custom/home/bunker-tier-card'
 import { bunkerTiers } from '@/data/bunker-tiers'
 
 const containerVariants = {

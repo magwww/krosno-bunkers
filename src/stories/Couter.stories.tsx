@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-import Counter from '@/app/components/common/counter'
+import Counter from '@/components/custom/common/counter'
 
 const meta: Meta<typeof Counter> = {
   title: 'Components/Counter',

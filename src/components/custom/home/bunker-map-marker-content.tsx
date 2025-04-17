@@ -3,7 +3,7 @@
 import { type MapElement } from '@/types'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import Counter from '@/app/components/common/counter'
+import Counter from '@/components/custom/common/counter'
 import { useState } from 'react'
 import { routes } from '@/costs/routes'
 

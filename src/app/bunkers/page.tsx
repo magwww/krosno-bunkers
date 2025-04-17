@@ -1,6 +1,6 @@
 export const dynamic = 'force-dynamic'
 
-import MapSection from '@/app/components/home/map-section'
+import MapSection from '@/components/custom/home/map-section'
 import { api } from '@/app/api/client'
 
 async function getBunkers() {

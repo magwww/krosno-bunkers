@@ -1,4 +1,4 @@
-import MyBunkers from '@/app/components/profile/my-bunkers'
+import MyBunkers from '@/components/custom/profile/my-bunkers'
 import { render, screen, within } from '@testing-library/react'
 import { userBunkers } from '@/mocks/user-bunkers'
 import { useUser } from '@clerk/clerk-react'
