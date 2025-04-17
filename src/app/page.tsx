@@ -14,7 +14,6 @@ const containerVariants = {
   show: {
     opacity: 1,
     transition: {
-      delayChildren: 0.4,
       staggerChildren: 0.5,
       ease: 'easeInOut',
     },
@@ -27,7 +26,7 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1.2,
+      duration: 0.6,
       ease: 'easeOut',
     },
   },
