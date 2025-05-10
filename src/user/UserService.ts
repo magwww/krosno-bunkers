@@ -19,7 +19,6 @@ export class UserService {
     try {
       const user = await this.authService.getUser()
 
-      // @TOOD: Is this possible to have no ID or email?
       if (!user || !user.id || !user.email) {
         throw new Error('No clerk user found')
       }
