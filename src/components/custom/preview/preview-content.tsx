@@ -2,11 +2,11 @@
 import { useState, useEffect } from 'react'
 import { type Bunker } from '@/types'
 import { Elements } from '@stripe/react-stripe-js'
-import CheckoutForm from '@/app/components/preview/checkout-form'
+import CheckoutForm from '@/components/custom/preview/checkout-form'
 import { loadStripe, StripeElementLocale } from '@stripe/stripe-js'
 import toast from 'react-hot-toast'
 import { createPaymentIntent } from '@/app/actions'
-import Loader from '@/app/components/common/loader'
+import Loader from '@/components/custom/common/loader'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 

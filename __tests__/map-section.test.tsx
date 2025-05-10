@@ -1,4 +1,4 @@
-import MapSection from '@/app/components/home/map-section'
+import MapSection from '@/components/custom/home/map-section'
 import { bunkers } from '@/mocks/bunkers'
 
 import { render, screen } from '@testing-library/react'

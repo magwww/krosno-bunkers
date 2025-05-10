@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import PreviewContent from '@/app/components/preview/preview-content'
+import PreviewContent from '@/components/custom/preview/preview-content'
 import { mockBunker } from '@/mocks/bunker'
 
 jest.mock('@/app/actions', () => ({

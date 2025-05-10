@@ -35,3 +35,11 @@ export type UserBunker = {
   id: string
   userId: string
 }
+
+export type BunkerTierCard = {
+  title: string
+  description: string
+  features: string[]
+  ctaText?: string
+  isPopular?: boolean
+}

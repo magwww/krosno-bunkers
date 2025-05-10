@@ -1,10 +1,10 @@
 'use client'
 
-import GoogleMaps from '@/app/components/home/google-maps'
+import GoogleMaps from '@/components/custom/home/google-maps'
 import { useEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { type Bunker } from '@/types'
-import { ButtonBorderedAnimated } from '@/app/components/common/button-bordered-animated'
+import { ButtonBorderedAnimated } from '@/components/custom/common/button-bordered-animated'
 import toast from 'react-hot-toast'
 import { usePathname } from 'next/navigation'
 

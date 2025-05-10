@@ -1,6 +1,7 @@
 import {withSentryConfig} from '@sentry/nextjs';
 /** @type {import('next').NextConfig} */
-const nextConfig = {images: {
+const nextConfig = {
+  images: {
     remotePatterns: [
       {
         protocol: 'https',
@@ -8,7 +9,10 @@ const nextConfig = {images: {
         port: '',
       },
     ],
-  }
+  },
+  experimental: {
+    reactCompiler: true,
+  },
 };
 
 export default withSentryConfig(nextConfig, {
