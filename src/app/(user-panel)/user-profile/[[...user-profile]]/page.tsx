@@ -5,7 +5,7 @@ import { Warehouse } from 'lucide-react'
 import { useEffect } from 'react'
 import { useUser } from '@clerk/clerk-react'
 import { routes } from '@/costs/routes'
-import { createUser } from '@/user/create-user'
+import { createUser } from '@/features/user/create-user'
 
 const UserProfilePage = () => {
   const { isSignedIn } = useUser()

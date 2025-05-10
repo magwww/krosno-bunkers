@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import PreviewContent from '@/components/custom/preview/preview-content'
 import { mockBunker } from '@/mocks/bunker'
 
-jest.mock('@/app/actions', () => ({
+jest.mock('@/features/payment/create-payment-intent', () => ({
   createPaymentIntent: jest.fn().mockResolvedValue({
     clientSecret: 'qwerty-123',
     order: {

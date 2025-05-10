@@ -4,7 +4,7 @@ import { stripe } from '@/lib/stripe'
 import { db } from '@/lib/db'
 import { currentUser } from '@clerk/nextjs/server'
 import { type Bunker } from '@/types'
-import { createPaymentIntentSchema, type PaymentIntentResponse } from '@/lib/validations'
+import { createPaymentIntentSchema, type PaymentIntentResponse } from '@/features/payment/validations'
 
 export async function createPaymentIntent(
   price: number,

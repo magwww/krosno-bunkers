@@ -5,7 +5,7 @@ import { Elements } from '@stripe/react-stripe-js'
 import CheckoutForm from '@/components/custom/preview/checkout-form'
 import { loadStripe, StripeElementLocale } from '@stripe/stripe-js'
 import toast from 'react-hot-toast'
-import { createPaymentIntent } from '@/app/actions'
+import { createPaymentIntent } from '@/features/payment/create-payment-intent'
 import Loader from '@/components/custom/common/loader'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
