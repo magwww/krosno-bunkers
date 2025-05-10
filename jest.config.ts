@@ -27,6 +27,17 @@ const config: Config = {
   },
   // The paths to modules that run some code to configure or set up the testing environment before each test
   setupFiles: ['<rootDir>/setupJest.js'],
+  collectCoverage: true,
+  coverageReporters: ['text', 'lcov', 'html'],
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/**/types.ts',
+    '!src/**/*.stories.{js,jsx,ts,tsx}',
+    '!src/**/*.test.{js,jsx,ts,tsx}',
+    '!src/**/__tests__/**/*',
+    '!**/node_modules/**',
+  ],
 
   // All imported modules in your tests should be mocked automatically
   // automock: false,
