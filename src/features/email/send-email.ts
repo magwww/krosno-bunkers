@@ -1,11 +1,17 @@
+'use server'
+
 import BunkerPurchaseConfirmation from '@/emails/bunker-purchase-confirmation'
 import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-export async function POST(req: Request) {
+type Params = {
+  email: string
+  firstName: string
+}
+
+export async function sendConfirmationEmail({ email, firstName }: Params) {
   try {
-    const { email, firstName } = await req.json()
     const { data, error } = await resend.emails.send({
       from: 'Krosno Bunkers <hello@krosno-bunkers.pl>',
       to: email,
@@ -14,11 +20,14 @@ export async function POST(req: Request) {
     })
 
     if (error) {
-      return Response.json({ error }, { status: 500 })
+      throw new Error(error.message)
     }
 
-    return Response.json({ message: 'Email sent successfully', data })
+    return { success: true, data }
   } catch (error) {
-    return Response.json({ error }, { status: 500 })
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    }
   }
 }

@@ -4,14 +4,22 @@ import Stripe from 'stripe'
 import { headers } from 'next/headers'
 import { db } from '@/lib/db'
 import { revalidatePath } from 'next/cache'
+import { sendConfirmationEmail } from '@/features/email/send-email'
 
-async function sendConfirmationEmail(intent: Stripe.PaymentIntent) {
-  const email = intent.receipt_email
+const sendEmail = async (intent: Stripe.PaymentIntent) => {
+  const email = ''
+  if (email) {
+    const result = await sendConfirmationEmail({
+      email,
+      firstName: intent.metadata.userName,
+    })
 
-  await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-email`, {
-    method: 'POST',
-    body: JSON.stringify({ email, firstName: intent.metadata.userName }),
-  })
+    if (result.success) {
+      console.log('Email sent:', result.data)
+    } else {
+      console.error('Error sending email:', result.error)
+    }
+  } else console.error('Error: No email provided')
 }
 
 export async function POST(req: Request) {
@@ -30,7 +38,7 @@ export async function POST(req: Request) {
   switch (event['type']) {
     case 'payment_intent.succeeded':
       intent = event.data.object
-      await sendConfirmationEmail(intent)
+      await sendEmail(intent)
 
       await db.order.update({
         where: {
